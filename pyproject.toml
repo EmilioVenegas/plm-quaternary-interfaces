@@ -15,9 +15,10 @@ dependencies = [
     "scipy",
     "numpy",
     "pandas",
-    "tqdm"
+    "tqdm",
+    "matplotlib",
+    "seaborn",
 ]
-
 [project.optional-dependencies]
 dev = [
     "pytest>=8.0"

@@ -1,0 +1,54 @@
+{
+  "n_total_variants": 10643,
+  "n_systems": 5,
+  "total_compartments": {
+    "Core": 4405,
+    "Surface": 3976,
+    "Interface": 2262
+  },
+  "per_system": {
+    "GB1": {
+      "n_variants": 76,
+      "n_positions": 4,
+      "compartments": {
+        "Interface": 57,
+        "Core": 19
+      }
+    },
+    "HLA-A2": {
+      "n_variants": 3344,
+      "n_positions": 180,
+      "compartments": {
+        "Surface": 1266,
+        "Core": 1124,
+        "Interface": 954
+      }
+    },
+    "KRAS": {
+      "n_variants": 2761,
+      "n_positions": 163,
+      "compartments": {
+        "Core": 1700,
+        "Surface": 702,
+        "Interface": 359
+      }
+    },
+    "SARS-CoV-2_RBD": {
+      "n_variants": 3664,
+      "n_positions": 194,
+      "compartments": {
+        "Surface": 1723,
+        "Core": 1562,
+        "Interface": 379
+      }
+    },
+    "p53": {
+      "n_variants": 798,
+      "n_positions": 42,
+      "compartments": {
+        "Interface": 513,
+        "Surface": 285
+      }
+    }
+  }
+}

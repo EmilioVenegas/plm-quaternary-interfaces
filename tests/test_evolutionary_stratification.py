@@ -6,6 +6,7 @@ import pytest
 from plmppi.stats import (
     EVOLUTIONARY_REGIMES,
     SYSTEM_TO_CLASS,
+    fit_hc3_ols,
     partial_spearman,
     stratify_by_evolutionary_class,
 )
@@ -48,6 +49,28 @@ def test_evolutionary_regimes_mapping():
         assert sys_id in EVOLUTIONARY_REGIMES[class_id]["systems"]
 
 
+def test_fit_hc3_ols_recovers_ground_truth():
+    np.random.seed(42)
+    N = 1000
+    x1 = np.random.randn(N)
+    x2 = np.random.choice([0.0, 1.0], size=N)
+    y = 1.0 + 2.5 * x1 - 1.5 * x2 + 0.8 * (x1 * x2) + np.random.normal(0, 0.2, size=N)
+
+    X = np.column_stack([np.ones(N), x1, x2, x1 * x2])
+    names = ["Intercept", "x1", "x2", "x1:x2"]
+
+    res = fit_hc3_ols(X, y, names)
+    assert res["n_obs"] == N
+    assert np.isclose(res["params"]["Intercept"]["coef"], 1.0, atol=0.1)
+    assert np.isclose(res["params"]["x1"]["coef"], 2.5, atol=0.1)
+    assert np.isclose(res["params"]["x2"]["coef"], -1.5, atol=0.1)
+    assert np.isclose(res["params"]["x1:x2"]["coef"], 0.8, atol=0.1)
+    for name, p in res["params"].items():
+        assert not np.isnan(p["se"])
+        assert not np.isnan(p["t_stat"])
+        assert not np.isnan(p["p_val"])
+        assert p["se"] > 0
+
 def test_stratify_by_evolutionary_class_synthetic():
     np.random.seed(123)
     systems = ["p53", "HLA-A2", "KRAS"]
@@ -78,3 +101,10 @@ def test_stratify_by_evolutionary_class_synthetic():
     assert "formal_answer" in res
     assert "question" in res["formal_answer"]
     assert "hierarchical_interaction_model" in res
+    hier = res["hierarchical_interaction_model"]
+    for name, p in hier["params"].items():
+        assert not np.isnan(p["coef"]), f"NaN coef for {name}"
+        assert not np.isnan(p["se"]), f"NaN se for {name}"
+        assert not np.isnan(p["t_stat"]), f"NaN t_stat for {name}"
+        assert not np.isnan(p["p_val"]), f"NaN p_val for {name}"
+        assert p["se"] > 0, f"Zero or negative SE for {name}"

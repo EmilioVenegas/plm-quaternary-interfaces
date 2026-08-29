@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-08-29T18:06:10.933242+00:00",
+  "timestamp_utc": "2026-08-29T19:39:21.416796+00:00",
   "mutation_definitions": {
     "beneficial_binding": "delta_DMS_binding >= 0.0 (experimentally improves or maintains binding affinity)",
     "disruptive_binding": "delta_DMS_binding < -1.0 (experimentally destroys binding affinity)",
@@ -429,7 +429,7 @@
     "model_arm": "esm2-650m",
     "rescue_successful": false,
     "mean_monomer_rho_binding": 0.2365,
-    "mean_concatenated_rho_binding": 0.2202,
+    "mean_concatenated_rho_binding": 0.2203,
     "mean_delta_rho_binding": -0.0162,
     "per_system": {
       "SARS-CoV-2_RBD": {
@@ -442,11 +442,11 @@
           "rho_partial_binding_given_abundance": 0.1401
         },
         "concatenated": {
-          "rho_abundance": 0.1699,
-          "p_abundance": 0.0008981192947843484,
-          "rho_binding": 0.1142,
-          "p_binding": 0.02615494891907097,
-          "rho_partial_binding_given_abundance": 0.1114
+          "rho_abundance": 0.1704,
+          "p_abundance": 0.0008683355614364657,
+          "rho_binding": 0.1143,
+          "p_binding": 0.026073188537124207,
+          "rho_partial_binding_given_abundance": 0.1115
         },
         "delta_rho_binding": -0.0277,
         "delta_rho_partial": -0.0286
@@ -461,14 +461,14 @@
           "rho_partial_binding_given_abundance": 0.5273
         },
         "concatenated": {
-          "rho_abundance": 0.2667,
-          "p_abundance": 2.907429625662201e-07,
-          "rho_binding": 0.5625,
-          "p_binding": 2.4524344945975066e-31,
-          "rho_partial_binding_given_abundance": 0.5153
+          "rho_abundance": 0.266,
+          "p_abundance": 3.149845859485353e-07,
+          "rho_binding": 0.5623,
+          "p_binding": 2.545624187843916e-31,
+          "rho_partial_binding_given_abundance": 0.5155
         },
-        "delta_rho_binding": -0.0117,
-        "delta_rho_partial": -0.012
+        "delta_rho_binding": -0.0118,
+        "delta_rho_partial": -0.0118
       },
       "HLA-A2": {
         "n_variants": 954,
@@ -480,14 +480,14 @@
           "rho_partial_binding_given_abundance": 0.0886
         },
         "concatenated": {
-          "rho_abundance": 0.5371,
-          "p_abundance": 2.0330410446458788e-72,
-          "rho_binding": 0.3325,
-          "p_binding": 4.6185392376617585e-26,
-          "rho_partial_binding_given_abundance": 0.0818
+          "rho_abundance": 0.5372,
+          "p_abundance": 1.9292047421122815e-72,
+          "rho_binding": 0.3327,
+          "p_binding": 4.3561025071593473e-26,
+          "rho_partial_binding_given_abundance": 0.082
         },
-        "delta_rho_binding": -0.0022,
-        "delta_rho_partial": -0.0067
+        "delta_rho_binding": -0.002,
+        "delta_rho_partial": -0.0066
       },
       "GB1": {
         "n_variants": 57,
@@ -518,14 +518,14 @@
           "rho_partial_binding_given_abundance": -0.3654
         },
         "concatenated": {
-          "rho_abundance": 0.1699,
-          "p_abundance": 0.00010972354594797877,
-          "rho_binding": -0.4263,
-          "p_binding": 4.534358630091172e-24,
-          "rho_partial_binding_given_abundance": -0.3981
+          "rho_abundance": 0.1698,
+          "p_abundance": 0.00011167917523054889,
+          "rho_binding": -0.426,
+          "p_binding": 4.889584758769398e-24,
+          "rho_partial_binding_given_abundance": -0.3978
         },
-        "delta_rho_binding": 0.0332,
-        "delta_rho_partial": -0.0327
+        "delta_rho_binding": 0.0334,
+        "delta_rho_partial": -0.0324
       }
     },
     "verdict": "Multi-chain concatenated conditioning FAILS to rescue quaternary interface sensitivity (mean delta rho(binding) = -0.016). Presenting partner sequences in the context window does not provide the necessary 3D spatial docking geometry or co-evolutionary paired coupling priors."

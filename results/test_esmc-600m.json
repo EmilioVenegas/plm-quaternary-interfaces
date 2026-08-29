@@ -3,6 +3,7 @@
   "beta_three_way": -0.35304259683999306,
   "p_clustered": 0.2086058576375902,
   "p_permutation": 0.0,
+  "p_wild_bootstrap": 0.0971,
   "alpha": 1e-05,
   "n_obs": 21286,
   "n_clusters": 5,
@@ -74,6 +75,401 @@
     "residuals_std": 0.974876196116719,
     "r_squared": 0.04916970944665322
   },
+  "wild_cluster_bootstrap": {
+    "p_wild_bootstrap": 0.0971,
+    "t_stat_orig": -1.4975383976767034,
+    "beta_orig": -0.35304259683999306,
+    "se_orig": 0.23574861077866652,
+    "boot_t_mean": 0.002952555584942445,
+    "boot_t_std": 1.0592663694552975,
+    "n_boot": 10000.0
+  },
+  "fixed_effects_summary": {
+    "n_obs": 21286,
+    "n_clusters": 5,
+    "params": {
+      "FE_GB1": {
+        "coef": -0.053054090594930055,
+        "se": 0.09210044772135191,
+        "t_stat": -0.5760459575119999,
+        "p_val": 0.5954433366467646
+      },
+      "FE_HLA-A2": {
+        "coef": -0.027444615538767016,
+        "se": 0.04842208866389615,
+        "t_stat": -0.5667788461019013,
+        "p_val": 0.6011556229157222
+      },
+      "FE_KRAS": {
+        "coef": -0.025434861286988217,
+        "se": 0.041918206594369796,
+        "t_stat": -0.6067736039643565,
+        "p_val": 0.5767551425759623
+      },
+      "FE_SARS-CoV-2_RBD": {
+        "coef": -0.01708517841551658,
+        "se": 0.03383067997987053,
+        "t_stat": -0.5050202486524767,
+        "p_val": 0.6400990807314226
+      },
+      "FE_p53": {
+        "coef": -0.02496855343471363,
+        "se": 0.073037207517009,
+        "t_stat": -0.3418607348713178,
+        "p_val": 0.7496613819076248
+      },
+      "PLM": {
+        "coef": 0.14648425000090695,
+        "se": 0.14929347119238948,
+        "t_stat": 0.9811832281140923,
+        "p_val": 0.3820556704950544
+      },
+      "Binding": {
+        "coef": 0.020867482394855495,
+        "se": 0.053995035069652926,
+        "t_stat": 0.38647039247102444,
+        "p_val": 0.718826408917753
+      },
+      "Interface": {
+        "coef": 0.09192830870952585,
+        "se": 0.205683481816236,
+        "t_stat": 0.4469406483096074,
+        "p_val": 0.6780500453892095
+      },
+      "PLM:Binding": {
+        "coef": 0.061560543010199364,
+        "se": 0.1309064257147693,
+        "t_stat": 0.47026372215167667,
+        "p_val": 0.6626613180477792
+      },
+      "PLM:Interface": {
+        "coef": 0.2877506203591263,
+        "se": 0.09235051762900282,
+        "t_stat": 3.1158528154124583,
+        "p_val": 0.035669337918522226
+      },
+      "Binding:Interface": {
+        "coef": -0.07615428530332197,
+        "se": 0.27907331048231804,
+        "t_stat": -0.27288272451316004,
+        "p_val": 0.7984521401481939
+      },
+      "PLM:Binding:Interface": {
+        "coef": -0.3530425968399924,
+        "se": 0.23577077281027914,
+        "t_stat": -1.497397631741573,
+        "p_val": 0.20864055752044952
+      }
+    },
+    "beta": [
+      -0.053054090594930055,
+      -0.027444615538767016,
+      -0.025434861286988217,
+      -0.01708517841551658,
+      -0.02496855343471363,
+      0.14648425000090695,
+      0.020867482394855495,
+      0.09192830870952585,
+      0.061560543010199364,
+      0.2877506203591263,
+      -0.07615428530332197,
+      -0.3530425968399924
+    ],
+    "residuals_mean": -1.8693222400904637e-17,
+    "residuals_std": 0.9748632763373556,
+    "r_squared": 0.04919491149018074,
+    "system_dummies": [
+      "FE_GB1",
+      "FE_HLA-A2",
+      "FE_KRAS",
+      "FE_SARS-CoV-2_RBD",
+      "FE_p53"
+    ],
+    "unique_systems": [
+      "GB1",
+      "HLA-A2",
+      "KRAS",
+      "SARS-CoV-2_RBD",
+      "p53"
+    ]
+  },
+  "leave_one_system_out": {
+    "GB1": {
+      "omitted_system": "GB1",
+      "n_obs": 21134,
+      "n_clusters": 4,
+      "beta_three_way": -0.3652663133840744,
+      "se": 0.24949524686759392,
+      "t_stat": -1.4640211305424977,
+      "p_val": 0.23939982358431067,
+      "rho_interface_abundance": 0.40697459750372883,
+      "rho_interface_binding": 0.15002749153852443,
+      "subgroup_correlations": {
+        "Interface_Abundance": {
+          "n": 2205,
+          "spearman_rho": 0.40697459750372883,
+          "spearman_p": 9.93980112629254e-89,
+          "pearson_r": 0.42579627615900095,
+          "pearson_p": 8.050277416652768e-98
+        },
+        "Interface_Binding": {
+          "n": 2205,
+          "spearman_rho": 0.15002749153852443,
+          "spearman_p": 1.4309522488341265e-12,
+          "pearson_r": 0.13153239960653462,
+          "pearson_p": 5.650835014692483e-10
+        },
+        "Core_Abundance": {
+          "n": 4386,
+          "spearman_rho": 0.13797198742347008,
+          "spearman_p": 4.36009256783573e-20,
+          "pearson_r": 0.11531931155752018,
+          "pearson_p": 1.8502256760853813e-14
+        },
+        "Core_Binding": {
+          "n": 4386,
+          "spearman_rho": 0.26897235594087604,
+          "spearman_p": 1.4455713406828968e-73,
+          "pearson_r": 0.2476717108759292,
+          "pearson_p": 2.6456063021779746e-62
+        },
+        "Surface_Abundance": {
+          "n": 3976,
+          "spearman_rho": 0.139276167488653,
+          "spearman_p": 1.1203149304234008e-18,
+          "pearson_r": 0.1606221416762245,
+          "pearson_p": 2.1714739538856085e-24
+        },
+        "Surface_Binding": {
+          "n": 3976,
+          "spearman_rho": 0.0960838929866526,
+          "spearman_p": 1.2730189256336122e-09,
+          "pearson_r": 0.11946665652667468,
+          "pearson_p": 4.101167200076218e-14
+        }
+      }
+    },
+    "HLA-A2": {
+      "omitted_system": "HLA-A2",
+      "n_obs": 14598,
+      "n_clusters": 4,
+      "beta_three_way": -0.5297893121979417,
+      "se": 0.36505556741962236,
+      "t_stat": -1.4512566290735731,
+      "p_val": 0.24261541237441064,
+      "rho_interface_abundance": 0.25649555134051233,
+      "rho_interface_binding": 0.0124783388407739,
+      "subgroup_correlations": {
+        "Interface_Abundance": {
+          "n": 1308,
+          "spearman_rho": 0.25649555134051233,
+          "spearman_p": 4.270591692414357e-21,
+          "pearson_r": 0.3152851449846087,
+          "pearson_p": 1.4128478057487062e-31
+        },
+        "Interface_Binding": {
+          "n": 1308,
+          "spearman_rho": 0.0124783388407739,
+          "spearman_p": 0.6520751670148716,
+          "pearson_r": -0.06290747298363288,
+          "pearson_p": 0.022893458604801336
+        },
+        "Core_Abundance": {
+          "n": 3281,
+          "spearman_rho": -0.0010386785249879133,
+          "spearman_p": 0.952575477167666,
+          "pearson_r": -0.030319410785995846,
+          "pearson_p": 0.08248718016138877
+        },
+        "Core_Binding": {
+          "n": 3281,
+          "spearman_rho": 0.22019065185573558,
+          "spearman_p": 2.581804477193612e-37,
+          "pearson_r": 0.19532629632913864,
+          "pearson_p": 1.4215132262809547e-29
+        },
+        "Surface_Abundance": {
+          "n": 2710,
+          "spearman_rho": 0.023993834442887083,
+          "spearman_p": 0.21178712364399463,
+          "pearson_r": 0.03926381062956713,
+          "pearson_p": 0.0409706196093779
+        },
+        "Surface_Binding": {
+          "n": 2710,
+          "spearman_rho": 0.09376251068534952,
+          "spearman_p": 1.010515359329416e-06,
+          "pearson_r": 0.08518230584924498,
+          "pearson_p": 8.978429705059559e-06
+        }
+      }
+    },
+    "KRAS": {
+      "omitted_system": "KRAS",
+      "n_obs": 15764,
+      "n_clusters": 4,
+      "beta_three_way": -0.35391783956570316,
+      "se": 0.2861450561190639,
+      "t_stat": -1.2368476477134704,
+      "p_val": 0.30413983341106055,
+      "rho_interface_abundance": 0.48552350104665787,
+      "rho_interface_binding": 0.08792820775984182,
+      "subgroup_correlations": {
+        "Interface_Abundance": {
+          "n": 1903,
+          "spearman_rho": 0.48552350104665787,
+          "spearman_p": 3.9799895366202886e-113,
+          "pearson_r": 0.49452483780852474,
+          "pearson_p": 6.301045307175426e-118
+        },
+        "Interface_Binding": {
+          "n": 1903,
+          "spearman_rho": 0.08792820775984182,
+          "spearman_p": 0.00012271068673942704,
+          "pearson_r": 0.08595061874125022,
+          "pearson_p": 0.0001740751743928946
+        },
+        "Core_Abundance": {
+          "n": 2705,
+          "spearman_rho": 0.1619825361928101,
+          "spearman_p": 2.314864095394007e-17,
+          "pearson_r": 0.1496723946265772,
+          "pearson_p": 5.0798042801515475e-15
+        },
+        "Core_Binding": {
+          "n": 2705,
+          "spearman_rho": 0.17404691345089526,
+          "spearman_p": 7.68066130999765e-20,
+          "pearson_r": 0.16477662875702564,
+          "pearson_p": 6.407842624122182e-18
+        },
+        "Surface_Abundance": {
+          "n": 3274,
+          "spearman_rho": 0.17499526777434962,
+          "spearman_p": 6.297894489618635e-24,
+          "pearson_r": 0.1983009499955055,
+          "pearson_p": 2.1898331757331005e-30
+        },
+        "Surface_Binding": {
+          "n": 3274,
+          "spearman_rho": -0.010557308287990296,
+          "spearman_p": 0.5459344058730348,
+          "pearson_r": -0.015121316727094365,
+          "pearson_p": 0.3870696206119872
+        }
+      }
+    },
+    "SARS-CoV-2_RBD": {
+      "omitted_system": "SARS-CoV-2_RBD",
+      "n_obs": 13958,
+      "n_clusters": 4,
+      "beta_three_way": -0.4085129243701433,
+      "se": 0.29532808363040947,
+      "t_stat": -1.3832511942256729,
+      "p_val": 0.2605542946912687,
+      "rho_interface_abundance": 0.4747165472583407,
+      "rho_interface_binding": 0.17785272591181067,
+      "subgroup_correlations": {
+        "Interface_Abundance": {
+          "n": 1883,
+          "spearman_rho": 0.4747165472583407,
+          "spearman_p": 1.9415674085089655e-106,
+          "pearson_r": 0.47520017429330597,
+          "pearson_p": 1.11021075926927e-106
+        },
+        "Interface_Binding": {
+          "n": 1883,
+          "spearman_rho": 0.17785272591181067,
+          "spearman_p": 7.568829685975354e-15,
+          "pearson_r": 0.16414536676463667,
+          "pearson_p": 7.678114375621807e-13
+        },
+        "Core_Abundance": {
+          "n": 2843,
+          "spearman_rho": 0.29314656320217203,
+          "spearman_p": 1.8813773367255313e-57,
+          "pearson_r": 0.2864801504684907,
+          "pearson_p": 7.70505687240999e-55
+        },
+        "Core_Binding": {
+          "n": 2843,
+          "spearman_rho": 0.4315374668676403,
+          "spearman_p": 2.5776111323547814e-129,
+          "pearson_r": 0.42691363001827193,
+          "pearson_p": 2.6162544585086874e-126
+        },
+        "Surface_Abundance": {
+          "n": 2253,
+          "spearman_rho": 0.18595887437931122,
+          "spearman_p": 5.609098823564754e-19,
+          "pearson_r": 0.22178603770355307,
+          "pearson_p": 1.6638563022584833e-26
+        },
+        "Surface_Binding": {
+          "n": 2253,
+          "spearman_rho": 0.2238800074163061,
+          "spearman_p": 5.4590680451181775e-27,
+          "pearson_r": 0.2751013870329721,
+          "pearson_p": 2.072690023419657e-40
+        }
+      }
+    },
+    "p53": {
+      "omitted_system": "p53",
+      "n_obs": 19690,
+      "n_clusters": 4,
+      "beta_three_way": -0.10680290254971714,
+      "se": 0.05763420927506822,
+      "t_stat": -1.8531164718506623,
+      "p_val": 0.16092571227631502,
+      "rho_interface_abundance": 0.39269224508124706,
+      "rho_interface_binding": 0.3844945768175549,
+      "subgroup_correlations": {
+        "Interface_Abundance": {
+          "n": 1749,
+          "spearman_rho": 0.39269224508124706,
+          "spearman_p": 1.413897252690531e-65,
+          "pearson_r": 0.3871127642967016,
+          "pearson_p": 1.2678260552082467e-63
+        },
+        "Interface_Binding": {
+          "n": 1749,
+          "spearman_rho": 0.3844945768175549,
+          "spearman_p": 1.0148145789615622e-62,
+          "pearson_r": 0.3648467986068177,
+          "pearson_p": 3.3664503890944276e-56
+        },
+        "Core_Abundance": {
+          "n": 4405,
+          "spearman_rho": 0.13817833716894803,
+          "spearman_p": 3.1849702164855773e-20,
+          "pearson_r": 0.11556881922991431,
+          "pearson_p": 1.4267487755173323e-14
+        },
+        "Core_Binding": {
+          "n": 4405,
+          "spearman_rho": 0.26937224915007046,
+          "spearman_p": 4.2337377710424594e-74,
+          "pearson_r": 0.24790724948526843,
+          "pearson_p": 1.0992639548151604e-62
+        },
+        "Surface_Abundance": {
+          "n": 3691,
+          "spearman_rho": 0.17356132479111208,
+          "spearman_p": 2.3644698899278584e-26,
+          "pearson_r": 0.1805288072660681,
+          "pearson_p": 2.073227115247421e-28
+        },
+        "Surface_Binding": {
+          "n": 3691,
+          "spearman_rho": 0.14729819099206004,
+          "spearman_p": 2.3630044383663627e-19,
+          "pearson_r": 0.16889031665906895,
+          "pearson_p": 5.075127460805291e-25
+        }
+      }
+    }
+  },
   "subgroup_correlations": {
     "Interface_Abundance": {
       "n": 2262,
@@ -118,8 +514,8 @@
       "pearson_p": 4.101167200076218e-14
     }
   },
-  "permutation_null_mean": -0.22824533553993565,
-  "permutation_null_std": 0.0317767938202383,
+  "permutation_null_mean": -0.22824533553993562,
+  "permutation_null_std": 0.031776793820238305,
   "arm": "esmc-600m",
-  "timestamp_utc": "2026-08-29T17:36:58.467374+00:00"
+  "timestamp_utc": "2026-08-29T19:38:49.321415+00:00"
 }

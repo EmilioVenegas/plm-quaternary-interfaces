@@ -83,11 +83,39 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  beta (three-way)      : {res['beta_three_way']:+.4f}")
         print(f"  p-value (clustered)   : {res['p_clustered']:.6e}")
         print(f"  p-value (permutation) : {res['p_permutation']:.6e}")
+        print(f"  p-value (wild boot)   : {res['p_wild_bootstrap']:.6e}")
         print(f"  Verdict (alpha={ALPHA}): {res['verdict']}")
 
-        print("\nSubgroup correlations (PLM vs DMS):")
+        print("\n--- Econometric Robustness: Statistical Significance ---")
+        print(f"{'Method':<36} {'Test Stat':<12} {'p-value':<12} {'Inference'}")
+        print("-" * 75)
+        crv_t = res["ols_summary"]["params"]["PLM:Binding:Interface"]["t_stat"]
+        print(f"{'Cluster-Robust OLS (CRV1)':<36} {crv_t:+11.3f} {res['p_clustered']:<12.4e} {'p < alpha' if res['p_clustered'] < ALPHA else 'n.s.'}")
+        wcb_t = res["wild_cluster_bootstrap"]["t_stat_orig"]
+        print(f"{'Webb 6-Point Wild Cluster Bootstrap':<36} {wcb_t:+11.3f} {res['p_wild_bootstrap']:<12.4e} {'p < alpha' if res['p_wild_bootstrap'] < ALPHA else 'n.s.'}")
+        print(f"{'Stratified Permutation Test':<36} {'N/A':<12} {res['p_permutation']:<12.4e} {'p < alpha' if res['p_permutation'] < ALPHA else 'n.s.'}")
+
+        print("\n--- System Fixed-Effects OLS Model ---")
+        print(f"{'Parameter':<28} {'Coefficient':<12} {'SE':<10} {'t-stat':<10} {'p-value':<12}")
+        print("-" * 75)
+        for p_name, p_data in res["fixed_effects_summary"]["params"].items():
+            print(f"{p_name:<28} {p_data['coef']:+11.4f} {p_data['se']:<10.4f} {p_data['t_stat']:+9.3f} {p_data['p_val']:<12.4e}")
+
+        print("\n--- Leave-One-System-Out (LOSO) Jackknife Sensitivity ---")
+        print(f"{'Omitted System':<20} {'N_obs':<8} {'Beta (3-way)':<14} {'SE':<10} {'p-val':<12} {'IF_Abund rho':<14} {'IF_Bind rho':<14}")
+        print("-" * 95)
+        for sys_id, loso_data in res["leave_one_system_out"].items():
+            print(
+                f"{sys_id:<20} {loso_data['n_obs']:<8d} {loso_data['beta_three_way']:+13.4f} "
+                f"{loso_data['se']:<10.4f} {loso_data['p_val']:<12.4e} "
+                f"{loso_data['rho_interface_abundance']:+13.3f} {loso_data['rho_interface_binding']:+13.3f}"
+            )
+
+        print("\n--- Subgroup Correlations (PLM vs DMS) ---")
+        print(f"{'Subgroup':<22} {'N':<6} {'Spearman rho':<14} {'p-val':<12} {'Pearson r':<12} {'p-val':<12}")
+        print("-" * 75)
         for k, v in res["subgroup_correlations"].items():
-            print(f"  {k:20s}: n={v['n']:5d}, Spearman rho={v['spearman_rho']:+.3f}, Pearson r={v['pearson_r']:+.3f}")
+            print(f"{k:<22} {v['n']:<6d} {v['spearman_rho']:+13.3f} {v['spearman_p']:<12.4e} {v['pearson_r']:+11.3f} {v['pearson_p']:<12.4e}")
 
     return 0
 

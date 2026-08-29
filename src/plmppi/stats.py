@@ -14,10 +14,11 @@ ALPHA = 1e-5  # Pre-registered significance threshold
 def standardize_series(s: pd.Series) -> pd.Series:
     """Standardizes a series to mean 0, unit variance within non-null values."""
     valid = s.dropna()
-    if len(valid) <= 1 or valid.std() == 0:
-        return s - valid.mean()
-    return (s - valid.mean()) / valid.std()
-
+    if len(valid) == 0:
+        return s
+    if len(valid) == 1 or float(valid.std()) == 0.0:
+        return s - float(valid.mean())
+    return (s - float(valid.mean())) / float(valid.std())
 
 def prepare_analysis_frame(df: pd.DataFrame, arm: str) -> pd.DataFrame:
     """Prepares the stacked analysis frame with standardized scores and interaction features.
@@ -91,11 +92,21 @@ def fit_clustered_ols(
 ) -> dict[str, Any]:
     """Fits OLS with cluster-robust sandwich covariance estimator."""
     N, K = X.shape
+    names = feature_names if feature_names is not None else [f"x{i}" for i in range(K)]
+    if N == 0 or K == 0 or len(clusters) == 0:
+        return {
+            "n_obs": int(N),
+            "n_clusters": 0,
+            "params": {name: {"coef": float("nan"), "se": float("nan"), "t_stat": float("nan"), "p_val": float("nan")} for name in names},
+            "beta": [],
+            "residuals_mean": float("nan"),
+            "residuals_std": float("nan"),
+            "r_squared": float("nan"),
+        }
     XtX = X.T @ X
     XtX_inv = np.linalg.pinv(XtX)
     beta = XtX_inv @ (X.T @ y)
     residuals = y - X @ beta
-
     unique_clusters = np.unique(clusters)
     G = len(unique_clusters)
 
@@ -134,6 +145,230 @@ def fit_clustered_ols(
         "residuals_std": float(np.std(residuals)),
         "r_squared": float(1.0 - np.var(residuals) / np.var(y)),
     }
+
+
+def wild_cluster_bootstrap(
+    X: np.ndarray,
+    y: np.ndarray,
+    clusters: np.ndarray,
+    feature_idx: int = 7,
+    n_boot: int = 10000,
+    seed: int = 42,
+) -> dict[str, float]:
+    """Performs Webb (2014) 6-point Wild Cluster Bootstrap for small-G cluster robustness.
+
+    Tests H0: beta[feature_idx] == 0 using restricted wild cluster bootstrap (WCR).
+    Webb 6-point weights: {-sqrt(1.5), -1.0, -sqrt(0.5), sqrt(0.5), 1.0, sqrt(1.5)}.
+
+    Returns:
+        Dictionary with:
+            - 'p_wild_bootstrap': two-sided bootstrap p-value
+            - 't_stat_orig': original cluster-robust t-statistic
+            - 'beta_orig': original coefficient estimate
+            - 'se_orig': original cluster-robust standard error
+            - 'boot_t_mean': mean of bootstrap t-statistics
+            - 'boot_t_std': std of bootstrap t-statistics
+            - 'n_boot': number of bootstrap iterations
+    """
+    N, K = X.shape
+    unique_clusters = np.unique(clusters)
+    G = len(unique_clusters)
+
+    # 1. Unrestricted OLS
+    XtX = X.T @ X
+    XtX_inv = np.linalg.pinv(XtX)
+    beta_orig = XtX_inv @ (X.T @ y)
+    u_orig = y - X @ beta_orig
+
+    # Original cluster-robust standard error
+    cluster_indices = [np.where(clusters == g)[0] for g in unique_clusters]
+    meat_orig = np.zeros((K, K))
+    for idx in cluster_indices:
+        s_g = X[idx].T @ u_orig[idx]
+        meat_orig += np.outer(s_g, s_g)
+
+    df_c = (G / (G - 1)) * ((N - 1) / (N - K)) if G > 1 and (N - K) > 0 else 1.0
+    vcov_orig = df_c * (XtX_inv @ meat_orig @ XtX_inv)
+    se_orig = float(np.sqrt(max(0.0, vcov_orig[feature_idx, feature_idx])))
+    t_orig = float(beta_orig[feature_idx] / se_orig) if se_orig > 1e-12 else 0.0
+
+    if G < 2 or n_boot <= 0:
+        return {
+            "p_wild_bootstrap": float("nan"),
+            "t_stat_orig": t_orig,
+            "beta_orig": float(beta_orig[feature_idx]),
+            "se_orig": se_orig,
+            "boot_t_mean": float("nan"),
+            "boot_t_std": float("nan"),
+            "n_boot": float(n_boot),
+        }
+
+    # 2. Restricted OLS imposing beta[feature_idx] == 0
+    cols_restr = [j for j in range(K) if j != feature_idx]
+    X_restr = X[:, cols_restr]
+    XtX_restr_inv = np.linalg.pinv(X_restr.T @ X_restr)
+    beta_restr = XtX_restr_inv @ (X_restr.T @ y)
+    y_fit_restr = X_restr @ beta_restr
+    u_restr = y - y_fit_restr
+
+    # 3. Precomputations for fast vectorized bootstrap
+    webb_weights = np.array([-np.sqrt(1.5), -1.0, -np.sqrt(0.5), np.sqrt(0.5), 1.0, np.sqrt(1.5)])
+    rng = np.random.default_rng(seed)
+    cluster_weights = rng.choice(webb_weights, size=(n_boot, G))
+
+    S_g = [X[idx].T @ u_restr[idx] for idx in cluster_indices]  # list of G vectors (K,)
+    A_g = [X[idx].T @ y_fit_restr[idx] for idx in cluster_indices]  # list of G vectors (K,)
+    M_g = [X[idx].T @ X[idx] for idx in cluster_indices]  # list of G matrices (K, K)
+    Xty_fit = X.T @ y_fit_restr  # vector (K,)
+
+    # Bootstrap loop
+    boot_t_stats = np.zeros(n_boot)
+    for b in range(n_boot):
+        w_b = cluster_weights[b]
+        Xty_star = Xty_fit.copy()
+        for g in range(G):
+            Xty_star += w_b[g] * S_g[g]
+        beta_star = XtX_inv @ Xty_star
+
+        meat_star = np.zeros((K, K))
+        for g in range(G):
+            s_star = A_g[g] + w_b[g] * S_g[g] - M_g[g] @ beta_star
+            meat_star += np.outer(s_star, s_star)
+
+        vcov_star = df_c * (XtX_inv @ meat_star @ XtX_inv)
+        se_star = np.sqrt(max(0.0, vcov_star[feature_idx, feature_idx]))
+        if se_star > 1e-12:
+            boot_t_stats[b] = beta_star[feature_idx] / se_star
+        else:
+            boot_t_stats[b] = 0.0
+
+    p_wild = float(np.mean(np.abs(boot_t_stats) >= np.abs(t_orig)))
+
+    return {
+        "p_wild_bootstrap": p_wild,
+        "t_stat_orig": t_orig,
+        "beta_orig": float(beta_orig[feature_idx]),
+        "se_orig": se_orig,
+        "boot_t_mean": float(np.mean(boot_t_stats)),
+        "boot_t_std": float(np.std(boot_t_stats)),
+        "n_boot": float(n_boot),
+    }
+
+
+def fit_system_fixed_effects_ols(
+    X: np.ndarray,
+    y: np.ndarray,
+    clusters: np.ndarray,
+    feature_names: list[str] | None = None,
+) -> dict[str, Any]:
+    """Fits OLS with system fixed effects (dummy variables) and cluster-robust standard errors.
+
+    Controls for all unobserved, time-invariant system-level confounders.
+    Replaces the intercept with system indicator dummies.
+    """
+    N, K = X.shape
+    unique_systems = sorted(np.unique(clusters))
+
+    # Check if first column is constant (intercept)
+    if K > 0 and np.allclose(X[:, 0], X[0, 0]) and np.std(X[:, 0]) < 1e-10:
+        X_other = X[:, 1:]
+        other_names = feature_names[1:] if feature_names is not None else [f"x{i}" for i in range(1, K)]
+    else:
+        X_other = X
+        other_names = feature_names if feature_names is not None else [f"x{i}" for i in range(K)]
+
+    dummies = np.column_stack([(clusters == s).astype(float) for s in unique_systems])
+    dummy_names = [f"FE_{s}" for s in unique_systems]
+
+    X_fe = np.column_stack([dummies, X_other])
+    fe_feature_names = dummy_names + other_names
+
+    res = fit_clustered_ols(X_fe, y, clusters, fe_feature_names)
+    res["system_dummies"] = dummy_names
+    res["unique_systems"] = [str(s) for s in unique_systems]
+    return res
+
+
+def run_leave_one_system_out_test(analysis_df: pd.DataFrame) -> dict[str, dict[str, Any]]:
+    """Performs Leave-One-System-Out (LOSO) sensitivity analysis for the three-way interaction test.
+
+    Iterates through each unique system in analysis_df['system'], refits the three-way interaction
+    model on the remaining systems, and reports stability of coefficients and correlations.
+    """
+    df = analysis_df.dropna(subset=["dms_z", "plm_z", "is_binding", "is_interface"]).copy()
+    unique_systems = sorted(df["system"].unique())
+    if len(unique_systems) <= 1:
+        return {}
+    feature_names = [
+        "Intercept",
+        "PLM",
+        "Binding",
+        "Interface",
+        "PLM:Binding",
+        "PLM:Interface",
+        "Binding:Interface",
+        "PLM:Binding:Interface",
+    ]
+
+    loso_results: dict[str, dict[str, Any]] = {}
+    for sys_omit in unique_systems:
+        sub_df = df[df["system"] != sys_omit].copy()
+        N_sub = len(sub_df)
+        plm = sub_df["plm_z"].to_numpy()
+        bind = sub_df["is_binding"].to_numpy()
+        inter = sub_df["is_interface"].to_numpy()
+        y = sub_df["dms_z"].to_numpy()
+        clusters = sub_df["system"].to_numpy()
+
+        X_sub = np.column_stack(
+            [
+                np.ones(N_sub),
+                plm,
+                bind,
+                inter,
+                plm * bind,
+                plm * inter,
+                bind * inter,
+                plm * bind * inter,
+            ]
+        )
+
+        ols_res = fit_clustered_ols(X_sub, y, clusters, feature_names)
+        term = ols_res["params"]["PLM:Binding:Interface"]
+
+        # Subgroup correlations for remaining subset
+        subgroups: dict[str, dict[str, Any]] = {}
+        for comp in ["Interface", "Core", "Surface"]:
+            for atype in ["Abundance", "Binding"]:
+                s = sub_df[(sub_df["compartment"] == comp) & (sub_df["assay_type"] == atype)]
+                if len(s) > 2:
+                    sp_r, sp_p = stats.spearmanr(s["plm_z"], s["dms_z"])
+                    pe_r, pe_p = stats.pearsonr(s["plm_z"], s["dms_z"])
+                    subgroups[f"{comp}_{atype}"] = {
+                        "n": int(len(s)),
+                        "spearman_rho": float(sp_r),
+                        "spearman_p": float(sp_p),
+                        "pearson_r": float(pe_r),
+                        "pearson_p": float(pe_p),
+                    }
+
+        rho_if_ab = subgroups.get("Interface_Abundance", {}).get("spearman_rho", float("nan"))
+        rho_if_bind = subgroups.get("Interface_Binding", {}).get("spearman_rho", float("nan"))
+
+        loso_results[sys_omit] = {
+            "omitted_system": sys_omit,
+            "n_obs": int(N_sub),
+            "n_clusters": int(len(np.unique(clusters))),
+            "beta_three_way": float(term["coef"]),
+            "se": float(term["se"]),
+            "t_stat": float(term["t_stat"]),
+            "p_val": float(term["p_val"]),
+            "rho_interface_abundance": float(rho_if_ab),
+            "rho_interface_binding": float(rho_if_bind),
+            "subgroup_correlations": subgroups,
+        }
+
+    return loso_results
 
 
 def run_three_way_interaction_test(
@@ -186,35 +421,47 @@ def run_three_way_interaction_test(
     # Stratified permutation test (permute interface status within system)
     rng = np.random.default_rng(seed)
     perm_betas = np.zeros(n_perm)
+    unique_sys = np.unique(clusters)
+    cluster_indices = [np.where(clusters == s)[0] for s in unique_sys]
 
-    XtX_inv = np.linalg.pinv(X.T @ X)  # baseline matrix for projection
+    X_perm = np.zeros((N, 8))
+    X_perm[:, 0] = 1.0
+    X_perm[:, 1] = plm
+    X_perm[:, 2] = bind
+    X_perm[:, 4] = plm * bind
+
     for b in range(n_perm):
-        # Permute interface label within each system
         perm_inter = inter.copy()
-        for sys_id in np.unique(clusters):
-            idx = np.where(clusters == sys_id)[0]
+        for idx in cluster_indices:
             perm_inter[idx] = rng.permutation(perm_inter[idx])
 
-        X_perm = np.column_stack(
-            [
-                np.ones(N),
-                plm,
-                bind,
-                perm_inter,
-                plm * bind,
-                plm * perm_inter,
-                bind * perm_inter,
-                plm * bind * perm_inter,
-            ]
-        )
-        beta_perm = np.linalg.pinv(X_perm.T @ X_perm) @ (X_perm.T @ y)
-        perm_betas[b] = beta_perm[7]
+        X_perm[:, 3] = perm_inter
+        X_perm[:, 5] = plm * perm_inter
+        X_perm[:, 6] = bind * perm_inter
+        X_perm[:, 7] = X_perm[:, 4] * perm_inter
 
+        XtX = X_perm.T @ X_perm
+        Xty = X_perm.T @ y
+        try:
+            beta_perm = np.linalg.solve(XtX, Xty)
+        except np.linalg.LinAlgError:
+            beta_perm = np.linalg.pinv(XtX) @ Xty
+        perm_betas[b] = beta_perm[7]
     # Two-sided permutation p-value
-    perm_p = float(np.mean(np.abs(perm_betas) >= np.abs(primary_coef)))
+    perm_p = float(np.mean(np.abs(perm_betas) >= np.abs(primary_coef))) if n_perm > 0 else float("nan")
+
+    # Wild Cluster Bootstrap (Webb 6-point)
+    wcb_result = wild_cluster_bootstrap(X, y, clusters, feature_idx=7, n_boot=n_perm, seed=seed)
+    wild_boot_p = float(wcb_result["p_wild_bootstrap"])
+
+    # System Fixed-Effects OLS
+    fe_result = fit_system_fixed_effects_ols(X, y, clusters, feature_names)
+
+    # Leave-One-System-Out sensitivity analysis
+    loso_result = run_leave_one_system_out_test(df)
 
     # Subgroup correlations (Spearman rho and Pearson r)
-    subgroups = {}
+    subgroups: dict[str, dict[str, Any]] = {}
     for comp in ["Interface", "Core", "Surface"]:
         for atype in ["Abundance", "Binding"]:
             sub = df[(df["compartment"] == comp) & (df["assay_type"] == atype)]
@@ -246,14 +493,18 @@ def run_three_way_interaction_test(
         "beta_three_way": float(primary_coef),
         "p_clustered": float(primary_p),
         "p_permutation": float(perm_p),
+        "p_wild_bootstrap": wild_boot_p,
         "alpha": ALPHA,
         "n_obs": int(N),
         "n_clusters": int(len(np.unique(clusters))),
         "verdict": verdict,
         "ols_summary": ols_result,
+        "wild_cluster_bootstrap": wcb_result,
+        "fixed_effects_summary": fe_result,
+        "leave_one_system_out": loso_result,
         "subgroup_correlations": subgroups,
-        "permutation_null_mean": float(np.mean(perm_betas)),
-        "permutation_null_std": float(np.std(perm_betas)),
+        "permutation_null_mean": float(np.mean(perm_betas)) if n_perm > 0 else float("nan"),
+        "permutation_null_std": float(np.std(perm_betas)) if n_perm > 0 else float("nan"),
     }
 
 
@@ -326,6 +577,55 @@ SYSTEM_TO_CLASS: dict[str, str] = {
     "KRAS": "Synthetic_CrossSpecies",
     "SARS-CoV-2_RBD": "Synthetic_CrossSpecies",
 }
+
+
+def fit_hc3_ols(
+    X: np.ndarray,
+    y: np.ndarray,
+    feature_names: list[str] | None = None,
+) -> dict[str, Any]:
+    """Fits OLS with HC3 heteroskedasticity-consistent covariance estimator (MacKinnon & White 1985)."""
+    N, K = X.shape
+    XtX = X.T @ X
+    XtX_inv = np.linalg.pinv(XtX)
+    beta = XtX_inv @ (X.T @ y)
+    residuals = y - X @ beta
+
+    # Leverage values h_ii = diag(X (X^T X)^{-1} X^T)
+    # Computed as row-wise dot product of X and (X @ XtX_inv)
+    M = X @ XtX_inv
+    h = np.sum(M * X, axis=1)
+    denom = np.maximum(1e-7, 1.0 - h)
+    w = residuals / denom
+
+    X_weighted = X * w[:, None]
+    meat = X_weighted.T @ X_weighted
+    vcov = XtX_inv @ meat @ XtX_inv
+
+    se = np.sqrt(np.maximum(0.0, np.diag(vcov)))
+    t_stat = np.where(se > 1e-12, beta / np.maximum(se, 1e-12), np.nan)
+    df_t = max(1, N - K)
+    p_val = np.where(np.isnan(t_stat), np.nan, 2 * (1 - stats.t.cdf(np.abs(t_stat), df=df_t)))
+
+    names = feature_names if feature_names is not None else [f"x{i}" for i in range(K)]
+    params: dict[str, dict[str, float]] = {}
+    for i, name in enumerate(names):
+        params[name] = {
+            "coef": float(beta[i]),
+            "se": float(se[i]),
+            "t_stat": float(t_stat[i]),
+            "p_val": float(p_val[i]),
+        }
+
+    return {
+        "estimator": "HC3_robust_ols",
+        "n_obs": int(N),
+        "params": params,
+        "beta": beta.tolist(),
+        "residuals_mean": float(np.mean(residuals)),
+        "residuals_std": float(np.std(residuals)),
+        "r_squared": float(1.0 - np.var(residuals) / np.var(y)) if np.var(y) > 0 else 0.0,
+    }
 
 
 def stratify_by_evolutionary_class(
@@ -443,7 +743,7 @@ def stratify_by_evolutionary_class(
         "PLM:Binding:Class_Synthetic_CrossSpecies",
     ]
 
-    hier_model = fit_clustered_ols(X_hier, y, clusters, hier_names)
+    hier_model = fit_hc3_ols(X_hier, y, hier_names)
 
     # Formulate Formal Answers to Research Questions
     homo_int = classes_output["Homooligomer"]["compartments"].get("Interface", {})

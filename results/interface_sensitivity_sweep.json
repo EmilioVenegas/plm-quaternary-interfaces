@@ -1,0 +1,1501 @@
+{
+  "metadata": {
+    "timestamp_utc": "2026-08-29T19:39:51.834793+00:00",
+    "n_total_variants": 10643,
+    "delta_sasa_thresholds": [
+      2.0,
+      5.0,
+      10.0,
+      15.0,
+      20.0
+    ],
+    "distance_thresholds": [
+      3.5,
+      4.0,
+      4.5,
+      5.0,
+      6.0
+    ],
+    "rsasa_threshold": 0.2,
+    "arms": [
+      "esm2-3b",
+      "esm2-650m",
+      "esmc-600m",
+      "esmc-6b"
+    ]
+  },
+  "grid": [
+    {
+      "delta_sasa_threshold": 2.0,
+      "distance_threshold": 3.5,
+      "n_interface": 2362,
+      "n_core": 4381,
+      "n_surface": 3900,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2362,
+          "rho_abundance": 0.4219,
+          "p_abundance": 1.3037908575675956e-102,
+          "rho_binding": 0.009,
+          "p_binding": 0.6605692374371019,
+          "rho_partial": -0.1736,
+          "beta_three_way": -0.3484,
+          "se_three_way": 0.2224,
+          "t_stat_three_way": -1.567,
+          "p_three_way": 0.19217546213654368
+        },
+        "esm2-650m": {
+          "n_interface": 2362,
+          "rho_abundance": 0.3994,
+          "p_abundance": 3.7580203538794174e-91,
+          "rho_binding": -0.0159,
+          "p_binding": 0.44062549030270015,
+          "rho_partial": -0.1911,
+          "beta_three_way": -0.3364,
+          "se_three_way": 0.2484,
+          "t_stat_three_way": -1.3543,
+          "p_three_way": 0.24708815802841633
+        },
+        "esmc-600m": {
+          "n_interface": 2362,
+          "rho_abundance": 0.4229,
+          "p_abundance": 3.9916351614513544e-103,
+          "rho_binding": -0.0028,
+          "p_binding": 0.8901026622705586,
+          "rho_partial": -0.1882,
+          "beta_three_way": -0.3644,
+          "se_three_way": 0.2287,
+          "t_stat_three_way": -1.5935,
+          "p_three_way": 0.18627507452896208
+        },
+        "esmc-6b": {
+          "n_interface": 2362,
+          "rho_abundance": 0.2442,
+          "p_abundance": 2.1142939091570942e-33,
+          "rho_binding": -0.2417,
+          "p_binding": 9.392948834601337e-33,
+          "rho_partial": -0.3678,
+          "beta_three_way": -0.3646,
+          "se_three_way": 0.2267,
+          "t_stat_three_way": -1.6081,
+          "p_three_way": 0.1831010130552233
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 2.0,
+      "distance_threshold": 4.0,
+      "n_interface": 2362,
+      "n_core": 4381,
+      "n_surface": 3900,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2362,
+          "rho_abundance": 0.4219,
+          "p_abundance": 1.3037908575675956e-102,
+          "rho_binding": 0.009,
+          "p_binding": 0.6605692374371019,
+          "rho_partial": -0.1736,
+          "beta_three_way": -0.3484,
+          "se_three_way": 0.2224,
+          "t_stat_three_way": -1.567,
+          "p_three_way": 0.19217546213654368
+        },
+        "esm2-650m": {
+          "n_interface": 2362,
+          "rho_abundance": 0.3994,
+          "p_abundance": 3.7580203538794174e-91,
+          "rho_binding": -0.0159,
+          "p_binding": 0.44062549030270015,
+          "rho_partial": -0.1911,
+          "beta_three_way": -0.3364,
+          "se_three_way": 0.2484,
+          "t_stat_three_way": -1.3543,
+          "p_three_way": 0.24708815802841633
+        },
+        "esmc-600m": {
+          "n_interface": 2362,
+          "rho_abundance": 0.4229,
+          "p_abundance": 3.9916351614513544e-103,
+          "rho_binding": -0.0028,
+          "p_binding": 0.8901026622705586,
+          "rho_partial": -0.1882,
+          "beta_three_way": -0.3644,
+          "se_three_way": 0.2287,
+          "t_stat_three_way": -1.5935,
+          "p_three_way": 0.18627507452896208
+        },
+        "esmc-6b": {
+          "n_interface": 2362,
+          "rho_abundance": 0.2442,
+          "p_abundance": 2.1142939091570942e-33,
+          "rho_binding": -0.2417,
+          "p_binding": 9.392948834601337e-33,
+          "rho_partial": -0.3678,
+          "beta_three_way": -0.3646,
+          "se_three_way": 0.2267,
+          "t_stat_three_way": -1.6081,
+          "p_three_way": 0.1831010130552233
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 2.0,
+      "distance_threshold": 4.5,
+      "n_interface": 2386,
+      "n_core": 4357,
+      "n_surface": 3900,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2386,
+          "rho_abundance": 0.421,
+          "p_abundance": 3.8224697898659625e-103,
+          "rho_binding": 0.0114,
+          "p_binding": 0.5779052690422308,
+          "rho_partial": -0.1683,
+          "beta_three_way": -0.3406,
+          "se_three_way": 0.2236,
+          "t_stat_three_way": -1.5228,
+          "p_three_way": 0.20247681087314495
+        },
+        "esm2-650m": {
+          "n_interface": 2386,
+          "rho_abundance": 0.3964,
+          "p_abundance": 1.366031139913743e-90,
+          "rho_binding": -0.0129,
+          "p_binding": 0.5274408930105094,
+          "rho_partial": -0.1842,
+          "beta_three_way": -0.3273,
+          "se_three_way": 0.2508,
+          "t_stat_three_way": -1.3051,
+          "p_three_way": 0.26186749380496055
+        },
+        "esmc-600m": {
+          "n_interface": 2386,
+          "rho_abundance": 0.4153,
+          "p_abundance": 4.0391606605677413e-100,
+          "rho_binding": 0.0018,
+          "p_binding": 0.9315354065153226,
+          "rho_partial": -0.1767,
+          "beta_three_way": -0.3501,
+          "se_three_way": 0.2336,
+          "t_stat_three_way": -1.499,
+          "p_three_way": 0.2082475158343169
+        },
+        "esmc-6b": {
+          "n_interface": 2386,
+          "rho_abundance": 0.2378,
+          "p_abundance": 5.092932532359982e-32,
+          "rho_binding": -0.2339,
+          "p_binding": 5.220380599952675e-31,
+          "rho_partial": -0.3545,
+          "beta_three_way": -0.3423,
+          "se_three_way": 0.2331,
+          "t_stat_three_way": -1.4688,
+          "p_three_way": 0.21582407896125222
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 2.0,
+      "distance_threshold": 5.0,
+      "n_interface": 2424,
+      "n_core": 4319,
+      "n_surface": 3900,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2424,
+          "rho_abundance": 0.406,
+          "p_abundance": 7.77254164072781e-97,
+          "rho_binding": 0.0055,
+          "p_binding": 0.7872089926330049,
+          "rho_partial": -0.1639,
+          "beta_three_way": -0.3354,
+          "se_three_way": 0.2218,
+          "t_stat_three_way": -1.5125,
+          "p_three_way": 0.2049545378926665
+        },
+        "esm2-650m": {
+          "n_interface": 2424,
+          "rho_abundance": 0.3813,
+          "p_abundance": 9.746097481135497e-85,
+          "rho_binding": -0.0162,
+          "p_binding": 0.4259542177448665,
+          "rho_partial": -0.1769,
+          "beta_three_way": -0.3226,
+          "se_three_way": 0.2488,
+          "t_stat_three_way": -1.2966,
+          "p_three_way": 0.26451594050266114
+        },
+        "esmc-600m": {
+          "n_interface": 2424,
+          "rho_abundance": 0.4025,
+          "p_abundance": 4.320321157468786e-95,
+          "rho_binding": -0.0069,
+          "p_binding": 0.7344121335738357,
+          "rho_partial": -0.1766,
+          "beta_three_way": -0.3448,
+          "se_three_way": 0.232,
+          "t_stat_three_way": -1.486,
+          "p_three_way": 0.21145906015626403
+        },
+        "esmc-6b": {
+          "n_interface": 2424,
+          "rho_abundance": 0.229,
+          "p_abundance": 3.280620712431695e-30,
+          "rho_binding": -0.2406,
+          "p_binding": 2.90035639712776e-33,
+          "rho_partial": -0.3549,
+          "beta_three_way": -0.3373,
+          "se_three_way": 0.2304,
+          "t_stat_three_way": -1.4639,
+          "p_three_way": 0.21706256686211778
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 2.0,
+      "distance_threshold": 6.0,
+      "n_interface": 2709,
+      "n_core": 4167,
+      "n_surface": 3767,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3659,
+          "p_abundance": 1.3085746310551906e-86,
+          "rho_binding": -0.0241,
+          "p_binding": 0.2093755115034489,
+          "rho_partial": -0.1902,
+          "beta_three_way": -0.2839,
+          "se_three_way": 0.2068,
+          "t_stat_three_way": -1.3725,
+          "p_three_way": 0.24182873773755054
+        },
+        "esm2-650m": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3497,
+          "p_abundance": 8.913922580756452e-79,
+          "rho_binding": -0.0413,
+          "p_binding": 0.0316833486086207,
+          "rho_partial": -0.2016,
+          "beta_three_way": -0.2898,
+          "se_three_way": 0.2276,
+          "t_stat_three_way": -1.2732,
+          "p_three_way": 0.27192110120838
+        },
+        "esmc-600m": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3554,
+          "p_abundance": 1.7388181601983592e-81,
+          "rho_binding": -0.0455,
+          "p_binding": 0.01792553705065893,
+          "rho_partial": -0.2094,
+          "beta_three_way": -0.324,
+          "se_three_way": 0.2152,
+          "t_stat_three_way": -1.5054,
+          "p_three_way": 0.20667423538879515
+        },
+        "esmc-6b": {
+          "n_interface": 2709,
+          "rho_abundance": 0.1914,
+          "p_abundance": 9.168806841258242e-24,
+          "rho_binding": -0.2601,
+          "p_binding": 3.9793158261184e-43,
+          "rho_partial": -0.367,
+          "beta_three_way": -0.3154,
+          "se_three_way": 0.2163,
+          "t_stat_three_way": -1.4583,
+          "p_three_way": 0.2185085014977941
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 5.0,
+      "distance_threshold": 3.5,
+      "n_interface": 2219,
+      "n_core": 4429,
+      "n_surface": 3995,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2219,
+          "rho_abundance": 0.4301,
+          "p_abundance": 1.2467308635475397e-100,
+          "rho_binding": -0.0099,
+          "p_binding": 0.6426527763414384,
+          "rho_partial": -0.2074,
+          "beta_three_way": -0.3522,
+          "se_three_way": 0.2262,
+          "t_stat_three_way": -1.5571,
+          "p_three_way": 0.19442996933108136
+        },
+        "esm2-650m": {
+          "n_interface": 2219,
+          "rho_abundance": 0.4155,
+          "p_abundance": 2.3364003879468887e-93,
+          "rho_binding": -0.0419,
+          "p_binding": 0.04860604396898671,
+          "rho_partial": -0.2373,
+          "beta_three_way": -0.3504,
+          "se_three_way": 0.2538,
+          "t_stat_three_way": -1.3805,
+          "p_three_way": 0.23957141768214907
+        },
+        "esmc-600m": {
+          "n_interface": 2219,
+          "rho_abundance": 0.4408,
+          "p_abundance": 3.7630211328257094e-106,
+          "rho_binding": -0.0201,
+          "p_binding": 0.34499272650953244,
+          "rho_partial": -0.2257,
+          "beta_three_way": -0.3728,
+          "se_three_way": 0.2326,
+          "t_stat_three_way": -1.6028,
+          "p_three_way": 0.18424377158927374
+        },
+        "esmc-6b": {
+          "n_interface": 2219,
+          "rho_abundance": 0.2539,
+          "p_abundance": 5.387722951094726e-34,
+          "rho_binding": -0.2557,
+          "p_binding": 1.8341389635977867e-34,
+          "rho_partial": -0.3936,
+          "beta_three_way": -0.3802,
+          "se_three_way": 0.2252,
+          "t_stat_three_way": -1.6884,
+          "p_three_way": 0.16660720506232574
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 5.0,
+      "distance_threshold": 4.0,
+      "n_interface": 2238,
+      "n_core": 4429,
+      "n_surface": 3976,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2238,
+          "rho_abundance": 0.4242,
+          "p_abundance": 1.8375062985330138e-98,
+          "rho_binding": 0.0045,
+          "p_binding": 0.8298065950504463,
+          "rho_partial": -0.1804,
+          "beta_three_way": -0.3482,
+          "se_three_way": 0.2253,
+          "t_stat_three_way": -1.5453,
+          "p_three_way": 0.1971584272548954
+        },
+        "esm2-650m": {
+          "n_interface": 2238,
+          "rho_abundance": 0.4059,
+          "p_abundance": 1.6373713310343006e-89,
+          "rho_binding": -0.0205,
+          "p_binding": 0.3311894795462611,
+          "rho_partial": -0.2004,
+          "beta_three_way": -0.3436,
+          "se_three_way": 0.2513,
+          "t_stat_three_way": -1.3675,
+          "p_three_way": 0.2432735834979305
+        },
+        "esmc-600m": {
+          "n_interface": 2238,
+          "rho_abundance": 0.4348,
+          "p_abundance": 6.62833175479252e-104,
+          "rho_binding": -0.0053,
+          "p_binding": 0.8022463654856979,
+          "rho_partial": -0.1979,
+          "beta_three_way": -0.3679,
+          "se_three_way": 0.231,
+          "t_stat_three_way": -1.5925,
+          "p_three_way": 0.18648919525507424
+        },
+        "esmc-6b": {
+          "n_interface": 2238,
+          "rho_abundance": 0.2526,
+          "p_abundance": 6.318328653419966e-34,
+          "rho_binding": -0.2496,
+          "p_binding": 3.921486035717472e-33,
+          "rho_partial": -0.3811,
+          "beta_three_way": -0.3765,
+          "se_three_way": 0.2243,
+          "t_stat_three_way": -1.6784,
+          "p_three_way": 0.16857924268476054
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 5.0,
+      "distance_threshold": 4.5,
+      "n_interface": 2262,
+      "n_core": 4405,
+      "n_surface": 3976,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2262,
+          "rho_abundance": 0.4232,
+          "p_abundance": 5.715877165043418e-99,
+          "rho_binding": 0.007,
+          "p_binding": 0.7400295853448332,
+          "rho_partial": -0.1749,
+          "beta_three_way": -0.3403,
+          "se_three_way": 0.2266,
+          "t_stat_three_way": -1.5016,
+          "p_three_way": 0.20760957462838947
+        },
+        "esm2-650m": {
+          "n_interface": 2262,
+          "rho_abundance": 0.4026,
+          "p_abundance": 6.808017090844428e-89,
+          "rho_binding": -0.0176,
+          "p_binding": 0.4040189802594873,
+          "rho_partial": -0.1931,
+          "beta_three_way": -0.3343,
+          "se_three_way": 0.2537,
+          "t_stat_three_way": -1.3177,
+          "p_three_way": 0.25800849256676806
+        },
+        "esmc-600m": {
+          "n_interface": 2262,
+          "rho_abundance": 0.4264,
+          "p_abundance": 1.3132705366715356e-100,
+          "rho_binding": -0.0006,
+          "p_binding": 0.9790226851496507,
+          "rho_partial": -0.1856,
+          "beta_three_way": -0.353,
+          "se_three_way": 0.2357,
+          "t_stat_three_way": -1.4975,
+          "p_three_way": 0.2086058576375902
+        },
+        "esmc-6b": {
+          "n_interface": 2262,
+          "rho_abundance": 0.2455,
+          "p_abundance": 2.091700860023235e-32,
+          "rho_binding": -0.2414,
+          "p_binding": 2.346486120694733e-31,
+          "rho_partial": -0.3668,
+          "beta_three_way": -0.3526,
+          "se_three_way": 0.2304,
+          "t_stat_three_way": -1.5304,
+          "p_three_way": 0.2006660195695842
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 5.0,
+      "distance_threshold": 5.0,
+      "n_interface": 2329,
+      "n_core": 4338,
+      "n_surface": 3976,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2329,
+          "rho_abundance": 0.4113,
+          "p_abundance": 9.459820771889613e-96,
+          "rho_binding": 0.0086,
+          "p_binding": 0.67680949516969,
+          "rho_partial": -0.1639,
+          "beta_three_way": -0.3357,
+          "se_three_way": 0.2239,
+          "t_stat_three_way": -1.4994,
+          "p_three_way": 0.20813688935636288
+        },
+        "esm2-650m": {
+          "n_interface": 2329,
+          "rho_abundance": 0.3911,
+          "p_abundance": 5.620223066921238e-86,
+          "rho_binding": -0.0134,
+          "p_binding": 0.5186108911106305,
+          "rho_partial": -0.1795,
+          "beta_three_way": -0.3282,
+          "se_three_way": 0.2514,
+          "t_stat_three_way": -1.3051,
+          "p_three_way": 0.2618619490252432
+        },
+        "esmc-600m": {
+          "n_interface": 2329,
+          "rho_abundance": 0.413,
+          "p_abundance": 1.2245661851644328e-96,
+          "rho_binding": -0.0038,
+          "p_binding": 0.8539168211994006,
+          "rho_partial": -0.1795,
+          "beta_three_way": -0.3481,
+          "se_three_way": 0.2327,
+          "t_stat_three_way": -1.496,
+          "p_three_way": 0.20898694014927455
+        },
+        "esmc-6b": {
+          "n_interface": 2329,
+          "rho_abundance": 0.2382,
+          "p_abundance": 2.0424320577086173e-31,
+          "rho_binding": -0.2402,
+          "p_binding": 6.399203056218915e-32,
+          "rho_partial": -0.3597,
+          "beta_three_way": -0.3463,
+          "se_three_way": 0.2271,
+          "t_stat_three_way": -1.525,
+          "p_three_way": 0.2019381961092359
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 5.0,
+      "distance_threshold": 6.0,
+      "n_interface": 2709,
+      "n_core": 4167,
+      "n_surface": 3767,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3659,
+          "p_abundance": 1.3085746310551906e-86,
+          "rho_binding": -0.0241,
+          "p_binding": 0.2093755115034489,
+          "rho_partial": -0.1902,
+          "beta_three_way": -0.2839,
+          "se_three_way": 0.2068,
+          "t_stat_three_way": -1.3725,
+          "p_three_way": 0.24182873773755054
+        },
+        "esm2-650m": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3497,
+          "p_abundance": 8.913922580756452e-79,
+          "rho_binding": -0.0413,
+          "p_binding": 0.0316833486086207,
+          "rho_partial": -0.2016,
+          "beta_three_way": -0.2898,
+          "se_three_way": 0.2276,
+          "t_stat_three_way": -1.2732,
+          "p_three_way": 0.27192110120838
+        },
+        "esmc-600m": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3554,
+          "p_abundance": 1.7388181601983592e-81,
+          "rho_binding": -0.0455,
+          "p_binding": 0.01792553705065893,
+          "rho_partial": -0.2094,
+          "beta_three_way": -0.324,
+          "se_three_way": 0.2152,
+          "t_stat_three_way": -1.5054,
+          "p_three_way": 0.20667423538879515
+        },
+        "esmc-6b": {
+          "n_interface": 2709,
+          "rho_abundance": 0.1914,
+          "p_abundance": 9.168806841258242e-24,
+          "rho_binding": -0.2601,
+          "p_binding": 3.9793158261184e-43,
+          "rho_partial": -0.367,
+          "beta_three_way": -0.3154,
+          "se_three_way": 0.2163,
+          "t_stat_three_way": -1.4583,
+          "p_three_way": 0.2185085014977941
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 10.0,
+      "distance_threshold": 3.5,
+      "n_interface": 2088,
+      "n_core": 4465,
+      "n_surface": 4090,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2088,
+          "rho_abundance": 0.4475,
+          "p_abundance": 2.394436481626658e-103,
+          "rho_binding": 0.014,
+          "p_binding": 0.5229646653076138,
+          "rho_partial": -0.1771,
+          "beta_three_way": -0.3535,
+          "se_three_way": 0.2365,
+          "t_stat_three_way": -1.4949,
+          "p_three_way": 0.20926651709035182
+        },
+        "esm2-650m": {
+          "n_interface": 2088,
+          "rho_abundance": 0.4393,
+          "p_abundance": 2.9327752615949284e-99,
+          "rho_binding": -0.0204,
+          "p_binding": 0.3506776392232073,
+          "rho_partial": -0.2139,
+          "beta_three_way": -0.3511,
+          "se_three_way": 0.2618,
+          "t_stat_three_way": -1.341,
+          "p_three_way": 0.25099258746518194
+        },
+        "esmc-600m": {
+          "n_interface": 2088,
+          "rho_abundance": 0.4606,
+          "p_abundance": 3.70967063279571e-110,
+          "rho_binding": 0.0062,
+          "p_binding": 0.7758656422536787,
+          "rho_partial": -0.1935,
+          "beta_three_way": -0.3671,
+          "se_three_way": 0.2442,
+          "t_stat_three_way": -1.5036,
+          "p_three_way": 0.20711967052853408
+        },
+        "esmc-6b": {
+          "n_interface": 2088,
+          "rho_abundance": 0.2632,
+          "p_abundance": 2.0108365940798555e-34,
+          "rho_binding": -0.2448,
+          "p_binding": 7.148740820207736e-30,
+          "rho_partial": -0.3779,
+          "beta_three_way": -0.3847,
+          "se_three_way": 0.2365,
+          "t_stat_three_way": -1.6263,
+          "p_three_way": 0.1792161198782336
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 10.0,
+      "distance_threshold": 4.0,
+      "n_interface": 2126,
+      "n_core": 4446,
+      "n_surface": 4071,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2126,
+          "rho_abundance": 0.4451,
+          "p_abundance": 5.629653764543396e-104,
+          "rho_binding": 0.033,
+          "p_binding": 0.12766157591174337,
+          "rho_partial": -0.1507,
+          "beta_three_way": -0.3522,
+          "se_three_way": 0.2324,
+          "t_stat_three_way": -1.5154,
+          "p_three_way": 0.20425127765058382
+        },
+        "esm2-650m": {
+          "n_interface": 2126,
+          "rho_abundance": 0.43,
+          "p_abundance": 2.131271910724724e-96,
+          "rho_binding": 0.0043,
+          "p_binding": 0.8425205286110039,
+          "rho_partial": -0.1771,
+          "beta_three_way": -0.3461,
+          "se_three_way": 0.2574,
+          "t_stat_three_way": -1.3444,
+          "p_three_way": 0.2500084932500741
+        },
+        "esmc-600m": {
+          "n_interface": 2126,
+          "rho_abundance": 0.4575,
+          "p_abundance": 1.745027261941229e-110,
+          "rho_binding": 0.0245,
+          "p_binding": 0.25842291255453875,
+          "rho_partial": -0.1674,
+          "beta_three_way": -0.3659,
+          "se_three_way": 0.2385,
+          "t_stat_three_way": -1.5342,
+          "p_three_way": 0.19976152689996352
+        },
+        "esmc-6b": {
+          "n_interface": 2126,
+          "rho_abundance": 0.2701,
+          "p_abundance": 7.407751166972701e-37,
+          "rho_binding": -0.2322,
+          "p_binding": 1.9877309545192937e-27,
+          "rho_partial": -0.3656,
+          "beta_three_way": -0.3826,
+          "se_three_way": 0.231,
+          "t_stat_three_way": -1.6564,
+          "p_three_way": 0.17297331287110862
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 10.0,
+      "distance_threshold": 4.5,
+      "n_interface": 2224,
+      "n_core": 4405,
+      "n_surface": 4014,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2224,
+          "rho_abundance": 0.4267,
+          "p_abundance": 4.0218849013027954e-99,
+          "rho_binding": 0.0113,
+          "p_binding": 0.5938408320131824,
+          "rho_partial": -0.1707,
+          "beta_three_way": -0.337,
+          "se_three_way": 0.2301,
+          "t_stat_three_way": -1.4641,
+          "p_three_way": 0.21701913222855707
+        },
+        "esm2-650m": {
+          "n_interface": 2224,
+          "rho_abundance": 0.4088,
+          "p_abundance": 2.3966654618444532e-90,
+          "rho_binding": -0.014,
+          "p_binding": 0.5079924343895752,
+          "rho_partial": -0.1913,
+          "beta_three_way": -0.3328,
+          "se_three_way": 0.2563,
+          "t_stat_three_way": -1.2988,
+          "p_three_way": 0.2638357063696133
+        },
+        "esmc-600m": {
+          "n_interface": 2224,
+          "rho_abundance": 0.4273,
+          "p_abundance": 2.049158383534699e-99,
+          "rho_binding": 0.0022,
+          "p_binding": 0.918262497569493,
+          "rho_partial": -0.1818,
+          "beta_three_way": -0.3476,
+          "se_three_way": 0.2399,
+          "t_stat_three_way": -1.4487,
+          "p_three_way": 0.22099534364785312
+        },
+        "esmc-6b": {
+          "n_interface": 2224,
+          "rho_abundance": 0.2448,
+          "p_abundance": 1.0226551918928435e-31,
+          "rho_binding": -0.2413,
+          "p_binding": 7.878886387904665e-31,
+          "rho_partial": -0.3657,
+          "beta_three_way": -0.3481,
+          "se_three_way": 0.2345,
+          "t_stat_three_way": -1.4842,
+          "p_three_way": 0.21191296772278512
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 10.0,
+      "distance_threshold": 5.0,
+      "n_interface": 2310,
+      "n_core": 4338,
+      "n_surface": 3995,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2310,
+          "rho_abundance": 0.413,
+          "p_abundance": 7.524192171398662e-96,
+          "rho_binding": 0.0133,
+          "p_binding": 0.5238195821419512,
+          "rho_partial": -0.1587,
+          "beta_three_way": -0.3298,
+          "se_three_way": 0.2282,
+          "t_stat_three_way": -1.4454,
+          "p_three_way": 0.22187399478987957
+        },
+        "esm2-650m": {
+          "n_interface": 2310,
+          "rho_abundance": 0.3934,
+          "p_abundance": 2.239686800568278e-86,
+          "rho_binding": -0.0089,
+          "p_binding": 0.6683404504027909,
+          "rho_partial": -0.1749,
+          "beta_three_way": -0.3223,
+          "se_three_way": 0.2555,
+          "t_stat_three_way": -1.2615,
+          "p_three_way": 0.27567841874616295
+        },
+        "esmc-600m": {
+          "n_interface": 2310,
+          "rho_abundance": 0.413,
+          "p_abundance": 7.2209476602199074e-96,
+          "rho_binding": -0.0028,
+          "p_binding": 0.892596614539918,
+          "rho_partial": -0.1777,
+          "beta_three_way": -0.3448,
+          "se_three_way": 0.2344,
+          "t_stat_three_way": -1.4709,
+          "p_three_way": 0.21527650468219672
+        },
+        "esmc-6b": {
+          "n_interface": 2310,
+          "rho_abundance": 0.237,
+          "p_abundance": 7.60211432994695e-31,
+          "rho_binding": -0.2401,
+          "p_binding": 1.2313114714788748e-31,
+          "rho_partial": -0.3585,
+          "beta_three_way": -0.3442,
+          "se_three_way": 0.2286,
+          "t_stat_three_way": -1.5057,
+          "p_three_way": 0.20660928392719669
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 10.0,
+      "distance_threshold": 6.0,
+      "n_interface": 2709,
+      "n_core": 4167,
+      "n_surface": 3767,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3659,
+          "p_abundance": 1.3085746310551906e-86,
+          "rho_binding": -0.0241,
+          "p_binding": 0.2093755115034489,
+          "rho_partial": -0.1902,
+          "beta_three_way": -0.2839,
+          "se_three_way": 0.2068,
+          "t_stat_three_way": -1.3725,
+          "p_three_way": 0.24182873773755054
+        },
+        "esm2-650m": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3497,
+          "p_abundance": 8.913922580756452e-79,
+          "rho_binding": -0.0413,
+          "p_binding": 0.0316833486086207,
+          "rho_partial": -0.2016,
+          "beta_three_way": -0.2898,
+          "se_three_way": 0.2276,
+          "t_stat_three_way": -1.2732,
+          "p_three_way": 0.27192110120838
+        },
+        "esmc-600m": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3554,
+          "p_abundance": 1.7388181601983592e-81,
+          "rho_binding": -0.0455,
+          "p_binding": 0.01792553705065893,
+          "rho_partial": -0.2094,
+          "beta_three_way": -0.324,
+          "se_three_way": 0.2152,
+          "t_stat_three_way": -1.5054,
+          "p_three_way": 0.20667423538879515
+        },
+        "esmc-6b": {
+          "n_interface": 2709,
+          "rho_abundance": 0.1914,
+          "p_abundance": 9.168806841258242e-24,
+          "rho_binding": -0.2601,
+          "p_binding": 3.9793158261184e-43,
+          "rho_partial": -0.367,
+          "beta_three_way": -0.3154,
+          "se_three_way": 0.2163,
+          "t_stat_three_way": -1.4583,
+          "p_three_way": 0.2185085014977941
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 15.0,
+      "distance_threshold": 3.5,
+      "n_interface": 1893,
+      "n_core": 4520,
+      "n_surface": 4230,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 1893,
+          "rho_abundance": 0.438,
+          "p_abundance": 1.480964196385878e-89,
+          "rho_binding": -0.0379,
+          "p_binding": 0.09922246505522589,
+          "rho_partial": -0.2253,
+          "beta_three_way": -0.3737,
+          "se_three_way": 0.2479,
+          "t_stat_three_way": -1.5075,
+          "p_three_way": 0.20616294756854248
+        },
+        "esm2-650m": {
+          "n_interface": 1893,
+          "rho_abundance": 0.4309,
+          "p_abundance": 1.981684777146774e-86,
+          "rho_binding": -0.0622,
+          "p_binding": 0.006763983018810155,
+          "rho_partial": -0.2503,
+          "beta_three_way": -0.3808,
+          "se_three_way": 0.2726,
+          "t_stat_three_way": -1.3968,
+          "p_three_way": 0.23497819499806694
+        },
+        "esmc-600m": {
+          "n_interface": 1893,
+          "rho_abundance": 0.4511,
+          "p_abundance": 1.59088003860059e-95,
+          "rho_binding": -0.0452,
+          "p_binding": 0.04944941123671826,
+          "rho_partial": -0.241,
+          "beta_three_way": -0.4078,
+          "se_three_way": 0.2648,
+          "t_stat_three_way": -1.5399,
+          "p_three_way": 0.19841629191649512
+        },
+        "esmc-6b": {
+          "n_interface": 1893,
+          "rho_abundance": 0.2506,
+          "p_abundance": 1.7259457810041256e-28,
+          "rho_binding": -0.3012,
+          "p_binding": 5.264354422701261e-41,
+          "rho_partial": -0.4276,
+          "beta_three_way": -0.4135,
+          "se_three_way": 0.2554,
+          "t_stat_three_way": -1.6187,
+          "p_three_way": 0.1808190811197381
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 15.0,
+      "distance_threshold": 4.0,
+      "n_interface": 1987,
+      "n_core": 4464,
+      "n_surface": 4192,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 1987,
+          "rho_abundance": 0.4336,
+          "p_abundance": 7.287002865412897e-92,
+          "rho_binding": -0.0014,
+          "p_binding": 0.951047886341998,
+          "rho_partial": -0.1752,
+          "beta_three_way": -0.3618,
+          "se_three_way": 0.2386,
+          "t_stat_three_way": -1.5164,
+          "p_three_way": 0.2039991445573357
+        },
+        "esm2-650m": {
+          "n_interface": 1987,
+          "rho_abundance": 0.4218,
+          "p_abundance": 1.5381608213642528e-86,
+          "rho_binding": -0.0229,
+          "p_binding": 0.3069940759942314,
+          "rho_partial": -0.1947,
+          "beta_three_way": -0.367,
+          "se_three_way": 0.2628,
+          "t_stat_three_way": -1.3967,
+          "p_three_way": 0.23501265280397932
+        },
+        "esmc-600m": {
+          "n_interface": 1987,
+          "rho_abundance": 0.4439,
+          "p_abundance": 1.0360987637115597e-96,
+          "rho_binding": -0.0076,
+          "p_binding": 0.7333523594716012,
+          "rho_partial": -0.1878,
+          "beta_three_way": -0.3858,
+          "se_three_way": 0.2507,
+          "t_stat_three_way": -1.5387,
+          "p_three_way": 0.19869589648434993
+        },
+        "esmc-6b": {
+          "n_interface": 1987,
+          "rho_abundance": 0.2574,
+          "p_abundance": 1.9099300268370769e-31,
+          "rho_binding": -0.2666,
+          "p_binding": 1.0901744168630694e-33,
+          "rho_partial": -0.3895,
+          "beta_three_way": -0.3978,
+          "se_three_way": 0.244,
+          "t_stat_three_way": -1.6304,
+          "p_three_way": 0.1783566552279674
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 15.0,
+      "distance_threshold": 4.5,
+      "n_interface": 2179,
+      "n_core": 4405,
+      "n_surface": 4059,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2179,
+          "rho_abundance": 0.4224,
+          "p_abundance": 4.783455936477879e-95,
+          "rho_binding": 0.0056,
+          "p_binding": 0.7940648177487337,
+          "rho_partial": -0.1752,
+          "beta_three_way": -0.3372,
+          "se_three_way": 0.2339,
+          "t_stat_three_way": -1.4417,
+          "p_three_way": 0.2228374792926333
+        },
+        "esm2-650m": {
+          "n_interface": 2179,
+          "rho_abundance": 0.4072,
+          "p_abundance": 8.279295231855034e-88,
+          "rho_binding": -0.0141,
+          "p_binding": 0.5107855457855028,
+          "rho_partial": -0.1905,
+          "beta_three_way": -0.3416,
+          "se_three_way": 0.2614,
+          "t_stat_three_way": -1.3069,
+          "p_three_way": 0.2613127468956282
+        },
+        "esmc-600m": {
+          "n_interface": 2179,
+          "rho_abundance": 0.4241,
+          "p_abundance": 7.597057640440861e-96,
+          "rho_binding": 0.0,
+          "p_binding": 0.9995192819000482,
+          "rho_partial": -0.1826,
+          "beta_three_way": -0.3582,
+          "se_three_way": 0.2487,
+          "t_stat_three_way": -1.4399,
+          "p_three_way": 0.22331421714362643
+        },
+        "esmc-6b": {
+          "n_interface": 2179,
+          "rho_abundance": 0.2385,
+          "p_abundance": 1.4910616411012293e-29,
+          "rho_binding": -0.2505,
+          "p_binding": 1.5679639352653258e-32,
+          "rho_partial": -0.3727,
+          "beta_three_way": -0.3555,
+          "se_three_way": 0.2443,
+          "t_stat_three_way": -1.4553,
+          "p_three_way": 0.21929255568191452
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 15.0,
+      "distance_threshold": 5.0,
+      "n_interface": 2291,
+      "n_core": 4338,
+      "n_surface": 4014,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2291,
+          "rho_abundance": 0.4107,
+          "p_abundance": 5.794885582397652e-94,
+          "rho_binding": 0.009,
+          "p_binding": 0.6655645695745436,
+          "rho_partial": -0.1627,
+          "beta_three_way": -0.3307,
+          "se_three_way": 0.2292,
+          "t_stat_three_way": -1.4426,
+          "p_three_way": 0.22260091741477872
+        },
+        "esm2-650m": {
+          "n_interface": 2291,
+          "rho_abundance": 0.3924,
+          "p_abundance": 3.445022880384949e-85,
+          "rho_binding": -0.0103,
+          "p_binding": 0.6232013960769377,
+          "rho_partial": -0.176,
+          "beta_three_way": -0.3308,
+          "se_three_way": 0.2571,
+          "t_stat_three_way": -1.2864,
+          "p_three_way": 0.2677115620484234
+        },
+        "esmc-600m": {
+          "n_interface": 2291,
+          "rho_abundance": 0.411,
+          "p_abundance": 4.149096121394538e-94,
+          "rho_binding": -0.006,
+          "p_binding": 0.7730773930169356,
+          "rho_partial": -0.1805,
+          "beta_three_way": -0.3531,
+          "se_three_way": 0.2373,
+          "t_stat_three_way": -1.4884,
+          "p_three_way": 0.21088078239937103
+        },
+        "esmc-6b": {
+          "n_interface": 2291,
+          "rho_abundance": 0.2337,
+          "p_abundance": 8.4024748249013e-30,
+          "rho_binding": -0.2463,
+          "p_binding": 5.202120358622969e-33,
+          "rho_partial": -0.3639,
+          "beta_three_way": -0.3439,
+          "se_three_way": 0.2316,
+          "t_stat_three_way": -1.4849,
+          "p_three_way": 0.21175643462847749
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 15.0,
+      "distance_threshold": 6.0,
+      "n_interface": 2709,
+      "n_core": 4167,
+      "n_surface": 3767,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3659,
+          "p_abundance": 1.3085746310551906e-86,
+          "rho_binding": -0.0241,
+          "p_binding": 0.2093755115034489,
+          "rho_partial": -0.1902,
+          "beta_three_way": -0.2839,
+          "se_three_way": 0.2068,
+          "t_stat_three_way": -1.3725,
+          "p_three_way": 0.24182873773755054
+        },
+        "esm2-650m": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3497,
+          "p_abundance": 8.913922580756452e-79,
+          "rho_binding": -0.0413,
+          "p_binding": 0.0316833486086207,
+          "rho_partial": -0.2016,
+          "beta_three_way": -0.2898,
+          "se_three_way": 0.2276,
+          "t_stat_three_way": -1.2732,
+          "p_three_way": 0.27192110120838
+        },
+        "esmc-600m": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3554,
+          "p_abundance": 1.7388181601983592e-81,
+          "rho_binding": -0.0455,
+          "p_binding": 0.01792553705065893,
+          "rho_partial": -0.2094,
+          "beta_three_way": -0.324,
+          "se_three_way": 0.2152,
+          "t_stat_three_way": -1.5054,
+          "p_three_way": 0.20667423538879515
+        },
+        "esmc-6b": {
+          "n_interface": 2709,
+          "rho_abundance": 0.1914,
+          "p_abundance": 9.168806841258242e-24,
+          "rho_binding": -0.2601,
+          "p_binding": 3.9793158261184e-43,
+          "rho_partial": -0.367,
+          "beta_three_way": -0.3154,
+          "se_three_way": 0.2163,
+          "t_stat_three_way": -1.4583,
+          "p_three_way": 0.2185085014977941
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 20.0,
+      "distance_threshold": 3.5,
+      "n_interface": 1824,
+      "n_core": 4520,
+      "n_surface": 4299,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 1824,
+          "rho_abundance": 0.4444,
+          "p_abundance": 3.856301102889427e-89,
+          "rho_binding": -0.0383,
+          "p_binding": 0.10217228438644416,
+          "rho_partial": -0.2226,
+          "beta_three_way": -0.3719,
+          "se_three_way": 0.2472,
+          "t_stat_three_way": -1.5048,
+          "p_three_way": 0.20682335016895514
+        },
+        "esm2-650m": {
+          "n_interface": 1824,
+          "rho_abundance": 0.4416,
+          "p_abundance": 6.590497664668085e-88,
+          "rho_binding": -0.0607,
+          "p_binding": 0.00946756344216953,
+          "rho_partial": -0.2477,
+          "beta_three_way": -0.3805,
+          "se_three_way": 0.2721,
+          "t_stat_three_way": -1.3984,
+          "p_three_way": 0.2345460822446106
+        },
+        "esmc-600m": {
+          "n_interface": 1824,
+          "rho_abundance": 0.4586,
+          "p_abundance": 1.541629957873964e-95,
+          "rho_binding": -0.0497,
+          "p_binding": 0.033951767186384874,
+          "rho_partial": -0.2437,
+          "beta_three_way": -0.4117,
+          "se_three_way": 0.2719,
+          "t_stat_three_way": -1.5143,
+          "p_three_way": 0.20451864228349503
+        },
+        "esmc-6b": {
+          "n_interface": 1824,
+          "rho_abundance": 0.2531,
+          "p_abundance": 4.599442568654035e-28,
+          "rho_binding": -0.3082,
+          "p_binding": 1.9086192324407805e-41,
+          "rho_partial": -0.4318,
+          "beta_three_way": -0.4196,
+          "se_three_way": 0.2654,
+          "t_stat_three_way": -1.5809,
+          "p_three_way": 0.18906240615631198
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 20.0,
+      "distance_threshold": 4.0,
+      "n_interface": 1918,
+      "n_core": 4464,
+      "n_surface": 4261,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 1918,
+          "rho_abundance": 0.4392,
+          "p_abundance": 2.9644661318937913e-91,
+          "rho_binding": -0.0014,
+          "p_binding": 0.9527185045975812,
+          "rho_partial": -0.1716,
+          "beta_three_way": -0.3597,
+          "se_three_way": 0.2378,
+          "t_stat_three_way": -1.5125,
+          "p_three_way": 0.20493916078446706
+        },
+        "esm2-650m": {
+          "n_interface": 1918,
+          "rho_abundance": 0.4314,
+          "p_abundance": 8.76994484725696e-88,
+          "rho_binding": -0.0208,
+          "p_binding": 0.361888995985562,
+          "rho_partial": -0.1907,
+          "beta_three_way": -0.3663,
+          "se_three_way": 0.2622,
+          "t_stat_three_way": -1.3972,
+          "p_three_way": 0.2348834850541146
+        },
+        "esmc-600m": {
+          "n_interface": 1918,
+          "rho_abundance": 0.4506,
+          "p_abundance": 1.5366946357105663e-96,
+          "rho_binding": -0.0112,
+          "p_binding": 0.6241765004395499,
+          "rho_partial": -0.1888,
+          "beta_three_way": -0.3886,
+          "se_three_way": 0.257,
+          "t_stat_three_way": -1.512,
+          "p_three_way": 0.20507340600746127
+        },
+        "esmc-6b": {
+          "n_interface": 1918,
+          "rho_abundance": 0.26,
+          "p_abundance": 5.282086269456604e-31,
+          "rho_binding": -0.2731,
+          "p_binding": 3.7557989893942226e-34,
+          "rho_partial": -0.3931,
+          "beta_three_way": -0.4028,
+          "se_three_way": 0.2528,
+          "t_stat_three_way": -1.593,
+          "p_three_way": 0.18637529484079463
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 20.0,
+      "distance_threshold": 4.5,
+      "n_interface": 2160,
+      "n_core": 4405,
+      "n_surface": 4078,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2160,
+          "rho_abundance": 0.4215,
+          "p_abundance": 8.811998816709663e-94,
+          "rho_binding": 0.0029,
+          "p_binding": 0.8914223036080277,
+          "rho_partial": -0.1744,
+          "beta_three_way": -0.3327,
+          "se_three_way": 0.2301,
+          "t_stat_three_way": -1.4454,
+          "p_three_way": 0.22185910377168483
+        },
+        "esm2-650m": {
+          "n_interface": 2160,
+          "rho_abundance": 0.4081,
+          "p_abundance": 1.8351460909698072e-87,
+          "rho_binding": -0.0136,
+          "p_binding": 0.5260688179971326,
+          "rho_partial": -0.1871,
+          "beta_three_way": -0.3367,
+          "se_three_way": 0.2577,
+          "t_stat_three_way": -1.3067,
+          "p_three_way": 0.2613704807768549
+        },
+        "esmc-600m": {
+          "n_interface": 2160,
+          "rho_abundance": 0.4257,
+          "p_abundance": 8.365377658435498e-96,
+          "rho_binding": 0.0002,
+          "p_binding": 0.9925403810702023,
+          "rho_partial": -0.1798,
+          "beta_three_way": -0.355,
+          "se_three_way": 0.2471,
+          "t_stat_three_way": -1.4368,
+          "p_three_way": 0.22413726013198798
+        },
+        "esmc-6b": {
+          "n_interface": 2160,
+          "rho_abundance": 0.2389,
+          "p_abundance": 2.0823393423606318e-29,
+          "rho_binding": -0.2522,
+          "p_binding": 1.0730947542028945e-32,
+          "rho_partial": -0.3723,
+          "beta_three_way": -0.3513,
+          "se_three_way": 0.2413,
+          "t_stat_three_way": -1.4557,
+          "p_three_way": 0.2191698635952588
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 20.0,
+      "distance_threshold": 5.0,
+      "n_interface": 2291,
+      "n_core": 4338,
+      "n_surface": 4014,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2291,
+          "rho_abundance": 0.4107,
+          "p_abundance": 5.794885582397652e-94,
+          "rho_binding": 0.009,
+          "p_binding": 0.6655645695745436,
+          "rho_partial": -0.1627,
+          "beta_three_way": -0.3307,
+          "se_three_way": 0.2292,
+          "t_stat_three_way": -1.4426,
+          "p_three_way": 0.22260091741477872
+        },
+        "esm2-650m": {
+          "n_interface": 2291,
+          "rho_abundance": 0.3924,
+          "p_abundance": 3.445022880384949e-85,
+          "rho_binding": -0.0103,
+          "p_binding": 0.6232013960769377,
+          "rho_partial": -0.176,
+          "beta_three_way": -0.3308,
+          "se_three_way": 0.2571,
+          "t_stat_three_way": -1.2864,
+          "p_three_way": 0.2677115620484234
+        },
+        "esmc-600m": {
+          "n_interface": 2291,
+          "rho_abundance": 0.411,
+          "p_abundance": 4.149096121394538e-94,
+          "rho_binding": -0.006,
+          "p_binding": 0.7730773930169356,
+          "rho_partial": -0.1805,
+          "beta_three_way": -0.3531,
+          "se_three_way": 0.2373,
+          "t_stat_three_way": -1.4884,
+          "p_three_way": 0.21088078239937103
+        },
+        "esmc-6b": {
+          "n_interface": 2291,
+          "rho_abundance": 0.2337,
+          "p_abundance": 8.4024748249013e-30,
+          "rho_binding": -0.2463,
+          "p_binding": 5.202120358622969e-33,
+          "rho_partial": -0.3639,
+          "beta_three_way": -0.3439,
+          "se_three_way": 0.2316,
+          "t_stat_three_way": -1.4849,
+          "p_three_way": 0.21175643462847749
+        }
+      }
+    },
+    {
+      "delta_sasa_threshold": 20.0,
+      "distance_threshold": 6.0,
+      "n_interface": 2709,
+      "n_core": 4167,
+      "n_surface": 3767,
+      "models": {
+        "esm2-3b": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3659,
+          "p_abundance": 1.3085746310551906e-86,
+          "rho_binding": -0.0241,
+          "p_binding": 0.2093755115034489,
+          "rho_partial": -0.1902,
+          "beta_three_way": -0.2839,
+          "se_three_way": 0.2068,
+          "t_stat_three_way": -1.3725,
+          "p_three_way": 0.24182873773755054
+        },
+        "esm2-650m": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3497,
+          "p_abundance": 8.913922580756452e-79,
+          "rho_binding": -0.0413,
+          "p_binding": 0.0316833486086207,
+          "rho_partial": -0.2016,
+          "beta_three_way": -0.2898,
+          "se_three_way": 0.2276,
+          "t_stat_three_way": -1.2732,
+          "p_three_way": 0.27192110120838
+        },
+        "esmc-600m": {
+          "n_interface": 2709,
+          "rho_abundance": 0.3554,
+          "p_abundance": 1.7388181601983592e-81,
+          "rho_binding": -0.0455,
+          "p_binding": 0.01792553705065893,
+          "rho_partial": -0.2094,
+          "beta_three_way": -0.324,
+          "se_three_way": 0.2152,
+          "t_stat_three_way": -1.5054,
+          "p_three_way": 0.20667423538879515
+        },
+        "esmc-6b": {
+          "n_interface": 2709,
+          "rho_abundance": 0.1914,
+          "p_abundance": 9.168806841258242e-24,
+          "rho_binding": -0.2601,
+          "p_binding": 3.9793158261184e-43,
+          "rho_partial": -0.367,
+          "beta_three_way": -0.3154,
+          "se_three_way": 0.2163,
+          "t_stat_three_way": -1.4583,
+          "p_three_way": 0.2185085014977941
+        }
+      }
+    }
+  ],
+  "summary": {
+    "esm2-3b": {
+      "beta_three_way_min": -0.3737,
+      "beta_three_way_max": -0.2839,
+      "beta_three_way_mean": -0.3336,
+      "all_beta_negative": true,
+      "rho_partial_min": -0.2253,
+      "rho_partial_max": -0.1507,
+      "rho_partial_mean": -0.1794,
+      "all_rho_partial_nonpositive": true
+    },
+    "esm2-650m": {
+      "beta_three_way_min": -0.3808,
+      "beta_three_way_max": -0.2898,
+      "beta_three_way_mean": -0.3326,
+      "all_beta_negative": true,
+      "rho_partial_min": -0.2503,
+      "rho_partial_max": -0.1749,
+      "rho_partial_mean": -0.1973,
+      "all_rho_partial_nonpositive": true
+    },
+    "esmc-600m": {
+      "beta_three_way_min": -0.4117,
+      "beta_three_way_max": -0.324,
+      "beta_three_way_mean": -0.357,
+      "all_beta_negative": true,
+      "rho_partial_min": -0.2437,
+      "rho_partial_max": -0.1674,
+      "rho_partial_mean": -0.1948,
+      "all_rho_partial_nonpositive": true
+    },
+    "esmc-6b": {
+      "beta_three_way_min": -0.4196,
+      "beta_three_way_max": -0.3154,
+      "beta_three_way_mean": -0.3572,
+      "all_beta_negative": true,
+      "rho_partial_min": -0.4318,
+      "rho_partial_max": -0.3545,
+      "rho_partial_mean": -0.3745,
+      "all_rho_partial_nonpositive": true
+    }
+  },
+  "robustness_verdict": {
+    "all_beta_negative_across_all_cutoffs": true,
+    "all_rho_partial_nonpositive_across_all_cutoffs": true,
+    "conclusion": "The finding of systematic PLM interface failure (beta_7 < 0, partial rho <= 0) is invariant to geometric cutoff choices."
+  }
+}

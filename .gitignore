@@ -16,3 +16,17 @@ data/structures/*.pdb
 # cached model weights
 *.safetensors
 *.bin
+
+# agent instructions and internal notes (never committed)
+AGENTS.md
+CLAUDE.md
+*HANDOFF*
+*TODO*
+*NOTES*
+.omp/
+.claude/
+
+# build / packaging artifacts
+*.egg-info/
+build/
+dist/

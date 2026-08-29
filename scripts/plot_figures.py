@@ -33,6 +33,7 @@ from matplotlib.patches import FancyBboxPatch, Rectangle, FancyArrowPatch, Circl
 from matplotlib.gridspec import GridSpec
 import numpy as np
 import pandas as pd
+from diagram import Ctx, card, paragraph, bullets, pill, PAPER, WASH, HAIR, INK, BODY, MUTED, DOT, SLATE, EMERALD, ROSE, INDIGO, VIOLET, AMBER, flow, descend
 from scipy import stats
 
 # Publication styling defaults
@@ -107,202 +108,111 @@ def load_data():
 # -----------------------------------------------------------------------------
 def plot_figure_1_schematic():
     """Figure 1: Conceptual schematic illustrating the monomer-folding confound in PPI assays."""
-    # Color tones matching metal-aware-sbdd design system
-    INK = "#0f172a"
-    BODY = "#334155"
-    MUTED = "#64748b"
-    HAIR = "#e2e8f0"
-    WASH = "#f8fafc"
-    PAPER = "#ffffff"
-
-    EMERALD = dict(line="#2f8f5b", tint="#eaf6ef", edge="#c8e6d3", head="#155c37", body="#1f7a4c")
-    ROSE    = dict(line="#d34a5c", tint="#fbeef0", edge="#f2c9ce", head="#8a1f2c", body="#b23347")
-    VIOLET  = dict(line="#7c5cc7", tint="#f3eefb", edge="#ddd0f0", head="#432d7a", body="#5c3fa3")
-    INDIGO  = dict(line="#4f5fc4", tint="#eef0fb", edge="#c9cfef", head="#28307d", body="#3a45a3")
-    SLATE   = dict(line="#475569", tint="#f1f5f9", edge="#e2e8f0", head="#334155", body="#475569")
-    AMBER   = dict(line="#c07f1a", tint="#fbf3e4", edge="#f0dca8", head="#7a4e0c", body="#9c661a")
-
     WIDTH = 11.2
     HEIGHT = 6.8
-    DPI = 300
-
-    fig = plt.figure(figsize=(WIDTH, HEIGHT), dpi=DPI)
+    fig = plt.figure(figsize=(WIDTH, HEIGHT), dpi=300)
     ax = fig.add_axes([0, 0, 1, 1])
     ax.set_xlim(0, WIDTH)
     ax.set_ylim(0, HEIGHT)
     ax.axis("off")
+    ctx = Ctx(fig, ax)
 
-    # Top Header banner
-    ax.text(0.40, HEIGHT - 0.38, "THE MONOMER-FOLDING CONFOUND IN PPI ZERO-SHOT BENCHMARKS", 
-            fontsize=12.5, fontweight="bold", fontfamily="Liberation Sans", color=INK)
-    ax.text(0.40, HEIGHT - 0.60, 
-            "Why single-chain protein language models appear predictive on binding assays despite zero quaternary interface awareness", 
-            fontsize=8.8, fontfamily="Liberation Sans", color=MUTED)
-
-    # Layout Columns
-    X_LEFT = 0.40
+    MARGIN = 0.40
     W_LEFT = 5.95
-
-    X_RIGHT = 6.65
+    X_LEFT = MARGIN
     W_RIGHT = 4.15
+    X_RIGHT = WIDTH - MARGIN - W_RIGHT
 
-    def draw_card(x, y, w, h, tone, tag_text, title_text, items, badge_text=None, badge_color=None):
-        card_box = FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=0.08",
-                                  ec=tone["edge"], fc=tone["tint"], lw=1.0, zorder=2)
-        ax.add_patch(card_box)
-        
-        ribbon = FancyBboxPatch((x, y), 0.09, h, boxstyle="round,pad=0,rounding_size=0.04",
-                                ec=tone["line"], fc=tone["line"], lw=0, zorder=3)
-        ax.add_patch(ribbon)
-        
-        tag_w = len(tag_text) * 0.055 + 0.18
-        tag_bg = FancyBboxPatch((x + 0.20, y + h - 0.26), tag_w, 0.16,
-                                boxstyle="round,pad=0,rounding_size=0.03",
-                                ec=tone["edge"], fc=PAPER, lw=0.8, zorder=4)
-        ax.add_patch(tag_bg)
-        ax.text(x + 0.20 + tag_w/2, y + h - 0.18, tag_text,
-                fontsize=6.2, fontweight="bold", fontfamily="Liberation Mono", color=tone["head"],
-                ha="center", va="center", zorder=5)
-        
-        if badge_text:
-            bw = len(badge_text) * 0.052 + 0.16
-            b_bg = FancyBboxPatch((x + w - bw - 0.18, y + h - 0.26), bw, 0.16,
-                                  boxstyle="round,pad=0,rounding_size=0.03",
-                                  ec=badge_color or tone["line"], fc=badge_color or tone["line"], lw=0, zorder=4)
-            ax.add_patch(b_bg)
-            ax.text(x + w - 0.18 - bw/2, y + h - 0.18, badge_text,
-                    fontsize=6.2, fontweight="bold", fontfamily="Liberation Sans", color=PAPER,
-                    ha="center", va="center", zorder=5)
+    ctx.text(MARGIN, HEIGHT - 0.38, "THE MONOMER-FOLDING CONFOUND IN PPI ZERO-SHOT BENCHMARKS", 11.5, "b", INK)
+    ctx.text(MARGIN, HEIGHT - 0.60, "Why single-chain protein language models appear predictive on binding assays despite zero quaternary interface awareness", 8.5, "n", MUTED)
 
-        ax.text(x + 0.20, y + h - 0.44, title_text,
-                fontsize=9.2, fontweight="bold", fontfamily="Liberation Sans", color=INK, zorder=4)
+    pill(ctx, X_LEFT, HEIGHT - 0.85, "A · SELECTION PHENOMENOLOGY", fg=MUTED, bg=WASH, edge=HAIR)
+
+    def draw_case(y_top, title, items, tag, tone):
+        pad_x, pad_y = 0.20, 0.20
+        h_content = pad_y
+        h_content += 0.28
+        h_content += bullets(ctx, items, X_LEFT + pad_x, y_top - h_content, W_LEFT - 2*pad_x, draw=False)
+        h_content += pad_y
         
-        curr_y = y + h - 0.64
-        for label, val in items:
-            ax.plot(x + 0.24, curr_y + 0.04, marker="s", markersize=3.0, color=tone["line"], zorder=4)
-            ax.text(x + 0.36, curr_y + 0.01, label, fontsize=7.6, fontweight="bold", fontfamily="Liberation Sans", color=BODY, zorder=4)
-            ax.text(x + 1.65, curr_y + 0.01, val, fontsize=7.5, fontfamily="Liberation Sans", color=BODY, zorder=4)
-            curr_y -= 0.21
+        card(ax, X_LEFT, y_top, W_LEFT, h_content, tone["line"], face=tone["tint"], edge=tone["edge"], stripe=0.06, radius=0.08)
+        pill(ctx, X_LEFT + W_LEFT - 0.1, y_top, tag, fg=PAPER, bg=tone["line"], edge=tone["line"], anchor="right", style="b")
+        
+        ctx.text(X_LEFT + pad_x, y_top - pad_y - 0.05, title, 9.2, "b", INK)
+        bullets(ctx, items, X_LEFT + pad_x, y_top - pad_y - 0.28, W_LEFT - 2*pad_x, color=BODY, draw=True)
+        return h_content
 
-    sec_tag = FancyBboxPatch((X_LEFT, HEIGHT - 0.94), 2.20, 0.18, boxstyle="round,pad=0,rounding_size=0.03",
-                             ec=HAIR, fc=WASH, lw=0.8)
-    ax.add_patch(sec_tag)
-    ax.text(X_LEFT + 1.10, HEIGHT - 0.85, "A · SELECTION PHENOMENOLOGY", 
-            fontsize=6.8, fontweight="bold", fontfamily="Liberation Mono", color=MUTED, ha="center", va="center")
-
+    y_curr = HEIGHT - 1.25
     c1_items = [
-        ("Monomer Fold:", "Target monomer stably folds and presents on cell surface (Abund+)"),
-        ("Binding Phenotype:", "Quaternary contact intact -> Fluorescent partner binds (Bind+)"),
-        ("PLM Prediction:", "High zero-shot likelihood (dlog p >= 0) -> Correctly scored"),
-        ("Consequence:", "True Positive: Model prediction aligns with assay readout"),
+        "**Monomer Fold:** Target monomer stably folds and presents on cell surface (Abund+).",
+        "**Binding Phenotype:** Quaternary contact intact -> Fluorescent partner binds (Bind+).",
+        "**PLM Prediction:** High zero-shot likelihood (dlog p >= 0) -> Correctly scored.",
+        "**Consequence:** *True Positive:* Model prediction aligns with assay readout."
     ]
-    draw_card(X_LEFT, HEIGHT - 2.50, W_LEFT, 1.44, EMERALD, "CASE 1 · WILD-TYPE / BENIGN", 
-              "Native Monomer Fold & Intact Complex Interface", c1_items, "TRUE POSITIVE", EMERALD["head"])
+    y_curr -= draw_case(y_curr, "CASE 1 · WILD-TYPE / BENIGN", c1_items, "TRUE POSITIVE", EMERALD) + 0.25
 
     c2_items = [
-        ("Monomer Fold:", "Hydrophobic core destabilized -> Misfolded & degraded (Abund-)"),
-        ("Binding Phenotype:", "Monomer ABSENT from surface -> Zero partner binding (Bind-)"),
-        ("PLM Prediction:", "Severe likelihood penalty (dlog p << 0) predicting folding collapse"),
-        ("Consequence:", "CONFOUND: Apparent 'binding prediction' is 100% folding-mediated"),
+        "**Monomer Fold:** Hydrophobic core destabilized -> Misfolded & degraded (Abund-).",
+        "**Binding Phenotype:** Monomer ABSENT from surface -> Zero partner binding (Bind-).",
+        "**PLM Prediction:** Severe likelihood penalty (dlog p << 0) predicting folding collapse.",
+        "**Consequence:** *CONFOUND:* Apparent 'binding prediction' is 100% folding-mediated."
     ]
-    draw_card(X_LEFT, HEIGHT - 4.10, W_LEFT, 1.44, ROSE, "CASE 2 · CORE / SURFACE DESTABILIZATION", 
-              "Monomer Unfolding Conflated as Loss of Binding", c2_items, "BENCHMARK CONFOUND", ROSE["head"])
+    y_curr -= draw_case(y_curr, "CASE 2 · CORE / SURFACE DESTABILIZATION", c2_items, "BENCHMARK CONFOUND", ROSE) + 0.25
 
     c3_items = [
-        ("Monomer Fold:", "Monomer folds normally & presents at high density (Abund+)"),
-        ("Binding Phenotype:", "Direct contact broken -> True loss of complex affinity (Bind-)"),
-        ("PLM Prediction:", "Single-chain model assigns neutral/high score (blind to partner)"),
-        ("Consequence:", "BLINDSPOT: Correlation collapses to rho = +0.075 (-80.5% drop)"),
+        "**Monomer Fold:** Monomer folds normally & presents at high density (Abund+).",
+        "**Binding Phenotype:** Direct contact broken -> True loss of complex affinity (Bind-).",
+        "**PLM Prediction:** Single-chain model assigns neutral/high score (blind to partner).",
+        "**Consequence:** *BLINDSPOT:* Correlation collapses to rho = +0.075 (-80.5% drop)."
     ]
-    draw_card(X_LEFT, HEIGHT - 5.70, W_LEFT, 1.44, VIOLET, "CASE 3 · QUATERNARY INTERFACE MUTATION", 
-              "Selective Intermolecular Disruption (Zero-Shot Blindspot)", c3_items, "ZERO-SHOT COLLAPSE", VIOLET["head"])
+    y_curr -= draw_case(y_curr, "CASE 3 · QUATERNARY INTERFACE MUTATION", c3_items, "ZERO-SHOT COLLAPSE", VIOLET) + 0.20
+    
+    ctx.text(X_LEFT, y_curr, "Double-dissociation test: Evaluating paired abundance & binding on identical libraries isolates Case 3 from Case 2.", 7.5, "i", MUTED)
 
-    ax.text(X_LEFT, 0.28, "Double-dissociation test: Evaluating paired abundance & binding on identical libraries isolates Case 3 from Case 2.",
-            fontsize=7.3, fontfamily="Liberation Sans", color=MUTED, style="italic")
+    pill(ctx, X_RIGHT, HEIGHT - 0.85, "B · CAUSAL MEDIATION & EVIDENCE", fg=MUTED, bg=WASH, edge=HAIR)
+    
+    y_curr_r = HEIGHT - 1.25
+    h_dag = 2.4
+    card(ax, X_RIGHT, y_curr_r, W_RIGHT, h_dag, INDIGO["line"], face=INDIGO["tint"], edge=INDIGO["edge"], stripe=0.06, radius=0.08)
+    pill(ctx, X_RIGHT + 0.20, y_curr_r, "CAUSAL MEDIATION DAG", fg=INDIGO["head"], bg=PAPER, edge=INDIGO["edge"], anchor="left", style="b")
+    ctx.text(X_RIGHT + 0.25, y_curr_r - 0.35, "Monomer Folding Mediates Apparent Binding Signal", 9.0, "b", INK)
+    
+    def dag_node(x, y, text, tone):
+        w, h = 1.8, 0.45
+        card(ax, x, y, w, h, tone["line"], face=PAPER, edge=tone["line"], stripe=0.0, radius=0.05)
+        ctx.text(x + w/2, y - h/2, text, 7.0, "b", INK, ha="center", va="center")
+        return (x, y, w, h)
+        
+    n_plm_x, n_plm_y = X_RIGHT + 1.15, y_curr_r - 0.85
+    n_plm = dag_node(n_plm_x, n_plm_y, "Zero-Shot PLM Score\n(Masked Marginal Log-Odds)", INDIGO)
+    
+    n_fld_x, n_fld_y = X_RIGHT + 0.25, y_curr_r - 1.75
+    n_fld = dag_node(n_fld_x, n_fld_y, "Monomer Folding & Display\n(Cell Abundance)", SLATE)
+    
+    n_bnd_x, n_bnd_y = X_RIGHT + 2.10, y_curr_r - 1.75
+    n_bnd = dag_node(n_bnd_x, n_bnd_y, "Assay Binding Readout\n(FACS Enrichment)", ROSE)
+    
+    ax.add_patch(FancyArrowPatch((n_plm_x + 0.45, n_plm_y - 0.45), (n_fld_x + 0.9, n_fld_y + 0.05), arrowstyle="-|>", mutation_scale=10, color=INDIGO["line"], lw=1.5))
+    card(ax, X_RIGHT + 0.65, n_plm_y - 0.55, 0.9, 0.3, HAIR, face=PAPER, edge=HAIR, stripe=0)
+    ctx.text(X_RIGHT + 1.1, n_plm_y - 0.70, "rho = +0.384\n(Strong Prior)", 6.5, "b", INDIGO["head"], ha="center", va="center")
 
-    sec_tag_r = FancyBboxPatch((X_RIGHT, HEIGHT - 0.94), 2.20, 0.18, boxstyle="round,pad=0,rounding_size=0.03",
-                               ec=HAIR, fc=WASH, lw=0.8)
-    ax.add_patch(sec_tag_r)
-    ax.text(X_RIGHT + 1.10, HEIGHT - 0.85, "B · CAUSAL MEDIATION & EVIDENCE", 
-            fontsize=6.8, fontweight="bold", fontfamily="Liberation Mono", color=MUTED, ha="center", va="center")
+    ax.add_patch(FancyArrowPatch((n_fld_x + 1.8, n_fld_y - 0.225), (n_bnd_x, n_bnd_y - 0.225), arrowstyle="-|>", mutation_scale=10, color=SLATE["line"], lw=1.5))
+    ctx.text(X_RIGHT + 2.02, n_fld_y - 0.10, "Assay Confound:\nUnfolded -> No Signal", 6.0, "i", MUTED, ha="center", va="center")
 
-    dag_card = FancyBboxPatch((X_RIGHT, HEIGHT - 3.42), W_RIGHT, 2.36, boxstyle="round,pad=0,rounding_size=0.08",
-                              ec=INDIGO["edge"], fc=INDIGO["tint"], lw=1.0)
-    ax.add_patch(dag_card)
+    ax.add_patch(FancyArrowPatch((n_plm_x + 1.35, n_plm_y - 0.45), (n_bnd_x + 0.9, n_bnd_y + 0.05), arrowstyle="-|>", mutation_scale=10, color=ROSE["line"], linestyle="--", lw=1.5))
+    card(ax, X_RIGHT + 2.5, n_plm_y - 0.55, 1.0, 0.3, HAIR, face=PAPER, edge=HAIR, stripe=0)
+    ctx.text(X_RIGHT + 3.0, n_plm_y - 0.70, "Direct Path:\nrho_partial = -0.367", 6.5, "b", ROSE["head"], ha="center", va="center")
 
-    dag_ribbon = FancyBboxPatch((X_RIGHT, HEIGHT - 3.42), 0.09, 2.36, boxstyle="round,pad=0,rounding_size=0.04",
-                                ec=INDIGO["line"], fc=INDIGO["line"], lw=0)
-    ax.add_patch(dag_ribbon)
-
-    dtag = FancyBboxPatch((X_RIGHT + 0.20, HEIGHT - 1.30), 1.65, 0.16, boxstyle="round,pad=0,rounding_size=0.03",
-                          ec=INDIGO["edge"], fc=PAPER, lw=0.8)
-    ax.add_patch(dtag)
-    ax.text(X_RIGHT + 0.20 + 1.65/2, HEIGHT - 1.22, "CAUSAL MEDIATION DAG",
-            fontsize=6.2, fontweight="bold", fontfamily="Liberation Mono", color=INDIGO["head"], ha="center", va="center")
-
-    ax.text(X_RIGHT + 0.20, HEIGHT - 1.48, "Monomer Folding Mediates Apparent Binding Signal",
-            fontsize=9.0, fontweight="bold", fontfamily="Liberation Sans", color=INK)
-
-    n_plm = FancyBboxPatch((X_RIGHT + 1.10, HEIGHT - 2.12), 1.95, 0.38, boxstyle="round,pad=0,rounding_size=0.04",
-                           ec=INDIGO["line"], fc=PAPER, lw=1.1)
-    ax.add_patch(n_plm)
-    ax.text(X_RIGHT + 1.10 + 1.95/2, HEIGHT - 2.12 + 0.19, "Zero-Shot PLM Score\n(Masked Marginal Log-Odds)",
-            fontsize=6.8, fontweight="bold", fontfamily="Liberation Sans", color=INK, ha="center", va="center")
-
-    n_fold = FancyBboxPatch((X_RIGHT + 0.25, HEIGHT - 2.98), 1.70, 0.42, boxstyle="round,pad=0,rounding_size=0.04",
-                            ec=SLATE["line"], fc=PAPER, lw=1.1)
-    ax.add_patch(n_fold)
-    ax.text(X_RIGHT + 0.25 + 1.70/2, HEIGHT - 2.98 + 0.21, "Monomer Folding & Display\n(Cell Abundance)",
-            fontsize=6.8, fontweight="bold", fontfamily="Liberation Sans", color=INK, ha="center", va="center")
-
-    n_bind = FancyBboxPatch((X_RIGHT + 2.20, HEIGHT - 2.98), 1.70, 0.42, boxstyle="round,pad=0,rounding_size=0.04",
-                            ec=ROSE["line"], fc=PAPER, lw=1.1)
-    ax.add_patch(n_bind)
-    ax.text(X_RIGHT + 2.20 + 1.70/2, HEIGHT - 2.98 + 0.21, "Assay Binding Readout\n(FACS Enrichment)",
-            fontsize=6.8, fontweight="bold", fontfamily="Liberation Sans", color=INK, ha="center", va="center")
-
-    ax.annotate("", xy=(X_RIGHT + 0.95, HEIGHT - 2.56), xytext=(X_RIGHT + 1.60, HEIGHT - 2.14),
-                arrowprops=dict(arrowstyle="->", lw=1.8, color=INDIGO["line"], shrinkA=1, shrinkB=1))
-    ax.text(X_RIGHT + 0.85, HEIGHT - 2.32, "rho = +0.384\n(Strong Prior)", 
-            fontsize=6.6, fontweight="bold", fontfamily="Liberation Sans", color=INDIGO["head"], ha="center", va="center",
-            bbox=dict(boxstyle="round,pad=0.15", fc=PAPER, ec=HAIR, lw=0.5))
-
-    ax.annotate("", xy=(X_RIGHT + 2.18, HEIGHT - 2.77), xytext=(X_RIGHT + 1.96, HEIGHT - 2.77),
-                arrowprops=dict(arrowstyle="->", lw=1.8, color=SLATE["line"], shrinkA=1, shrinkB=1))
-    ax.text(X_RIGHT + 2.07, HEIGHT - 2.60, "Assay Confound:\nUnfolded -> No Signal", 
-            fontsize=5.8, fontfamily="Liberation Sans", color=MUTED, ha="center", va="center", style="italic")
-
-    ax.annotate("", xy=(X_RIGHT + 3.15, HEIGHT - 2.56), xytext=(X_RIGHT + 2.55, HEIGHT - 2.14),
-                arrowprops=dict(arrowstyle="->", lw=1.8, color=ROSE["line"], linestyle="--", shrinkA=1, shrinkB=1))
-    ax.text(X_RIGHT + 3.30, HEIGHT - 2.32, "Direct Path:\nrho_partial = -0.367", 
-            fontsize=6.6, fontweight="bold", fontfamily="Liberation Sans", color=ROSE["head"], ha="center", va="center",
-            bbox=dict(boxstyle="round,pad=0.15", fc=PAPER, ec=HAIR, lw=0.5))
-
-    t_box = FancyBboxPatch((X_RIGHT + 0.20, HEIGHT - 3.32), W_RIGHT - 0.40, 0.22,
-                           boxstyle="round,pad=0,rounding_size=0.03",
-                           ec=AMBER["edge"], fc=AMBER["tint"], lw=0.8)
-    ax.add_patch(t_box)
-    ax.text(X_RIGHT + W_RIGHT/2, HEIGHT - 3.21, 
-            "Proof: rho(PLM, Binding | Abundance) <= 0  ->  Zero Unique Mutual Information",
-            fontsize=6.8, fontweight="bold", fontfamily="Liberation Sans", color=AMBER["head"], ha="center", va="center")
-
-    led_card = FancyBboxPatch((X_RIGHT, HEIGHT - 5.70), W_RIGHT, 2.16, boxstyle="round,pad=0,rounding_size=0.08",
-                              ec=HAIR, fc=WASH, lw=1.0)
-    ax.add_patch(led_card)
-
-    led_ribbon = FancyBboxPatch((X_RIGHT, HEIGHT - 5.70), 0.09, 2.16, boxstyle="round,pad=0,rounding_size=0.04",
-                                ec=SLATE["line"], fc=SLATE["line"], lw=0)
-    ax.add_patch(led_ribbon)
-
-    ltag = FancyBboxPatch((X_RIGHT + 0.20, HEIGHT - 3.70), 1.65, 0.16, boxstyle="round,pad=0,rounding_size=0.03",
-                          ec=HAIR, fc=PAPER, lw=0.8)
-    ax.add_patch(ltag)
-    ax.text(X_RIGHT + 0.20 + 1.65/2, HEIGHT - 3.62, "EVIDENCE INVARIANTS",
-            fontsize=6.2, fontweight="bold", fontfamily="Liberation Mono", color=SLATE["head"], ha="center", va="center")
-
-    ax.text(X_RIGHT + 0.20, HEIGHT - 3.88, "Key Empirical Metrics Across N = 10,643 Variants",
-            fontsize=9.0, fontweight="bold", fontfamily="Liberation Sans", color=INK)
-
+    card(ax, X_RIGHT + 0.20, y_curr_r - 2.05, W_RIGHT - 0.40, 0.25, AMBER["line"], face=AMBER["tint"], edge=AMBER["edge"], stripe=0)
+    ctx.text(X_RIGHT + W_RIGHT/2, y_curr_r - 2.175, "Proof: rho(PLM, Binding | Abundance) <= 0  ->  Zero Unique Mutual Information", 7.0, "b", AMBER["head"], ha="center", va="center")
+    
+    y_curr_r -= h_dag + 0.25
+    
+    h_led = 2.10
+    card(ax, X_RIGHT, y_curr_r, W_RIGHT, h_led, SLATE["line"], face=WASH, edge=HAIR, stripe=0.06, radius=0.08)
+    pill(ctx, X_RIGHT + 0.20, y_curr_r, "EVIDENCE INVARIANTS", fg=SLATE["head"], bg=PAPER, edge=HAIR, anchor="left", style="b")
+    ctx.text(X_RIGHT + 0.25, y_curr_r - 0.35, "Key Empirical Metrics Across N = 10,643 Variants", 9.0, "b", INK)
+    
     ledger_rows = [
         ("Paired Mutational Dataset", "10,643 variants (2,262 interface)"),
         ("Interface Monomer Folding Coupling", "rho = +0.384 to +0.413 (Robust)"),
@@ -312,28 +222,21 @@ def plot_figure_1_schematic():
         ("Homooligomer Interface Prior (p53)", "rho = -0.565 (Anti-correlation)"),
         ("Binder Candidate Depletion (Top 20%)", "96.1% true hits discarded"),
     ]
-
-    curr_y = HEIGHT - 4.10
+    
+    ly = y_curr_r - 0.55
     for i, (metric, val) in enumerate(ledger_rows):
         if i % 2 == 0:
-            row_bg = Rectangle((X_RIGHT + 0.15, curr_y - 0.05), W_RIGHT - 0.30, 0.19,
-                               fc=PAPER, ec="none", zorder=2)
-            ax.add_patch(row_bg)
-        ax.text(X_RIGHT + 0.22, curr_y + 0.04, metric, fontsize=7.2, fontfamily="Liberation Sans", color=BODY, zorder=3)
-        ax.text(X_RIGHT + W_RIGHT - 0.22, curr_y + 0.04, val, 
-                fontsize=7.1, fontweight="bold", fontfamily="Liberation Mono", 
-                color=ROSE["head"] if ("collapse" in val or "discarded" in val or "Anti" in val or "-0.367" in val) else INK,
-                ha="right", zorder=3)
-        curr_y -= 0.205
-
-    ax.text(X_RIGHT, 0.28, "All metrics computed across ESM2-650M, ESM2-3B, ESMC-600M, and ESMC-6B foundation checkpoints.",
-            fontsize=7.3, fontfamily="Liberation Sans", color=MUTED, style="italic")
+            ax.add_patch(Rectangle((X_RIGHT + 0.15, ly - 0.16), W_RIGHT - 0.25, 0.20, fc=PAPER, ec="none", zorder=2))
+        ctx.text(X_RIGHT + 0.22, ly, metric, 7.2, "n", BODY)
+        ctx.text(X_RIGHT + W_RIGHT - 0.15, ly, val, 7.2, "m", ROSE["head"] if ("collapse" in val or "discarded" in val or "Anti" in val or "-0.367" in val) else INK, ha="right")
+        ly -= 0.205
+        
+    ctx.text(X_RIGHT, ly - 0.05, "All metrics computed across ESM2-650M, ESM2-3B, ESMC-600M, and ESMC-6B foundation checkpoints.", 7.0, "i", MUTED)
 
     out_path = DOCS_FIGS_DIR / "01_expression_confound_schematic.png"
-    plt.savefig(out_path, dpi=300)
+    plt.savefig(out_path, dpi=300, bbox_inches="tight")
     plt.close()
     print(f"[saved] {out_path}")
-
 # -----------------------------------------------------------------------------
 # Figure 2: Double-Dissociation Scatter Plots
 # -----------------------------------------------------------------------------

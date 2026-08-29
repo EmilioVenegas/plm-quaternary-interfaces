@@ -36,3 +36,4 @@ docs/discovery_axes.md
 *.egg-info/
 build/
 dist/
+vendor/

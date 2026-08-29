@@ -26,6 +26,12 @@ CLAUDE.md
 .omp/
 .claude/
 
+
+# planning and masterplan documents (untracked)
+MASTERPLAN.md
+*PLAN*
+*PRE_REGISTRATION*
+docs/discovery_axes.md
 # build / packaging artifacts
 *.egg-info/
 build/

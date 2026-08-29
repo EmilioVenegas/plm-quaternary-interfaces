@@ -1,0 +1,539 @@
+{
+  "timestamp_utc": "2026-08-29T18:06:10.933242+00:00",
+  "mutation_definitions": {
+    "beneficial_binding": "delta_DMS_binding >= 0.0 (experimentally improves or maintains binding affinity)",
+    "disruptive_binding": "delta_DMS_binding < -1.0 (experimentally destroys binding affinity)",
+    "beneficial_abundance": "delta_DMS_abundance >= 0.0 (experimentally improves or maintains monomer expression/folding)"
+  },
+  "dataset_statistics": {
+    "n_total_variants": 10643,
+    "n_interface_variants": 2262,
+    "n_total_beneficial_binding": 3657,
+    "n_interface_beneficial_binding": 1148
+  },
+  "filter_simulations": {
+    "esm2-3b": {
+      "arm": "esm2-3b",
+      "thresholds_simulation": [
+        {
+          "filter_top_pct": 10,
+          "quantile_threshold": 0.2458,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.0915,
+          "p_selected_non_interface": 0.0841,
+          "p_selected_core": 0.0561,
+          "p_selected_surface": 0.1015,
+          "interface_depletion_rate": -0.0876,
+          "interface_false_negative_rate": 0.9085,
+          "non_interface_false_negative_rate": 0.9159
+        },
+        {
+          "filter_top_pct": 20,
+          "quantile_threshold": -0.2402,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.1211,
+          "p_selected_non_interface": 0.1499,
+          "p_selected_core": 0.0873,
+          "p_selected_surface": 0.1888,
+          "interface_depletion_rate": 0.192,
+          "interface_false_negative_rate": 0.8789,
+          "non_interface_false_negative_rate": 0.8501
+        },
+        {
+          "filter_top_pct": 30,
+          "quantile_threshold": -0.8074,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.1646,
+          "p_selected_non_interface": 0.2196,
+          "p_selected_core": 0.106,
+          "p_selected_surface": 0.2902,
+          "interface_depletion_rate": 0.2503,
+          "interface_false_negative_rate": 0.8354,
+          "non_interface_false_negative_rate": 0.7804
+        },
+        {
+          "filter_top_pct": 50,
+          "quantile_threshold": -3.625,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.4486,
+          "p_selected_non_interface": 0.4336,
+          "p_selected_core": 0.2453,
+          "p_selected_surface": 0.5507,
+          "interface_depletion_rate": -0.0345,
+          "interface_false_negative_rate": 0.5514,
+          "non_interface_false_negative_rate": 0.5664
+        }
+      ],
+      "per_system_audit_top20": {
+        "GB1": {
+          "n_variants": 76,
+          "n_beneficial_interface": 21,
+          "p_selected_interface_top20": 0.4762,
+          "p_selected_non_interface_top20": 0.5,
+          "depletion_rate_top20": 0.0476,
+          "false_negative_rate_interface_top20": 0.5238
+        },
+        "HLA-A2": {
+          "n_variants": 3344,
+          "n_beneficial_interface": 512,
+          "p_selected_interface_top20": 0.2852,
+          "p_selected_non_interface_top20": 0.2531,
+          "depletion_rate_top20": -0.1267,
+          "false_negative_rate_interface_top20": 0.7148
+        },
+        "KRAS": {
+          "n_variants": 2761,
+          "n_beneficial_interface": 80,
+          "p_selected_interface_top20": 0.5,
+          "p_selected_non_interface_top20": 0.2936,
+          "depletion_rate_top20": -0.703,
+          "false_negative_rate_interface_top20": 0.5
+        },
+        "SARS-CoV-2_RBD": {
+          "n_variants": 3664,
+          "n_beneficial_interface": 27,
+          "p_selected_interface_top20": 0.4815,
+          "p_selected_non_interface_top20": 0.1835,
+          "depletion_rate_top20": -1.6232,
+          "false_negative_rate_interface_top20": 0.5185
+        },
+        "p53": {
+          "n_variants": 798,
+          "n_beneficial_interface": 508,
+          "p_selected_interface_top20": 0.1496,
+          "p_selected_non_interface_top20": 0.2943,
+          "depletion_rate_top20": 0.4917,
+          "false_negative_rate_interface_top20": 0.8504
+        }
+      },
+      "total_beneficial_binding_variants": 3657,
+      "total_disruptive_binding_variants": 1776,
+      "total_interface_beneficial_variants": 1148,
+      "key_takeaway": "Using esm2-3b single-chain zero-shot score as a computational filter at top 20% discards 87.9% of true affinity-enhancing interface mutations with an interface depletion rate of 19.2% relative to non-interface mutations."
+    },
+    "esm2-650m": {
+      "arm": "esm2-650m",
+      "thresholds_simulation": [
+        {
+          "filter_top_pct": 10,
+          "quantile_threshold": 0.3003,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.0976,
+          "p_selected_non_interface": 0.1004,
+          "p_selected_core": 0.0457,
+          "p_selected_surface": 0.1345,
+          "interface_depletion_rate": 0.0286,
+          "interface_false_negative_rate": 0.9024,
+          "non_interface_false_negative_rate": 0.8996
+        },
+        {
+          "filter_top_pct": 20,
+          "quantile_threshold": -0.1722,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.142,
+          "p_selected_non_interface": 0.1722,
+          "p_selected_core": 0.0832,
+          "p_selected_surface": 0.2275,
+          "interface_depletion_rate": 0.1754,
+          "interface_false_negative_rate": 0.858,
+          "non_interface_false_negative_rate": 0.8278
+        },
+        {
+          "filter_top_pct": 30,
+          "quantile_threshold": -0.6327,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.1855,
+          "p_selected_non_interface": 0.2479,
+          "p_selected_core": 0.1216,
+          "p_selected_surface": 0.3264,
+          "interface_depletion_rate": 0.2516,
+          "interface_false_negative_rate": 0.8145,
+          "non_interface_false_negative_rate": 0.7521
+        },
+        {
+          "filter_top_pct": 50,
+          "quantile_threshold": -2.4102,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.4024,
+          "p_selected_non_interface": 0.4484,
+          "p_selected_core": 0.236,
+          "p_selected_surface": 0.5805,
+          "interface_depletion_rate": 0.1025,
+          "interface_false_negative_rate": 0.5976,
+          "non_interface_false_negative_rate": 0.5516
+        }
+      ],
+      "per_system_audit_top20": {
+        "GB1": {
+          "n_variants": 76,
+          "n_beneficial_interface": 21,
+          "p_selected_interface_top20": 0.4762,
+          "p_selected_non_interface_top20": 0.5,
+          "depletion_rate_top20": 0.0476,
+          "false_negative_rate_interface_top20": 0.5238
+        },
+        "HLA-A2": {
+          "n_variants": 3344,
+          "n_beneficial_interface": 512,
+          "p_selected_interface_top20": 0.2324,
+          "p_selected_non_interface_top20": 0.2724,
+          "depletion_rate_top20": 0.1466,
+          "false_negative_rate_interface_top20": 0.7676
+        },
+        "KRAS": {
+          "n_variants": 2761,
+          "n_beneficial_interface": 80,
+          "p_selected_interface_top20": 0.6125,
+          "p_selected_non_interface_top20": 0.2804,
+          "depletion_rate_top20": -1.1847,
+          "false_negative_rate_interface_top20": 0.3875
+        },
+        "SARS-CoV-2_RBD": {
+          "n_variants": 3664,
+          "n_beneficial_interface": 27,
+          "p_selected_interface_top20": 0.3333,
+          "p_selected_non_interface_top20": 0.1551,
+          "depletion_rate_top20": -1.1497,
+          "false_negative_rate_interface_top20": 0.6667
+        },
+        "p53": {
+          "n_variants": 798,
+          "n_beneficial_interface": 508,
+          "p_selected_interface_top20": 0.1496,
+          "p_selected_non_interface_top20": 0.2943,
+          "depletion_rate_top20": 0.4917,
+          "false_negative_rate_interface_top20": 0.8504
+        }
+      },
+      "total_beneficial_binding_variants": 3657,
+      "total_disruptive_binding_variants": 1776,
+      "total_interface_beneficial_variants": 1148,
+      "key_takeaway": "Using esm2-650m single-chain zero-shot score as a computational filter at top 20% discards 85.8% of true affinity-enhancing interface mutations with an interface depletion rate of 17.5% relative to non-interface mutations."
+    },
+    "esmc-600m": {
+      "arm": "esmc-600m",
+      "thresholds_simulation": [
+        {
+          "filter_top_pct": 10,
+          "quantile_threshold": 0.2031,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.0627,
+          "p_selected_non_interface": 0.0646,
+          "p_selected_core": 0.0301,
+          "p_selected_surface": 0.086,
+          "interface_depletion_rate": 0.0286,
+          "interface_false_negative_rate": 0.9373,
+          "non_interface_false_negative_rate": 0.9354
+        },
+        {
+          "filter_top_pct": 20,
+          "quantile_threshold": -0.3125,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.0862,
+          "p_selected_non_interface": 0.1271,
+          "p_selected_core": 0.0561,
+          "p_selected_surface": 0.1713,
+          "interface_depletion_rate": 0.3217,
+          "interface_false_negative_rate": 0.9138,
+          "non_interface_false_negative_rate": 0.8729
+        },
+        {
+          "filter_top_pct": 30,
+          "quantile_threshold": -1.0203,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.128,
+          "p_selected_non_interface": 0.1937,
+          "p_selected_core": 0.0832,
+          "p_selected_surface": 0.2624,
+          "interface_depletion_rate": 0.3389,
+          "interface_false_negative_rate": 0.872,
+          "non_interface_false_negative_rate": 0.8063
+        },
+        {
+          "filter_top_pct": 50,
+          "quantile_threshold": -4.7578,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.48,
+          "p_selected_non_interface": 0.444,
+          "p_selected_core": 0.2848,
+          "p_selected_surface": 0.543,
+          "interface_depletion_rate": -0.081,
+          "interface_false_negative_rate": 0.52,
+          "non_interface_false_negative_rate": 0.556
+        }
+      ],
+      "per_system_audit_top20": {
+        "GB1": {
+          "n_variants": 76,
+          "n_beneficial_interface": 21,
+          "p_selected_interface_top20": 0.4762,
+          "p_selected_non_interface_top20": 0.5,
+          "depletion_rate_top20": 0.0476,
+          "false_negative_rate_interface_top20": 0.5238
+        },
+        "HLA-A2": {
+          "n_variants": 3344,
+          "n_beneficial_interface": 512,
+          "p_selected_interface_top20": 0.3398,
+          "p_selected_non_interface_top20": 0.2462,
+          "depletion_rate_top20": -0.3803,
+          "false_negative_rate_interface_top20": 0.6602
+        },
+        "KRAS": {
+          "n_variants": 2761,
+          "n_beneficial_interface": 80,
+          "p_selected_interface_top20": 0.5875,
+          "p_selected_non_interface_top20": 0.2804,
+          "depletion_rate_top20": -1.0956,
+          "false_negative_rate_interface_top20": 0.4125
+        },
+        "SARS-CoV-2_RBD": {
+          "n_variants": 3664,
+          "n_beneficial_interface": 27,
+          "p_selected_interface_top20": 0.2963,
+          "p_selected_non_interface_top20": 0.1709,
+          "depletion_rate_top20": -0.7339,
+          "false_negative_rate_interface_top20": 0.7037
+        },
+        "p53": {
+          "n_variants": 798,
+          "n_beneficial_interface": 508,
+          "p_selected_interface_top20": 0.1319,
+          "p_selected_non_interface_top20": 0.3298,
+          "depletion_rate_top20": 0.6001,
+          "false_negative_rate_interface_top20": 0.8681
+        }
+      },
+      "total_beneficial_binding_variants": 3657,
+      "total_disruptive_binding_variants": 1776,
+      "total_interface_beneficial_variants": 1148,
+      "key_takeaway": "Using esmc-600m single-chain zero-shot score as a computational filter at top 20% discards 91.4% of true affinity-enhancing interface mutations with an interface depletion rate of 32.2% relative to non-interface mutations."
+    },
+    "esmc-6b": {
+      "arm": "esmc-6b",
+      "thresholds_simulation": [
+        {
+          "filter_top_pct": 10,
+          "quantile_threshold": 0.1106,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.0279,
+          "p_selected_non_interface": 0.0418,
+          "p_selected_core": 0.0281,
+          "p_selected_surface": 0.0504,
+          "interface_depletion_rate": 0.3339,
+          "interface_false_negative_rate": 0.9721,
+          "non_interface_false_negative_rate": 0.9582
+        },
+        {
+          "filter_top_pct": 20,
+          "quantile_threshold": -0.4898,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.0392,
+          "p_selected_non_interface": 0.0929,
+          "p_selected_core": 0.052,
+          "p_selected_surface": 0.1183,
+          "interface_depletion_rate": 0.5779,
+          "interface_false_negative_rate": 0.9608,
+          "non_interface_false_negative_rate": 0.9071
+        },
+        {
+          "filter_top_pct": 30,
+          "quantile_threshold": -1.4043,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.0645,
+          "p_selected_non_interface": 0.1423,
+          "p_selected_core": 0.0748,
+          "p_selected_surface": 0.1842,
+          "interface_depletion_rate": 0.547,
+          "interface_false_negative_rate": 0.9355,
+          "non_interface_false_negative_rate": 0.8577
+        },
+        {
+          "filter_top_pct": 50,
+          "quantile_threshold": -6.625,
+          "n_beneficial_interface": 1148,
+          "n_beneficial_non_interface": 2509,
+          "p_selected_interface": 0.3545,
+          "p_selected_non_interface": 0.4631,
+          "p_selected_core": 0.3264,
+          "p_selected_surface": 0.5482,
+          "interface_depletion_rate": 0.2345,
+          "interface_false_negative_rate": 0.6455,
+          "non_interface_false_negative_rate": 0.5369
+        }
+      ],
+      "per_system_audit_top20": {
+        "GB1": {
+          "n_variants": 76,
+          "n_beneficial_interface": 21,
+          "p_selected_interface_top20": 0.4762,
+          "p_selected_non_interface_top20": 0.25,
+          "depletion_rate_top20": -0.9048,
+          "false_negative_rate_interface_top20": 0.5238
+        },
+        "HLA-A2": {
+          "n_variants": 3344,
+          "n_beneficial_interface": 512,
+          "p_selected_interface_top20": 0.3281,
+          "p_selected_non_interface_top20": 0.2345,
+          "depletion_rate_top20": -0.3991,
+          "false_negative_rate_interface_top20": 0.6719
+        },
+        "KRAS": {
+          "n_variants": 2761,
+          "n_beneficial_interface": 80,
+          "p_selected_interface_top20": 0.325,
+          "p_selected_non_interface_top20": 0.2826,
+          "depletion_rate_top20": -0.1502,
+          "false_negative_rate_interface_top20": 0.675
+        },
+        "SARS-CoV-2_RBD": {
+          "n_variants": 3664,
+          "n_beneficial_interface": 27,
+          "p_selected_interface_top20": 0.3333,
+          "p_selected_non_interface_top20": 0.1582,
+          "depletion_rate_top20": -1.1067,
+          "false_negative_rate_interface_top20": 0.6667
+        },
+        "p53": {
+          "n_variants": 798,
+          "n_beneficial_interface": 508,
+          "p_selected_interface_top20": 0.1102,
+          "p_selected_non_interface_top20": 0.3546,
+          "depletion_rate_top20": 0.6891,
+          "false_negative_rate_interface_top20": 0.8898
+        }
+      },
+      "total_beneficial_binding_variants": 3657,
+      "total_disruptive_binding_variants": 1776,
+      "total_interface_beneficial_variants": 1148,
+      "key_takeaway": "Using esmc-6b single-chain zero-shot score as a computational filter at top 20% discards 96.1% of true affinity-enhancing interface mutations with an interface depletion rate of 57.8% relative to non-interface mutations."
+    }
+  },
+  "multichain_rescue_baseline": {
+    "model_arm": "esm2-650m",
+    "rescue_successful": false,
+    "mean_monomer_rho_binding": 0.2365,
+    "mean_concatenated_rho_binding": 0.2202,
+    "mean_delta_rho_binding": -0.0162,
+    "per_system": {
+      "SARS-CoV-2_RBD": {
+        "n_variants": 379,
+        "monomer": {
+          "rho_abundance": 0.1026,
+          "p_abundance": 0.04595877133198568,
+          "rho_binding": 0.142,
+          "p_binding": 0.005624182026963095,
+          "rho_partial_binding_given_abundance": 0.1401
+        },
+        "concatenated": {
+          "rho_abundance": 0.1699,
+          "p_abundance": 0.0008981192947843484,
+          "rho_binding": 0.1142,
+          "p_binding": 0.02615494891907097,
+          "rho_partial_binding_given_abundance": 0.1114
+        },
+        "delta_rho_binding": -0.0277,
+        "delta_rho_partial": -0.0286
+      },
+      "KRAS": {
+        "n_variants": 359,
+        "monomer": {
+          "rho_abundance": 0.2714,
+          "p_abundance": 1.7682037183265571e-07,
+          "rho_binding": 0.5741,
+          "p_binding": 7.26379777745017e-33,
+          "rho_partial_binding_given_abundance": 0.5273
+        },
+        "concatenated": {
+          "rho_abundance": 0.2667,
+          "p_abundance": 2.907429625662201e-07,
+          "rho_binding": 0.5625,
+          "p_binding": 2.4524344945975066e-31,
+          "rho_partial_binding_given_abundance": 0.5153
+        },
+        "delta_rho_binding": -0.0117,
+        "delta_rho_partial": -0.012
+      },
+      "HLA-A2": {
+        "n_variants": 954,
+        "monomer": {
+          "rho_abundance": 0.5313,
+          "p_abundance": 1.3576515437222896e-70,
+          "rho_binding": 0.3347,
+          "p_binding": 2.1039092330216604e-26,
+          "rho_partial_binding_given_abundance": 0.0886
+        },
+        "concatenated": {
+          "rho_abundance": 0.5371,
+          "p_abundance": 2.0330410446458788e-72,
+          "rho_binding": 0.3325,
+          "p_binding": 4.6185392376617585e-26,
+          "rho_partial_binding_given_abundance": 0.0818
+        },
+        "delta_rho_binding": -0.0022,
+        "delta_rho_partial": -0.0067
+      },
+      "GB1": {
+        "n_variants": 57,
+        "monomer": {
+          "rho_abundance": 0.5988,
+          "p_abundance": 8.619407862953885e-07,
+          "rho_binding": 0.591,
+          "p_binding": 1.2953962133772867e-06,
+          "rho_partial_binding_given_abundance": -0.0838
+        },
+        "concatenated": {
+          "rho_abundance": 0.5274,
+          "p_abundance": 2.491610137490323e-05,
+          "rho_binding": 0.5183,
+          "p_binding": 3.628423473280953e-05,
+          "rho_partial_binding_given_abundance": -0.1006
+        },
+        "delta_rho_binding": -0.0727,
+        "delta_rho_partial": -0.0168
+      },
+      "p53": {
+        "n_variants": 513,
+        "monomer": {
+          "rho_abundance": 0.474,
+          "p_abundance": 4.281950351239414e-30,
+          "rho_binding": -0.4595,
+          "p_binding": 3.694636412439062e-28,
+          "rho_partial_binding_given_abundance": -0.3654
+        },
+        "concatenated": {
+          "rho_abundance": 0.1699,
+          "p_abundance": 0.00010972354594797877,
+          "rho_binding": -0.4263,
+          "p_binding": 4.534358630091172e-24,
+          "rho_partial_binding_given_abundance": -0.3981
+        },
+        "delta_rho_binding": 0.0332,
+        "delta_rho_partial": -0.0327
+      }
+    },
+    "verdict": "Multi-chain concatenated conditioning FAILS to rescue quaternary interface sensitivity (mean delta rho(binding) = -0.016). Presenting partner sequences in the context window does not provide the necessary 3D spatial docking geometry or co-evolutionary paired coupling priors."
+  },
+  "engineering_recommendations": [
+    "1. NEVER use single-chain zero-shot PLM likelihoods (ESM-2 / ESMC) as a hard exclusionary filter for binder design or interface optimization.",
+    "2. At standard top 20% thresholds, single-chain PLM filters discard 85-96% of experimentally validated affinity-improving mutations.",
+    "3. Multi-chain concatenated sequence conditioning (target + partner) in single-sequence PLMs does not rescue interface prediction.",
+    "4. Computational protein engineering pipelines targeting interfaces MUST use structure-based physical models (e.g. Rosetta, FoldX) or explicit complex co-design models (e.g. ProteinMPNN, AlphaFold-Multimer) rather than single-sequence PLM priors."
+  ]
+}

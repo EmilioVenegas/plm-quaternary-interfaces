@@ -126,3 +126,116 @@ def score_variant_dataframe(
             logp_wt_scores.append(float("nan"))
 
     return zs_scores, logp_wt_scores
+
+
+def score_concatenated_interface_variants(
+    model: Any,
+    tok: Any,
+    df_variants: Any,
+    struct_dir: Any = None,
+    ref_df: Any = None,
+    batch_size: int = 16,
+) -> list[float]:
+    """Scores interface variants under concatenated co-sequence conditioning.
+
+    Constructs multi-chain prompt: <cls> Target_Seq <eos> Partner_Seq <eos>
+    and computes masked-marginal zero-shot scores for interface mutations.
+    """
+    from pathlib import Path
+    from Bio.PDB import PDBParser, is_aa
+    from Bio.SeqUtils import seq1
+    from plmppi.data import PRIMARY_SYSTEMS, load_reference
+
+    if struct_dir is None:
+        repo_root = Path(__file__).resolve().parents[2]
+        struct_dir = repo_root / "data" / "structures"
+    else:
+        struct_dir = Path(struct_dir)
+
+    if ref_df is None:
+        ref_df = load_reference()
+
+    parser = PDBParser(QUIET=True)
+    sys_lookup = {s.system_id: s for s in PRIMARY_SYSTEMS}
+
+    m_id = mask_token_id(tok)
+    device = _input_device(model)
+    aa_ids = _aa_token_ids(tok)
+
+    all_scores: list[float] = []
+
+    for sys_id, group in df_variants.groupby("system", sort=False):
+        if sys_id not in sys_lookup:
+            all_scores.extend([float("nan")] * len(group))
+            continue
+
+        sys_obj = sys_lookup[sys_id]
+        match = ref_df.query("DMS_id == @sys_obj.dms_abundance")
+        if match.empty:
+            all_scores.extend([float("nan")] * len(group))
+            continue
+        t_seq = match.iloc[0]["target_seq"]
+
+        pdb_path = struct_dir / f"{sys_obj.pdb_id}.pdb"
+        if not pdb_path.exists():
+            all_scores.extend([float("nan")] * len(group))
+            continue
+
+        st = parser.get_structure(sys_id, str(pdb_path))
+        partner_seqs = [
+            "".join(seq1(r.get_resname()) for r in st[0][pc] if is_aa(r))
+            for pc in sys_obj.partner_chains
+            if pc in st[0]
+        ]
+        full_partner_seq = ":".join(partner_seqs) if partner_seqs else ""
+
+        pos_list = sorted(group["position"].unique().tolist())
+        if not pos_list:
+            continue
+
+        # Handle long target sequences (e.g. Spike 1273 aa) by windowing around interface positions
+        if len(t_seq) + len(full_partner_seq) > 1020:
+            min_p = min(pos_list)
+            max_p = max(pos_list)
+            pad_start = max(1, min_p - 50)
+            pad_end = min(len(t_seq), max_p + 50)
+            cropped_t_seq = t_seq[pad_start - 1 : pad_end]
+            offset = pad_start - 1
+            enc = tok(cropped_t_seq, full_partner_seq, return_tensors="pt")
+        else:
+            offset = 0
+            enc = tok(t_seq, full_partner_seq, return_tensors="pt")
+
+        base_ids = enc["input_ids"]
+        base_mask = enc.get("attention_mask")
+
+        lp_map: dict[int, dict[str, float]] = {}
+        for start in range(0, len(pos_list), batch_size):
+            chunk = pos_list[start : start + batch_size]
+            ids = base_ids.repeat(len(chunk), 1)
+            for r, p in enumerate(chunk):
+                token_idx = p - offset
+                if token_idx < ids.shape[1]:
+                    ids[r, token_idx] = m_id
+
+            mask = base_mask.repeat(len(chunk), 1) if base_mask is not None else None
+            logits = _forward(model, ids, mask, device)
+
+            for r, p in enumerate(chunk):
+                token_idx = p - offset
+                if token_idx < logits.shape[1]:
+                    lp = F.log_softmax(logits[r, token_idx].float(), dim=-1)
+                    lp_map[p] = {a: float(lp[t].item()) for a, t in zip(AA_LIST, aa_ids)}
+
+        for _, row in group.iterrows():
+            p = int(row["position"])
+            wt = str(row["wt"])
+            mut = str(row["mut"])
+            if p in lp_map:
+                lp_mut = lp_map[p].get(mut, -99.0)
+                lp_wt = lp_map[p].get(wt, -99.0)
+                all_scores.append(lp_mut - lp_wt)
+            else:
+                all_scores.append(float("nan"))
+
+    return all_scores

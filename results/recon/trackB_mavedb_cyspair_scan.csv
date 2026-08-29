@@ -1,0 +1,495 @@
+urn,title,status,n_multi_variant_rows,n_rows_2plus_wt_cys,cys_pairs
+urn:mavedb:00000001-b-1,SUMO1 imputed and refined,ok,0,0,{}
+urn:mavedb:00000001-b-2,SUMO1 DMS-TileSeq,ok,0,0,{}
+urn:mavedb:00000001-c-1,Human Calmodulin DMS-TileSeq,ok,0,0,{}
+urn:mavedb:00000001-c-2,Human Calmodulin imputed and refined,ok,0,0,{}
+urn:mavedb:00000005-a-3,CBS high-B6 imputed and refined,ok,0,0,{}
+urn:mavedb:00000005-a-4,CBS low-B6 imputed and refined,ok,0,0,{}
+urn:mavedb:00000005-a-5,CBS low-B6,ok,0,0,{}
+urn:mavedb:00000005-a-6,CBS high-B6,ok,0,0,{}
+urn:mavedb:00000010-a-1,Deep mutational scan of Pab1 RRM domain,ok,39608,0,{}
+urn:mavedb:00000037-a-1,Ubiquitin EMPIRIC amino acid scores,ok,0,0,{}
+urn:mavedb:00000038-a-1,"Ubiquitin-E1 yeast display amino acid scores, limiting E1",ok,0,0,{}
+urn:mavedb:00000038-b-1,"Ubiquitin-E1 yeast display amino acid scores, excess E1, region 1",ok,0,0,{}
+urn:mavedb:00000038-b-2,"Ubiquitin-E1 yeast display amino acid scores, excess E1, region 2",ok,0,0,{}
+urn:mavedb:00000039-a-1,"Deep mutational scan of HSP90, ADH construct",ok,0,0,{}
+urn:mavedb:00000039-a-2,"Deep mutational scan of HSP90, ADHdter construct",ok,0,0,{}
+urn:mavedb:00000039-a-3,"Deep mutational scan of HSP90, CYC construct",ok,0,0,{}
+urn:mavedb:00000039-a-4,"Deep mutational scan of HSP90, CYCdter construct",ok,0,0,{}
+urn:mavedb:00000039-a-5,"Deep mutational scan of HSP90, GPD construct",ok,0,0,{}
+urn:mavedb:00000039-a-6,"Deep mutational scan of HSP90, TEF construct",ok,0,0,{}
+urn:mavedb:00000039-a-7,"Deep mutational scan of HSP90, TEFdter construct",ok,0,0,{}
+urn:mavedb:00000041-a-1,Amino acid scores for Src CD,ok,0,0,{}
+urn:mavedb:00000041-b-1,Deep mutational scan of Src SH4,ok,0,0,{}
+urn:mavedb:00000042-a-1,EGFP N-terminal codon nucleotide scores,ok,0,0,{}
+urn:mavedb:00000045-k-1,Deep Mutational Scanning of alpha-Synuclein based on Expression Level in Yeast,ok,0,0,{}
+urn:mavedb:00000047-a-1,CCR5 surface expression,ok,0,0,{}
+urn:mavedb:00000047-b-1,CCR5 Ab 2D7 binding,ok,0,0,{}
+urn:mavedb:00000047-c-1,CCR5 HIV binding,ok,0,0,{}
+urn:mavedb:00000048-a-1,CXCR4 surface expression,ok,0,0,{}
+urn:mavedb:00000048-b-1,CXCR4 CXCL12 binding,ok,0,0,{}
+urn:mavedb:00000048-c-1,CXCR4 Ab 12G5 binding,ok,0,0,{}
+urn:mavedb:00000052-a-1,Gcn4 activation domain activity,ok,6224,0,{}
+urn:mavedb:00000052-b-1,Gcn4 activation domain induction ratio,ok,6224,0,{}
+urn:mavedb:00000062-a-1,Abundance of CYP2C9 variants,ok,0,0,{}
+urn:mavedb:00000062-b-1,Abundance of CYP2C19 variants,ok,0,0,{}
+urn:mavedb:00000069-a-1,"ACE2 binding to SARS-CoV-2 spike protein, high affinity",ok,0,0,{}
+urn:mavedb:00000069-a-2,"ACE2 binding to SARS-CoV-2 spike protein, low affinity",ok,0,0,{}
+urn:mavedb:00000070-a-1,Nucleotide fitness scores of TEM-1 β-lactamase,ok,0,0,{}
+urn:mavedb:00000070-a-2,Amino acid fitness scores of TEM-1 β-lactamase,ok,0,0,{}
+urn:mavedb:00000070-a-3,Nucleotide fitness scores of TEM-1 β-lactamase,ok,0,0,{}
+urn:mavedb:00000070-a-4,Amino acid fitness scores of TEM-1 β-lactamase,ok,0,0,{}
+urn:mavedb:00000072-a-1,Human IgG1 Fc stability,ok,0,0,{}
+urn:mavedb:00000075-a-1,Zika E protein DMS,ok,0,0,{}
+urn:mavedb:00000078-a-1,VKOR carboxylation activity,ok,0,0,{}
+urn:mavedb:00000078-b-1,VKOR protein stability,ok,0,0,{}
+urn:mavedb:00000079-a-1,Stability selection of PyKS,ok,0,0,{}
+urn:mavedb:00000080-a-1,"GFP mutations and fluorescence levels, nucleotide variants",ok,53415,13,"{""(47, 69)"": 13}"
+urn:mavedb:00000080-a-2,"GFP mutations and fluorescence levels, amino acid variants",ok,52910,13,"{""(47, 69)"": 13}"
+urn:mavedb:00000081-a-2,BRCA1 RING and BRCT domains mean HDR fluorescence score,ok,0,0,{}
+urn:mavedb:00000084-a-1,CcdB toxicity,ok,0,0,{}
+urn:mavedb:00000085-a-1,TEM-19 Amp scores,ok,0,0,{}
+urn:mavedb:00000085-b-1,TEM-17 Amp scores,ok,0,0,{}
+urn:mavedb:00000085-c-1,TEM-15 Amp scores,ok,0,0,{}
+urn:mavedb:00000085-d-1,TEM-15 cefotaxime scores,ok,0,0,{}
+urn:mavedb:00000091-a-1,BRAF resistance to vemurafenib,ok,0,0,{}
+urn:mavedb:00000092-a-1,Influenza HA viral replication,ok,0,0,{}
+urn:mavedb:00000096-a-1,GCK activity measured by complementation,ok,0,0,{}
+urn:mavedb:00000096-b-1,GCK variant abundance measured by DHFR-PCA,ok,0,0,{}
+urn:mavedb:00000098-a-2,SCN5A response to veratridine+brevetoxin+ouabain mixture,ok,0,0,{}
+urn:mavedb:00000105-a-1,IgG-binding protein G domain B1 binding to IgG-FC,ok,516423,0,{}
+urn:mavedb:00000106-a-1,Deaminase activity of AID in generation 1,ok,0,0,{}
+urn:mavedb:00000106-b-1,Deaminase activity of AID in generation 2,ok,0,0,{}
+urn:mavedb:00000106-c-1,Deaminase activity of AID in generation 3,ok,0,0,{}
+urn:mavedb:00000116-0-1,FYN SH3 domain combined scores,ok,362,0,{}
+urn:mavedb:00000116-a-1,FYN SH3 domain trypsin digestion,ok,362,0,{}
+urn:mavedb:00000116-a-2,FYN SH3 domain chymotrypsin digestion,ok,362,0,{}
+urn:mavedb:00000117-0-1,FYN SH3 domain (E24S) combined scores,ok,0,0,{}
+urn:mavedb:00000117-a-1,FYN SH3 domain (E24S) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000117-a-2,FYN SH3 domain (E24S) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000118-0-1,FYN SH3 domain (F20A) combined scores,ok,0,0,{}
+urn:mavedb:00000118-a-1,FYN SH3 domain (F20A) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000118-a-2,FYN SH3 domain (F20A) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000119-0-1,FYN SH3 domain (L7S) combined scores,ok,0,0,{}
+urn:mavedb:00000119-a-1,FYN SH3 domain (L7S) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000119-a-2,FYN SH3 domain (L7S) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000120-0-1,FYN SH3 domain (V55A) combined scores,ok,0,0,{}
+urn:mavedb:00000120-a-1,FYN SH3 domain (V55A) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000120-a-2,FYN SH3 domain (V55A) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000121-0-1,30S ribosomal protein S15 combined scores,ok,0,0,{}
+urn:mavedb:00000121-a-1,30S ribosomal protein S15 trypsin digestion,ok,0,0,{}
+urn:mavedb:00000121-a-2,30S ribosomal protein S15 chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000122-0-1,argR combined scores,ok,0,0,{}
+urn:mavedb:00000122-a-1,argR trypsin digestion,ok,0,0,{}
+urn:mavedb:00000122-a-2,argR chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000136-0-1,spg combined scores,ok,361,0,{}
+urn:mavedb:00000136-a-1,spg trypsin digestion,ok,361,0,{}
+urn:mavedb:00000136-a-2,spg chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000137-0-1,spg (L7A) combined scores,ok,0,0,{}
+urn:mavedb:00000137-a-1,spg (L7A) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000137-a-2,spg (L7A) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000138-0-1,spg (V54S) combined scores,ok,0,0,{}
+urn:mavedb:00000138-a-1,spg (V54S) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000138-a-2,spg (V54S) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000141-0-1,spg combined scores,ok,0,0,{}
+urn:mavedb:00000141-a-1,spg trypsin digestion,ok,0,0,{}
+urn:mavedb:00000141-a-2,spg chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000142-0-1,spg (A27K) combined scores,ok,0,0,{}
+urn:mavedb:00000142-a-1,spg (A27K) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000142-a-2,spg (A27K) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000143-0-1,spg (F53D) combined scores,ok,0,0,{}
+urn:mavedb:00000143-a-1,spg (F53D) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000143-a-2,spg (F53D) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000144-0-1,spg combined scores,ok,0,0,{}
+urn:mavedb:00000144-a-1,spg trypsin digestion,ok,0,0,{}
+urn:mavedb:00000144-a-2,spg chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000147-0-1,50S ribosomal protein L20 combined scores,ok,361,0,{}
+urn:mavedb:00000147-a-1,50S ribosomal protein L20 trypsin digestion,ok,361,0,{}
+urn:mavedb:00000147-a-2,50S ribosomal protein L20 chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000151-0-1,LCK combined scores,ok,1084,0,{}
+urn:mavedb:00000151-a-1,LCK trypsin digestion,ok,1084,0,{}
+urn:mavedb:00000151-a-2,LCK chymotrypsin digestion,ok,1084,0,{}
+urn:mavedb:00000155-0-1,spg combined scores,ok,1083,0,{}
+urn:mavedb:00000155-a-1,spg trypsin digestion,ok,1083,0,{}
+urn:mavedb:00000155-a-2,spg chymotrypsin digestion,ok,1083,0,{}
+urn:mavedb:00000158-0-1,spa combined scores,ok,1084,0,{}
+urn:mavedb:00000158-a-1,spa trypsin digestion,ok,1084,0,{}
+urn:mavedb:00000158-a-2,spa chymotrypsin digestion,ok,1084,0,{}
+urn:mavedb:00000169-0-1,spg combined scores,ok,975,0,{}
+urn:mavedb:00000169-a-1,spg trypsin digestion,ok,975,0,{}
+urn:mavedb:00000169-a-2,spg chymotrypsin digestion,ok,975,0,{}
+urn:mavedb:00000170-0-1,spg (L5A) combined scores,ok,0,0,{}
+urn:mavedb:00000170-a-1,spg (L5A) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000170-a-2,spg (L5A) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000171-0-1,spg (L7S) combined scores,ok,0,0,{}
+urn:mavedb:00000171-a-1,spg (L7S) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000171-a-2,spg (L7S) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000172-0-1,spg (PROSS9) combined scores,ok,0,0,{}
+urn:mavedb:00000172-a-1,spg (PROSS9) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000172-a-2,spg (PROSS9) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000173-0-1,spg (T51A) combined scores,ok,0,0,{}
+urn:mavedb:00000173-a-1,spg (T51A) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000173-a-2,spg (T51A) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000174-0-1,spg (V39S) combined scores,ok,0,0,{}
+urn:mavedb:00000174-a-1,spg (V39S) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000174-a-2,spg (V39S) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000175-0-1,spg combined scores,ok,1083,0,{}
+urn:mavedb:00000175-a-1,spg trypsin digestion,ok,1083,0,{}
+urn:mavedb:00000175-a-2,spg chymotrypsin digestion,ok,1083,0,{}
+urn:mavedb:00000176-0-1,spg (A27S) combined scores,ok,0,0,{}
+urn:mavedb:00000176-a-1,spg (A27S) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000176-a-2,spg (A27S) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000177-0-1,spg (G42A) combined scores,ok,0,0,{}
+urn:mavedb:00000177-a-1,spg (G42A) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000177-a-2,spg (G42A) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000183-0-1,BTK combined scores,ok,723,0,{}
+urn:mavedb:00000183-a-1,BTK trypsin digestion,ok,723,0,{}
+urn:mavedb:00000183-a-2,BTK chymotrypsin digestion,ok,723,0,{}
+urn:mavedb:00000185-0-1,CI combined scores,ok,361,0,{}
+urn:mavedb:00000192-0-1,SRC combined scores,ok,361,0,{}
+urn:mavedb:00000192-a-1,SRC trypsin digestion,ok,361,0,{}
+urn:mavedb:00000192-a-2,SRC chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000193-0-1,BBC1 combined scores,ok,1084,0,{}
+urn:mavedb:00000193-a-1,BBC1 trypsin digestion,ok,1084,0,{}
+urn:mavedb:00000193-a-2,BBC1 chymotrypsin digestion,ok,1084,0,{}
+urn:mavedb:00000206-0-1,PKN1 combined scores,ok,0,0,{}
+urn:mavedb:00000206-a-1,PKN1 trypsin digestion,ok,0,0,{}
+urn:mavedb:00000206-a-2,PKN1 chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000223-0-1,Caltractin combined scores,ok,1083,0,{}
+urn:mavedb:00000223-a-1,Caltractin trypsin digestion,ok,1083,0,{}
+urn:mavedb:00000223-a-2,Caltractin chymotrypsin digestion,ok,1083,0,{}
+urn:mavedb:00000239-0-1,2HBB_con combined scores,ok,0,0,{}
+urn:mavedb:00000239-a-1,2HBB_con trypsin digestion,ok,0,0,{}
+urn:mavedb:00000239-a-2,2HBB_con chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000246-0-1,2J6K_con combined scores,ok,0,0,{}
+urn:mavedb:00000246-a-1,2J6K_con trypsin digestion,ok,0,0,{}
+urn:mavedb:00000246-a-2,2J6K_con chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000247-0-1,CD2AP (pross9) combined scores,ok,0,0,{}
+urn:mavedb:00000247-a-1,CD2AP (pross9) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000247-a-2,CD2AP (pross9) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000252-0-1,ArsR family transcriptional regulator combined scores,ok,1444,0,{}
+urn:mavedb:00000252-a-1,ArsR family transcriptional regulator trypsin digestion,ok,1444,0,{}
+urn:mavedb:00000252-a-2,ArsR family transcriptional regulator chymotrypsin digestion,ok,1444,0,{}
+urn:mavedb:00000258-0-1,CBX7 chromo domain combined scores,ok,1079,0,{}
+urn:mavedb:00000258-a-1,CBX7 chromo domain trypsin digestion,ok,1079,0,{}
+urn:mavedb:00000258-a-2,CBX7 chromo domain chymotrypsin digestion,ok,1079,0,{}
+urn:mavedb:00000259-0-1,CBX4 chromo domain combined scores,ok,1694,0,{}
+urn:mavedb:00000259-a-1,CBX4 chromo domain trypsin digestion,ok,1694,0,{}
+urn:mavedb:00000259-a-2,CBX4 chromo domain chymotrypsin digestion,ok,1694,0,{}
+urn:mavedb:00000272-0-1,PTK6 SH3 domain combined scores,ok,3970,0,{}
+urn:mavedb:00000272-a-1,PTK6 SH3 domain trypsin digestion,ok,3970,0,{}
+urn:mavedb:00000272-a-2,PTK6 SH3 domain chymotrypsin digestion,ok,3970,0,{}
+urn:mavedb:00000274-0-1,entD combined scores,ok,0,0,{}
+urn:mavedb:00000274-a-1,entD trypsin digestion,ok,0,0,{}
+urn:mavedb:00000274-a-2,entD chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000275-0-1,entD (W42A) combined scores,ok,0,0,{}
+urn:mavedb:00000275-a-1,entD (W42A) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000275-a-2,entD (W42A) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000276-0-1,entD (Y53S) combined scores,ok,0,0,{}
+urn:mavedb:00000276-a-1,entD (Y53S) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000276-a-2,entD (Y53S) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000277-0-1,bchB combined scores,ok,723,0,{}
+urn:mavedb:00000277-a-1,bchB trypsin digestion,ok,723,0,{}
+urn:mavedb:00000277-a-2,bchB chymotrypsin digestion,ok,723,0,{}
+urn:mavedb:00000281-0-1,A0A0H3JVL4_STAAW combined scores,ok,1444,0,{}
+urn:mavedb:00000281-a-1,A0A0H3JVL4_STAAW trypsin digestion,ok,1444,0,{}
+urn:mavedb:00000281-a-2,A0A0H3JVL4_STAAW chymotrypsin digestion,ok,1444,0,{}
+urn:mavedb:00000285-0-1,entD combined scores,ok,361,0,{}
+urn:mavedb:00000285-a-1,entD trypsin digestion,ok,361,0,{}
+urn:mavedb:00000285-a-2,entD chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000286-0-1,entD (G2S) combined scores,ok,0,0,{}
+urn:mavedb:00000286-a-1,entD (G2S) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000286-a-2,entD (G2S) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000287-0-1,entD (K55A) combined scores,ok,0,0,{}
+urn:mavedb:00000287-a-1,entD (K55A) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000287-a-2,entD (K55A) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000292-0-1,Asr4154 protein combined scores,ok,1084,0,{}
+urn:mavedb:00000292-a-1,Asr4154 protein trypsin digestion,ok,1084,0,{}
+urn:mavedb:00000292-a-2,Asr4154 protein chymotrypsin digestion,ok,1084,0,{}
+urn:mavedb:00000293-0-1,FYN combined scores,ok,361,0,{}
+urn:mavedb:00000293-a-1,FYN trypsin digestion,ok,361,0,{}
+urn:mavedb:00000293-a-2,FYN chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000305-0-1,FYN combined scores,ok,361,0,{}
+urn:mavedb:00000305-a-1,FYN trypsin digestion,ok,361,0,{}
+urn:mavedb:00000305-a-2,FYN chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000310-0-1,carD combined scores,ok,0,0,{}
+urn:mavedb:00000310-a-1,carD trypsin digestion,ok,0,0,{}
+urn:mavedb:00000310-a-2,carD chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000311-0-1,spg combined scores,ok,361,0,{}
+urn:mavedb:00000311-a-1,spg trypsin digestion,ok,361,0,{}
+urn:mavedb:00000311-a-2,spg chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000312-0-1,AMFR combined scores,ok,2071,0,{}
+urn:mavedb:00000312-a-1,AMFR trypsin digestion,ok,2071,0,{}
+urn:mavedb:00000312-a-2,AMFR chymotrypsin digestion,ok,2071,0,{}
+urn:mavedb:00000324-0-1,ALX4 combined scores,ok,674,0,{}
+urn:mavedb:00000324-a-1,ALX4 trypsin digestion,ok,674,0,{}
+urn:mavedb:00000324-a-2,ALX4 chymotrypsin digestion,ok,674,0,{}
+urn:mavedb:00000328-0-1,Chromo domain-containing protein combined scores,ok,2165,0,{}
+urn:mavedb:00000328-a-1,Chromo domain-containing protein trypsin digestion,ok,2165,0,{}
+urn:mavedb:00000328-a-2,Chromo domain-containing protein chymotrypsin digestion,ok,2165,0,{}
+urn:mavedb:00000335-0-1,Calcium-binding EF-hand domain-containing protein combined scores,ok,361,0,{}
+urn:mavedb:00000335-a-1,Calcium-binding EF-hand domain-containing protein trypsin digestion,ok,361,0,{}
+urn:mavedb:00000335-a-2,Calcium-binding EF-hand domain-containing protein chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000344-0-1,Autolysin combined scores,ok,700,0,{}
+urn:mavedb:00000344-a-1,Autolysin trypsin digestion,ok,700,0,{}
+urn:mavedb:00000344-a-2,Autolysin chymotrypsin digestion,ok,700,0,{}
+urn:mavedb:00000345-0-1,Autolysin (L11A) combined scores,ok,0,0,{}
+urn:mavedb:00000345-a-1,Autolysin (L11A) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000345-a-2,Autolysin (L11A) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000346-0-1,Autolysin (N29S) combined scores,ok,0,0,{}
+urn:mavedb:00000346-a-1,Autolysin (N29S) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000346-a-2,Autolysin (N29S) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000349-0-1,Chitin synthase combined scores,ok,361,0,{}
+urn:mavedb:00000349-a-1,Chitin synthase trypsin digestion,ok,361,0,{}
+urn:mavedb:00000349-a-2,Chitin synthase chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000360-0-1,ATP7B combined scores,ok,0,0,{}
+urn:mavedb:00000360-a-1,ATP7B trypsin digestion,ok,0,0,{}
+urn:mavedb:00000360-a-2,ATP7B chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000361-0-1,CAO combined scores,ok,717,0,{}
+urn:mavedb:00000361-a-1,CAO trypsin digestion,ok,717,0,{}
+urn:mavedb:00000361-a-2,CAO chymotrypsin digestion,ok,717,0,{}
+urn:mavedb:00000362-0-1,spg combined scores,ok,361,0,{}
+urn:mavedb:00000362-a-1,spg trypsin digestion,ok,361,0,{}
+urn:mavedb:00000362-a-2,spg chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000365-0-1,spg combined scores,ok,361,0,{}
+urn:mavedb:00000365-a-1,spg trypsin digestion,ok,361,0,{}
+urn:mavedb:00000365-a-2,spg chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000366-0-1,spg combined scores,ok,0,0,{}
+urn:mavedb:00000366-a-1,spg trypsin digestion,ok,0,0,{}
+urn:mavedb:00000366-a-2,spg chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000378-0-1,Calmodulin combined scores,ok,722,0,{}
+urn:mavedb:00000378-a-1,Calmodulin trypsin digestion,ok,722,0,{}
+urn:mavedb:00000378-a-2,Calmodulin chymotrypsin digestion,ok,722,0,{}
+urn:mavedb:00000381-0-1,Bacterial RNA polymerase inhibitor combined scores,ok,0,0,{}
+urn:mavedb:00000381-a-1,Bacterial RNA polymerase inhibitor trypsin digestion,ok,0,0,{}
+urn:mavedb:00000381-a-2,Bacterial RNA polymerase inhibitor chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000385-0-1,APBB3 combined scores,ok,0,0,{}
+urn:mavedb:00000385-a-1,APBB3 trypsin digestion,ok,0,0,{}
+urn:mavedb:00000385-a-2,APBB3 chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000391-0-1,FYN combined scores,ok,0,0,{}
+urn:mavedb:00000391-a-1,FYN trypsin digestion,ok,0,0,{}
+urn:mavedb:00000391-a-2,FYN chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000402-0-1,"Addiction module toxin, HicA family combined scores",ok,2057,0,{}
+urn:mavedb:00000402-a-1,"Addiction module toxin, HicA family trypsin digestion",ok,2057,0,{}
+urn:mavedb:00000402-a-2,"Addiction module toxin, HicA family chymotrypsin digestion",ok,2057,0,{}
+urn:mavedb:00000403-0-1,AMFR combined scores,ok,3533,0,{}
+urn:mavedb:00000403-a-1,AMFR trypsin digestion,ok,3533,0,{}
+urn:mavedb:00000403-a-2,AMFR chymotrypsin digestion,ok,3533,0,{}
+urn:mavedb:00000404-0-1,HCK combined scores,ok,1083,0,{}
+urn:mavedb:00000404-a-1,HCK trypsin digestion,ok,1083,0,{}
+urn:mavedb:00000404-a-2,HCK chymotrypsin digestion,ok,1083,0,{}
+urn:mavedb:00000409-0-1,SRC combined scores,ok,1333,0,{}
+urn:mavedb:00000409-a-1,SRC trypsin digestion,ok,1333,0,{}
+urn:mavedb:00000409-a-2,SRC chymotrypsin digestion,ok,1333,0,{}
+urn:mavedb:00000410-0-1,SRC (P51S) combined scores,ok,0,0,{}
+urn:mavedb:00000410-a-1,SRC (P51S) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000410-a-2,SRC (P51S) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000411-0-1,SRC (W37A) combined scores,ok,0,0,{}
+urn:mavedb:00000411-a-1,SRC (W37A) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000411-a-2,SRC (W37A) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000422-0-1,spg combined scores,ok,361,0,{}
+urn:mavedb:00000422-a-1,spg trypsin digestion,ok,361,0,{}
+urn:mavedb:00000422-a-2,spg chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000423-0-1,spg combined scores,ok,721,0,{}
+urn:mavedb:00000423-a-1,spg trypsin digestion,ok,721,0,{}
+urn:mavedb:00000423-a-2,spg chymotrypsin digestion,ok,721,0,{}
+urn:mavedb:00000424-0-1,spg combined scores,ok,1444,0,{}
+urn:mavedb:00000424-a-1,spg trypsin digestion,ok,1444,0,{}
+urn:mavedb:00000424-a-2,spg chymotrypsin digestion,ok,1444,0,{}
+urn:mavedb:00000439-0-1,FYN SH3 domain combined scores,ok,361,0,{}
+urn:mavedb:00000439-a-1,FYN SH3 domain trypsin digestion,ok,361,0,{}
+urn:mavedb:00000439-a-2,FYN SH3 domain chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000441-0-1,anti-CRISPR AcrIF7 combined scores,ok,2527,0,{}
+urn:mavedb:00000441-a-1,anti-CRISPR AcrIF7 trypsin digestion,ok,2527,0,{}
+urn:mavedb:00000441-a-2,anti-CRISPR AcrIF7 chymotrypsin digestion,ok,2527,0,{}
+urn:mavedb:00000443-0-1,spg combined scores,ok,361,0,{}
+urn:mavedb:00000443-a-1,spg trypsin digestion,ok,361,0,{}
+urn:mavedb:00000443-a-2,spg chymotrypsin digestion,ok,361,0,{}
+urn:mavedb:00000444-0-1,LYN combined scores,ok,1448,0,{}
+urn:mavedb:00000444-a-1,LYN trypsin digestion,ok,1448,0,{}
+urn:mavedb:00000444-a-2,LYN chymotrypsin digestion,ok,1448,0,{}
+urn:mavedb:00000449-0-1,spa combined scores,ok,0,0,{}
+urn:mavedb:00000449-a-1,spa trypsin digestion,ok,0,0,{}
+urn:mavedb:00000449-a-2,spa chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000634-0-1,spa combined scores,ok,0,0,{}
+urn:mavedb:00000634-a-1,spa trypsin digestion,ok,0,0,{}
+urn:mavedb:00000634-a-2,spa chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000639-0-1,ABLIM2 (R14S;R16S) combined scores,ok,0,0,{}
+urn:mavedb:00000639-a-1,ABLIM2 (R14S;R16S) trypsin digestion,ok,0,0,{}
+urn:mavedb:00000639-a-2,ABLIM2 (R14S;R16S) chymotrypsin digestion,ok,0,0,{}
+urn:mavedb:00000657-a-1,Aspartoacylase (ASPA) cellular abundance,ok,0,0,{}
+urn:mavedb:00000657-b-1,Aspartoacylase (ASPA) cellular toxicity,ok,0,0,{}
+urn:mavedb:00000660-a-1,DIMPLE mKir2.1 surface expression,ok,0,0,{}
+urn:mavedb:00000666-a-1,per-mutant escape score,ok,0,0,{}
+urn:mavedb:00000667-a-1,per-mutant escape score,ok,0,0,{}
+urn:mavedb:00000668-a-1,per-mutant binding score,ok,0,0,{}
+urn:mavedb:00000669-a-1,per-mutant expression score,ok,0,0,{}
+urn:mavedb:00000670-a-1,per-mutant binding score,ok,0,0,{}
+urn:mavedb:00000671-a-1,per-mutant expression score,ok,0,0,{}
+urn:mavedb:00000676-a-1,ABL1 SH3 domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000677-a-1,"ABLIM3 Zinc finger, LIM-type domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000678-a-1,"ABLIM3 Zinc finger, LIM-type domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000679-a-1,ADARB1 Double-stranded RNA-binding domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000680-a-1,ADAR Z-alpha domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000681-a-1,ADAR Z-alpha domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000682-a-1,ADNP Homeobox domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000683-a-1,AHI1 SH3 domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000684-a-1,ALX1 Homeobox domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000685-a-1,ALX3 Homeobox domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000686-a-1,ALX4 Homeobox domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000687-a-1,ANK1 Death domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000688-a-1,ANK2 Death domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000689-a-1,ANK3 Death domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000690-a-1,ANKS1B Sterile alpha motif domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000691-a-1,ANKS6 Sterile alpha motif domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000692-a-1,ARAF Raf-like Ras-binding domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000693-a-1,"ARHGEF28 Protein kinase C-like, phorbol ester/diacylglycerol-binding domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000694-a-1,ARID2 DNA-binding RFX-type winged-helix domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000695-a-1,"ARK2C Zinc finger, RING-type domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000696-a-1,ARX Homeobox domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000697-a-1,"AR Zinc finger, nuclear hormone receptor-type domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000698-a-1,ASB14 SOCS box domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000699-a-1,"ASPM IQ motif, EF-hand binding site domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000700-a-1,ASZ1 Sterile alpha motif domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000701-a-1,ATXN7 SCA7 domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000702-a-1,AVIL Villin headpiece domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000703-a-1,BAG3 WW domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000704-a-1,BAG5 BAG domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000705-a-1,"BAZ2B Zinc finger, PHD-finger domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000706-a-1,BLK SH3 domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000707-a-1,"BPTF Zinc finger, PHD-finger domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000708-a-1,BRAF Raf-like Ras-binding domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000709-a-1,BRD4 NET domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000710-a-1,BTK SH3 domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000711-a-1,CABP2 EF-hand domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000712-a-1,CALML4 EF-hand domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000713-a-1,CALML4 EF-hand domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000714-a-1,"CAPN15 Zinc finger, RanBP2-type domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000715-a-1,CASK PDZ domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000716-a-1,CBL Ubiquitin-associated domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000717-a-1,CBX5 Chromo domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000718-a-1,CCAR1 SAP domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000719-a-1,CCNF F-box domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000720-a-1,CD2AP SH3 domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000721-a-1,CD2AP SH3 domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000722-a-1,CD2AP SH3 domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000723-a-1,"CHD3 Zinc finger, PHD-finger domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000724-a-1,CHD4 Chromo domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000725-a-1,"CHD4 Zinc finger, PHD-finger domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000726-a-1,"CHD4 Zinc finger, PHD-finger domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000727-a-1,"CHD5 CHD, N-terminal domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000728-a-1,"CHD5 Zinc finger, PHD-finger domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000729-a-1,"CHD5 Zinc finger, PHD-finger domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000730-a-1,CHD7 BRK domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000731-a-1,CIDEB CIDE-N domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000732-a-1,cI Helix-turn-helix domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000733-a-1,CKS1B Cyclin-dependent kinase regulatory subunit domainome 1.0,ok,0,0,{}
+urn:mavedb:00000734-a-1,CNKSR2 Sterile alpha motif domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000735-a-1,"CPEB2 Cytoplasmic polyadenylation element-binding protein, ZZ domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000736-a-1,CRX Homeobox domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000737-a-1,CRYBA1 Beta/gamma crystallin domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000738-a-1,CRYBA4 Beta/gamma crystallin domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000739-a-1,CRYBB1 Beta/gamma crystallin domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000740-a-1,CRYBB2 Beta/gamma crystallin domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000741-a-1,CRYBG2 Beta/gamma crystallin domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000742-a-1,CRYGA Beta/gamma crystallin domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000743-a-1,CRYGB Beta/gamma crystallin domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000744-a-1,CRYGB Beta/gamma crystallin domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000745-a-1,CRYGC Beta/gamma crystallin domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000746-a-1,CRYGC Beta/gamma crystallin domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000747-a-1,CRYGD Beta/gamma crystallin domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000748-a-1,CRYGS Beta/gamma crystallin domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000749-a-1,"CSDE1 Cold-shock protein, DNA-binding domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000750-a-1,"CSDE1 Cold-shock protein, DNA-binding domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000751-a-1,"CSDE1 Cold-shock protein, DNA-binding domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000752-a-1,"cspA Cold-shock protein, DNA-binding domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000753-a-1,"cspB Cold-shock protein, DNA-binding domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000754-a-1,"cspB Cold-shock protein, DNA-binding domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000755-a-1,CUE2 Ubiquitin system component CUE domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000756-a-1,CUL9 CPH domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000757-a-1,CUL9 IBR domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000758-a-1,CUX1 CUT domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000759-a-1,CUX1 CUT domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000760-a-1,CUX1 Homeobox domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000761-a-1,CUX2 CUT domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000762-a-1,CUX2 CUT domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000763-a-1,DBT Peripheral subunit-binding domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000764-a-1,DDHD2 Sterile alpha motif domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000765-a-1,"DIDO1 Zinc finger, PHD-finger domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00000766-a-1,DLG3 PDZ domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000767-a-1,DLG3 PDZ domain domainome 1.0,ok,0,0,{}
+urn:mavedb:00000988-a-1,"PRKCD Protein kinase C-like, phorbol ester/diacylglycerol-binding domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00001009-a-1,"RASGRP1 Protein kinase C-like, phorbol ester/diacylglycerol-binding domain domainome 1.0",ok,0,0,{}
+urn:mavedb:00001199-a-1,CYP2C19 VAMP-seq nonsynonymous scores,ok,0,0,{}
+urn:mavedb:00001199-a-2,CYP2C19 VAMP-seq synonymous scores,ok,0,0,{}
+urn:mavedb:00001200-0-1,F9 predictor scores,ok,0,0,{}
+urn:mavedb:00001200-a-1,F9 MultiStEP strep II tag scores,ok,0,0,{}
+urn:mavedb:00001200-b-1,F9 MultiStEP heavy chain scores,ok,0,0,{}
+urn:mavedb:00001200-c-1,F9 MultiSTEP light chain scores,ok,0,0,{}
+urn:mavedb:00001200-d-1,F9 MultiSTEP F9 Gla domain scores,ok,0,0,{}
+urn:mavedb:00001200-e-1,F9 MultiSTEP pan-Gla domain scores,ok,0,0,{}
+urn:mavedb:00001202-a-1,IgM B cell receptor transmembrane domain surface expression,ok,0,0,{}
+urn:mavedb:00001203-a-1,Human CHEK2 CDS SNVs functionally classified as damaging or tolerated based on complementation of yeast rad53,ok,0,0,{}
+urn:mavedb:00001203-a-2,Rad53 complementation scores for coding SNVs of human CHEK2,ok,0,0,{}
+urn:mavedb:00001204-a-1,EGFR gefitinib PC9 cells,ok,0,0,{}
+urn:mavedb:00001204-a-2,MAP2K1 dabrafenib and cetuximab HT-29 cells,ok,0,0,{}
+urn:mavedb:00001204-a-3,MAP2K1 trametinib HT-29 cells,ok,6,0,{}
+urn:mavedb:00001204-a-4,"Dabrafenib and Cetuximab HT-29 cells, base editing z-scores (predicted consequence)",ok,0,0,{}
+urn:mavedb:00001204-a-5,"Dabrafenib and Cetuximab HT-29 cells, base editing z-scores (predicted consequence)",ok,0,0,{}
+urn:mavedb:00001204-a-6,"Trametinib HT-29 cells, base editing z-scores (predicted consequence)",ok,0,0,{}
+urn:mavedb:00001205-a-1,CHEK2 Yeast Complementation in MMS,ok,0,0,{}
+urn:mavedb:00001206-a-1,MAP2K1 trametinib HT-29 cells,ok,6,0,{}
+urn:mavedb:00001206-a-2,MAP2K1 trametinib HT-29 cells,ok,6,0,{}
+urn:mavedb:00001207-a-2,GPR68 mutational scan of surface eppression,ok,0,0,{}
+urn:mavedb:00001218-a-1,Cellular abundance of MLH1,ok,0,0,{}
+urn:mavedb:00001218-a-2,PMS2 interaction of MLH1,ok,0,0,{}
+urn:mavedb:00001227-a-2,Scores from deep mutational scanning CRX transcription factor in HEK 293-derived cells,ok,0,0,{}
+urn:mavedb:00001239-a-1,Insulin Signalling Assay,ok,0,0,{}
+urn:mavedb:00001239-a-2,mAb 83-07 Binding Assay,ok,0,0,{}
+urn:mavedb:00001239-a-3,mAb 83-14 Binding Assay,ok,0,0,{}
+urn:mavedb:00001239-a-4,mAb 83-14 Stimulated Signalling,ok,0,0,{}
+urn:mavedb:00001239-a-5,mAb 83-07 Stimulated Signalling,ok,0,0,{}
+urn:mavedb:00001239-a-6,Insulin Binding Assay,ok,0,0,{}
+urn:mavedb:00001239-a-7,Cell Surface Expression Assay,ok,0,0,{}
+urn:mavedb:00001240-a-1,Deep mutational scanning of EnvZ at 30C,ok,0,0,{}
+urn:mavedb:00001240-a-2,Deep mutational scanning of EnvZ at 42C,ok,0,0,{}
+urn:mavedb:00001240-a-3,Deep mutational scanning of EnvZ at 37C,ok,0,0,{}
+urn:mavedb:00001243-a-1,LMNA Variant Imaging in U2OS Cells,ok,0,0,{}
+urn:mavedb:00001244-a-1,PTEN Variant Imaging in Neurons,ok,75,0,{}
+urn:mavedb:00001244-b-1,PTEN VIS-seq in hiPSCs,ok,75,0,{}
+urn:mavedb:00001247-a-1,GCK Y2H,ok,0,0,{}
+urn:mavedb:00001252-a-1,LetA variants expressed in a ∆pqiAB ∆letAB strain and selected on LB+cholate,ok,0,0,{}
+urn:mavedb:00001253-a-1,IAPP multiple amino acid deletions,ok,0,0,{}
+urn:mavedb:00001253-a-2,Nucleation scores for all single amino acid substitutions in IAPP,ok,0,0,{}
+urn:mavedb:00001253-a-3,IAPP single amino acid deletions,ok,0,0,{}
+urn:mavedb:00001253-a-4,IAPP double amino acid insertions,ok,0,0,{}
+urn:mavedb:00001253-a-5,IAPP single amino acid insertions,ok,0,0,{}
+urn:mavedb:00001255-a-1,AIRE variant functional scores from an insulin promoter-GFP reporter assay in HEK293 cells,ok,0,0,{}
+urn:mavedb:00001255-a-2,"A deep mutational scan for missense variants of the human autoimmune regulator (AIRE) gene, assessed using an insulin pr",ok,0,0,{}
+urn:mavedb:00001256-a-1,FGFR2 activation,ok,0,0,{}
+urn:mavedb:00001256-a-10,FGFR1 pemigatinib resistance,ok,0,0,{}
+urn:mavedb:00001256-a-11,FGFR4 activation,ok,0,0,{}
+urn:mavedb:00001256-a-12,FGFR1 activation,ok,0,0,{}
+urn:mavedb:00001256-a-2,FGFR3 futibatinib resistance,ok,0,0,{}
+urn:mavedb:00001256-a-3,FGFR3 activation,ok,0,0,{}
+urn:mavedb:00001256-a-4,FGFR1 futibatinib resistance,ok,0,0,{}
+urn:mavedb:00001256-a-5,FGFR3 pemigatinib resistance,ok,0,0,{}
+urn:mavedb:00001256-a-6,FGFR4 futibatinib resistance,ok,0,0,{}
+urn:mavedb:00001256-a-7,FGFR2 futibatinib resistance,ok,0,0,{}
+urn:mavedb:00001256-a-8,FGFR4 pemigatinib resistance,ok,0,0,{}
+urn:mavedb:00001256-a-9,FGFR2 pemigatinib resistance,ok,0,0,{}
+urn:mavedb:00001270-a-1,"TYK2-DMS: IFN-alpha, 1U/mL",ok,0,0,{}
+urn:mavedb:00001270-a-10,"TYK2-DMS: IFN-alpha, 100U/mL + NDI-034858, 1 uM",ok,0,0,{}
+urn:mavedb:00001270-a-2,"TYK2-DMS: IFN-alpha, 100U/mL + BMS-986202, 10 uM",ok,0,0,{}
+urn:mavedb:00001270-a-3,"TYK2-DMS: IFN-alpha, 100U/mL + NDI-034858, 7 nM",ok,0,0,{}
+urn:mavedb:00001270-a-4,"TYK2-DMS: IFN-alpha, 10U/mL",ok,0,0,{}
+urn:mavedb:00001270-a-5,"TYK2-DMS: IFN-alpha, 100U/mL + BMS-986202, 20 nM",ok,0,0,{}
+urn:mavedb:00001270-a-6,"TYK2-DMS: IFN-alpha, 100U/mL",ok,0,0,{}
+urn:mavedb:00001270-a-7,"TYK2-DMS: IFN-alpha, 100U/mL + BMS-986202, 20 nM (duplicate assay)",ok,0,0,{}
+urn:mavedb:00001270-a-8,"TYK2-DMS: IFN-alpha, 100U/mL + BMS-986202, 1 uM",ok,0,0,{}
+urn:mavedb:00001270-a-9,"TYK2-DMS: IFN-alpha, 100U/mL (duplicate assay)",ok,0,0,{}
+urn:mavedb:00001271-a-1,TYK2-VampDMS,ok,0,0,{}
+urn:mavedb:00001275-a-1,RHO surface trafficking DMS scores (Method 1),ok,0,0,{}
+urn:mavedb:00001280-a-1,CHEK2_McCarthy_Leo,ok,0,0,{}
+urn:mavedb:00001281-a-1,PRKN abundance MAVE,ok,0,0,{}
+urn:mavedb:00001281-a-2,PRKN pSer65-Ub MAVE,ok,0,0,{}

@@ -1,0 +1,18 @@
+# environments (two are required; see bin/setup.sh -- `esm` pulls its own torch and
+# must not share an env with the pinned core pipeline)
+.venv/
+.venv-esmc/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# bulk downloads: regenerable by scripts/fetch_data.py, never committed
+data/proteingym/bulk/
+data/proteingym/*.zip
+data/megascale/
+data/structures/*.pdb
+
+# cached model weights
+*.safetensors
+*.bin

@@ -1,0 +1,20 @@
+assay,DMS_id,locus,n,assay_min,assay_max,modal_value,modal_share_assay,frac_target_at_floor,frac_target_at_modal,target_mean,assay_mean
+MK01 [phospho],MK01_HUMAN_Brenan_2016,phospho,114,-14.267,-2.098,-7.786,0.001,0.0,0.009,-8.186,-8.159
+MK01 [glyc+2],MK01_HUMAN_Brenan_2016,glyc+2,38,-14.267,-2.098,-7.786,0.001,0.0,0.0,-7.961,-8.159
+MET [phospho],MET_HUMAN_Estevam_2023,phospho,19,-9.882,1.337,0.179,0.002,0.0,0.0,-0.869,-2.343
+MET [glyc+2],MET_HUMAN_Estevam_2023,glyc+2,38,-9.882,1.337,0.179,0.002,0.0,0.0,-0.571,-2.343
+ADRB2 [phospho],ADRB2_HUMAN_Jones_2020,phospho,132,0.022,6.934,1.772,0.002,0.0,0.0,2.45,1.941
+ADRB2 [glyc+2],ADRB2_HUMAN_Jones_2020,glyc+2,114,0.022,6.934,1.772,0.002,0.0,0.0,2.427,1.941
+PRKN [phospho],PRKN_HUMAN_Clausen_2023,phospho,57,-0.048,1.39,-0.024,0.009,0.0,0.0,0.824,0.693
+PRKN [glyc+2],PRKN_HUMAN_Clausen_2023,glyc+2,57,-0.048,1.39,-0.024,0.009,0.0,0.0,0.897,0.693
+SRC [glyc+2],SRC_HUMAN_Ahler_2019,glyc+2,16,-2.084,5.125,-1.551,0.003,0.0,0.0,0.406,-0.421
+P53 [phospho],P53_HUMAN_Giacomelli_2018_Null_Nutlin,phospho,247,-2.559,5.394,0.421,0.001,0.0,0.004,0.444,0.028
+P53 [glyc+2],P53_HUMAN_Giacomelli_2018_Null_Nutlin,glyc+2,38,-2.559,5.394,0.421,0.001,0.0,0.0,-0.384,0.028
+PTEN [phospho],PTEN_HUMAN_Mighell_2018,phospho,170,-5.755,2.818,-0.212,0.002,0.0,0.006,-0.276,-0.921
+PTEN [glyc+2],PTEN_HUMAN_Mighell_2018,glyc+2,18,-5.755,2.818,-0.212,0.002,0.0,0.056,-0.382,-0.921
+ENV [glyc+2],ENV_HV1BR_Haddox_2016,glyc+2,570,0.0,0.859,0.001,0.051,0.358,0.053,0.047,0.042
+A0A192B1T2 [glyc+2],A0A192B1T2_9HIV1_Haddox_2018,glyc+2,551,-10.393,3.267,-3.915,0.001,0.0,0.0,-1.668,-2.605
+Q2N0S5 [glyc+2],Q2N0S5_9HIV1_Haddox_2018,glyc+2,532,-8.897,2.34,-0.237,0.001,0.0,0.002,-1.267,-2.45
+C6KNH7 [glyc+2],C6KNH7_9INFA_Lee_2018,glyc+2,209,-4.848,2.333,-2.154,0.001,0.0,0.0,-1.415,-1.569
+A0A2Z5U3Z0 [glyc+2],A0A2Z5U3Z0_9INFA_Doud_2016,glyc+2,114,-4.92,1.835,-3.392,0.001,0.0,0.0,-1.682,-2.068
+SPIKE [glyc+2],SPIKE_SARS2_Starr_2020_binding,glyc+2,38,-4.84,0.3,-0.02,0.029,0.0,0.053,-0.167,-0.993

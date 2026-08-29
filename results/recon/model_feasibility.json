@@ -1,0 +1,178 @@
+{
+  "vram_total_GB": 8.21,
+  "probe_assay": "BLAT_ECOLX_Stiffler_2015",
+  "probe_positions": [
+    75,
+    121
+  ],
+  "runs": [
+    {
+      "model": "facebook/esm2_t33_650M_UR50D",
+      "family": "esm2",
+      "mode": "gpu",
+      "load_s": 6.9,
+      "params_B": 0.65,
+      "masked_marginal": {
+        "75": {
+          "wt": "C",
+          "argmax": "C",
+          "wt_logprob": -0.096,
+          "wt_to_A_logodds": -3.004
+        },
+        "121": {
+          "wt": "C",
+          "argmax": "C",
+          "wt_logprob": -0.048,
+          "wt_to_A_logodds": -3.811
+        }
+      },
+      "cys_recovered": true,
+      "forward_s_by_len": {
+        "286": 0.031,
+        "500": 0.04,
+        "800": 0.066,
+        "1300": 0.119,
+        "2000": 0.2
+      },
+      "peak_vram_GB": 1.45,
+      "ok": true
+    },
+    {
+      "model": "facebook/esm2_t36_3B_UR50D",
+      "family": "esm2",
+      "mode": "gpu",
+      "load_s": 82.0,
+      "params_B": 2.84,
+      "masked_marginal": {
+        "75": {
+          "wt": "C",
+          "argmax": "C",
+          "wt_logprob": -0.001,
+          "wt_to_A_logodds": -8.573
+        },
+        "121": {
+          "wt": "C",
+          "argmax": "C",
+          "wt_logprob": -0.0,
+          "wt_to_A_logodds": -10.742
+        }
+      },
+      "cys_recovered": true,
+      "forward_s_by_len": {
+        "286": 0.093,
+        "500": 0.136,
+        "800": 0.251,
+        "1300": 0.43,
+        "2000": 0.671
+      },
+      "peak_vram_GB": 5.93,
+      "ok": true
+    },
+    {
+      "model": "biohub/ESMC-600M",
+      "family": "esmc",
+      "mode": "gpu",
+      "load_s": 1.8,
+      "params_B": 0.58,
+      "masked_marginal": {
+        "75": {
+          "wt": "C",
+          "argmax": "C",
+          "wt_logprob": -0.055,
+          "wt_to_A_logodds": -3.5
+        },
+        "121": {
+          "wt": "C",
+          "argmax": "C",
+          "wt_logprob": -0.001,
+          "wt_to_A_logodds": -7.797
+        }
+      },
+      "cys_recovered": true,
+      "forward_s_by_len": {
+        "286": 0.022,
+        "500": 0.034,
+        "800": 0.055,
+        "1300": 0.094,
+        "2000": 0.147
+      },
+      "peak_vram_GB": 2.39,
+      "ok": true
+    },
+    {
+      "model": "biohub/ESMC-6B",
+      "family": "esmc",
+      "mode": "gpu",
+      "ok": false,
+      "error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 136.00 MiB. GPU 0 has a total capacity of 7.65 GiB of which 149.75 MiB is free. Process 182516 has 140.00 MiB memory in use. Process 2848418 has 146.00 MiB memory"
+    },
+    {
+      "model": "biohub/ESMC-6B",
+      "family": "esmc",
+      "mode": "offload",
+      "load_s": 4.9,
+      "params_B": 6.35,
+      "masked_marginal": {
+        "75": {
+          "wt": "C",
+          "argmax": "C",
+          "wt_logprob": -0.148,
+          "wt_to_A_logodds": -3.305
+        },
+        "121": {
+          "wt": "C",
+          "argmax": "C",
+          "wt_logprob": -0.004,
+          "wt_to_A_logodds": -8.359
+        }
+      },
+      "cys_recovered": true,
+      "forward_s_by_len": {
+        "286": 1.782,
+        "500": 1.877,
+        "800": 2.133,
+        "1300": 2.549,
+        "2000": 3.12
+      },
+      "batch_scaling": [
+        {
+          "batch": 1,
+          "total_s": 1.77,
+          "s_per_position": 1.7718,
+          "peak_vram_GB": 0.16,
+          "hours_for_1500_positions": 0.738
+        },
+        {
+          "batch": 8,
+          "total_s": 3.3,
+          "s_per_position": 0.4122,
+          "peak_vram_GB": 0.31,
+          "hours_for_1500_positions": 0.172
+        },
+        {
+          "batch": 32,
+          "total_s": 8.82,
+          "s_per_position": 0.2755,
+          "peak_vram_GB": 0.84,
+          "hours_for_1500_positions": 0.115
+        },
+        {
+          "batch": 64,
+          "total_s": 15.59,
+          "s_per_position": 0.2436,
+          "peak_vram_GB": 1.54,
+          "hours_for_1500_positions": 0.102
+        },
+        {
+          "batch": 128,
+          "total_s": 29.31,
+          "s_per_position": 0.229,
+          "peak_vram_GB": 2.93,
+          "hours_for_1500_positions": 0.095
+        }
+      ],
+      "peak_vram_GB": 0.03,
+      "ok": true
+    }
+  ]
+}

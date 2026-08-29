@@ -1,0 +1,16 @@
+{
+  "n_total": 812,
+  "n_metal": 528,
+  "n_control": 284,
+  "spearman_zeroshot_vs_dms_metal": [
+    0.41630564969389783,
+    1.5102925715851813e-23
+  ],
+  "spearman_zeroshot_vs_dms_control": [
+    0.1827531033248024,
+    0.001986049207809978
+  ],
+  "interaction_stat_observed": -0.24063539922652474,
+  "interaction_permutation_p": 0.4173,
+  "conclusion": "NOT significant at pre-registered p<0.01 -- H1 not supported (see docstring)."
+}

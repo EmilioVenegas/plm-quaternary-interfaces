@@ -191,6 +191,10 @@ Rather than repairing the interface defect, scaling **deepens the collapse**:
 
 This scaling failure occurs because pretraining on massive single-sequence corpora (e.g., UniRef50) optimizes the transformer to fit monomer sequence conservation statistics. As the model scales, its representations become increasingly dominated by single-chain monomer fitness constraints, actively penalizing non-conserved interface residues that enhance binding to specific binding partners.
 
+## Orthogonal Biophysical Corroboration at the RBD/ACE2 Interface
+
+A limitation of the DMS assays underlying this study is that binding scores are derived from FACS-based enrichment rather than solution-phase biophysics. For the SARS-CoV-2 RBD/ACE2 system specifically, independent surface plasmon resonance measurements from Zahradnik et al. [@zahradnik2021sarscov2] provide orthogonal confirmation: RBD interface mutations such as N501Y and S477N, which our zero-shot PLM filters flag as false negatives in the binder-design audit (@fig-binder-trap), were independently shown by SPR to genuinely increase physical binding affinity to ACE2, with $K_D$ improving roughly 2- to 10-fold relative to wild type. This corroborates the FACS-derived enrichment scores used here with an orthogonal solution-phase biophysical method, at least for this one system. Comparable multi-mutant orthogonal biophysical datasets (SPR, BLI, or ITC) are not currently public for the other four benchmark systems (KRAS/DARPin K55, HLA-A2/TAPBPR, GB1/IgG-Fc, p53), so systematic biophysical corroboration across all five systems remains a direction for future validation rather than a claim this study currently substantiates.
+
 ---
 
 ## Evolutionary PPI Stratification: Homooligomer Self-Co-occurrence Fails

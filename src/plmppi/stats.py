@@ -882,3 +882,133 @@ def simulate_plm_filter_trap(
             f"with an interface depletion rate of {threshold_results[1]['interface_depletion_rate']*100:.1f}% relative to non-interface mutations."
         ),
     }
+
+
+def assign_hotspot_rim(df_interface: pd.DataFrame, dsasa_col: str = "dsasa") -> pd.Series:
+    """Labels Interface-compartment rows Hotspot / Mid / Rim via a tertile split on `dsasa_col`.
+
+    Rule (documented, reproducible, pre-registered for this analysis): within the rows passed in
+    (expected to already be restricted to `compartment == "Interface"`), compute the 1/3 and 2/3
+    quantiles of `dsasa_col` (delta-SASA upon complex formation, i.e. how much surface area a
+    residue buries against its partner chain). The bottom tertile is "Rim" (marginally buried,
+    edge-of-interface), the top tertile is "Hotspot" (most buried, most energetically central to
+    the interface), and the middle tertile is "Mid" and is excluded from the Hotspot-vs-Rim
+    contrast to maximize separation between the two extreme groups. Quantile edges are computed
+    from `df_interface[dsasa_col]` itself, so the split is always relative to that call's own
+    Interface distribution.
+    """
+    q1, q2 = df_interface[dsasa_col].quantile([1.0 / 3.0, 2.0 / 3.0])
+    labels = pd.Series("Mid", index=df_interface.index, dtype=object)
+    labels[df_interface[dsasa_col] <= q1] = "Rim"
+    labels[df_interface[dsasa_col] >= q2] = "Hotspot"
+    return labels
+
+
+def stratify_by_hotspot(
+    df_scores: pd.DataFrame,
+    arm: str,
+    n_perm: int = 10000,
+    seed: int = 42,
+    dsasa_col: str = "dsasa",
+) -> dict[str, Any]:
+    """Stratifies quaternary-Interface variants into Hotspot vs Rim energetic classes.
+
+    Restricts to `compartment == "Interface"` rows, splits them into Hotspot/Mid/Rim via
+    `assign_hotspot_rim` (tertile split on `dsasa`), computes per-group Spearman rho(PLM,
+    Abundance), rho(PLM, Binding), and the partial rho(PLM, Binding | Abundance) via
+    `partial_spearman`, and fits a clustered-OLS interaction model testing whether the
+    Hotspot-vs-Rim indicator modulates the PLM x Binding interaction the same way the
+    pre-registered Interface-vs-non-Interface three-way test does.
+
+    The interaction model is fit by reusing `run_three_way_interaction_test` on a frame built
+    via `prepare_analysis_frame`, where the `compartment` column of the Hotspot/Rim subset (Mid
+    excluded) is temporarily relabeled so that `is_interface` (as computed internally by
+    `prepare_analysis_frame`) encodes 1.0 = Hotspot, 0.0 = Rim. This reuses every existing
+    clustered-OLS / permutation / wild-bootstrap / fixed-effects / LOSO machinery verbatim; only
+    the resulting parameter names (which say "Interface") are relabeled to "Hotspot" for output.
+    """
+    zs_col = f"zeroshot_{arm}"
+    if zs_col not in df_scores.columns:
+        raise KeyError(f"Score column {zs_col} not found in dataframe")
+
+    df_int = df_scores[df_scores["compartment"] == "Interface"].dropna(
+        subset=[zs_col, "dms_score_abundance", "dms_score_binding", dsasa_col, "min_dist"]
+    ).copy()
+    df_int["hotspot_group"] = assign_hotspot_rim(df_int, dsasa_col=dsasa_col)
+
+    group_stats: dict[str, Any] = {}
+    for group in ["Hotspot", "Mid", "Rim", "All"]:
+        sub = df_int if group == "All" else df_int[df_int["hotspot_group"] == group]
+        if len(sub) < 5:
+            continue
+
+        rho_ab, p_ab = stats.spearmanr(sub[zs_col], sub["dms_score_abundance"])
+        rho_bi, p_bi = stats.spearmanr(sub[zs_col], sub["dms_score_binding"])
+        rho_ab_bi, p_ab_bi = stats.spearmanr(sub["dms_score_abundance"], sub["dms_score_binding"])
+        rho_part = partial_spearman(sub[zs_col], sub["dms_score_binding"], sub["dms_score_abundance"])
+
+        pct_mediated = (
+            float((1.0 - (rho_part / rho_bi if rho_bi != 0 else 1.0)) * 100.0)
+            if not np.isnan(rho_part)
+            else float("nan")
+        )
+
+        group_stats[group] = {
+            "n_variants": int(len(sub)),
+            "n_positions": int(sub["position"].nunique()),
+            "dsasa_median": float(sub[dsasa_col].median()),
+            "min_dist_median": float(sub["min_dist"].median()),
+            "rho_plm_abundance": float(round(rho_ab, 4)),
+            "p_plm_abundance": float(p_ab),
+            "rho_plm_binding": float(round(rho_bi, 4)),
+            "p_plm_binding": float(p_bi),
+            "rho_abundance_binding": float(round(rho_ab_bi, 4)),
+            "p_abundance_binding": float(p_ab_bi),
+            "rho_partial_plm_binding_given_abundance": float(round(rho_part, 4)),
+            "pct_binding_signal_mediated_by_abundance": float(round(pct_mediated, 2)),
+        }
+
+    # Hotspot-vs-Rim interaction test, reusing run_three_way_interaction_test verbatim: relabel
+    # `compartment` on the Hotspot/Rim (Mid excluded) subset so prepare_analysis_frame's
+    # `is_interface` indicator encodes Hotspot(1)/Rim(0) instead of Interface/non-Interface.
+    contrast_df = df_int[df_int["hotspot_group"].isin(["Hotspot", "Rim"])].copy()
+    contrast_df["compartment"] = np.where(contrast_df["hotspot_group"] == "Hotspot", "Interface", "Rim")
+    frame = prepare_analysis_frame(contrast_df, arm=arm)
+    raw_interaction = run_three_way_interaction_test(frame, n_perm=n_perm, seed=seed)
+
+    rename_map = {
+        "Interface": "Hotspot",
+        "PLM:Interface": "PLM:Hotspot",
+        "Binding:Interface": "Binding:Hotspot",
+        "PLM:Binding:Interface": "PLM:Binding:Hotspot",
+    }
+    relabeled_params = {
+        rename_map.get(name, name): p for name, p in raw_interaction["ols_summary"]["params"].items()
+    }
+    interaction_test = {
+        **raw_interaction,
+        "note": (
+            "Reuses run_three_way_interaction_test verbatim; its 'Interface' indicator here "
+            "encodes Hotspot(1) vs Rim(0), NOT the original quaternary-interface compartment."
+        ),
+        "primary_term_hotspot_contrast": "PLM:Binding:Hotspot",
+        "beta_hotspot_interaction": raw_interaction["beta_three_way"],
+        "params_relabeled_for_hotspot_contrast": relabeled_params,
+    }
+
+    return {
+        "arm": arm,
+        "dsasa_col": dsasa_col,
+        "split_rule": (
+            "Tertile split on dsasa within Interface-compartment rows: top tertile (dsasa >= "
+            f"{float(df_int[dsasa_col].quantile(2.0 / 3.0)):.4f}) = Hotspot, bottom tertile (dsasa <= "
+            f"{float(df_int[dsasa_col].quantile(1.0 / 3.0)):.4f}) = Rim, middle tertile excluded "
+            "from the Hotspot-vs-Rim contrast to maximize separation."
+        ),
+        "n_interface_variants": int(len(df_int)),
+        "n_hotspot": int((df_int["hotspot_group"] == "Hotspot").sum()),
+        "n_mid": int((df_int["hotspot_group"] == "Mid").sum()),
+        "n_rim": int((df_int["hotspot_group"] == "Rim").sum()),
+        "groups": group_stats,
+        "interaction_test": interaction_test,
+    }

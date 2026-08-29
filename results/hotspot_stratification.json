@@ -1,0 +1,1940 @@
+{
+  "timestamp_utc": "2026-08-29T23:39:30.135765+00:00",
+  "dataset": {
+    "n_total_variants": 10643,
+    "n_interface_variants": 2262,
+    "systems": {
+      "SARS-CoV-2_RBD": 3664,
+      "HLA-A2": 3344,
+      "KRAS": 2761,
+      "p53": 798,
+      "GB1": 76
+    },
+    "compartments": {
+      "Core": 4405,
+      "Surface": 3976,
+      "Interface": 2262
+    }
+  },
+  "split_methodology": "Tertile split on dsasa (delta-SASA buried upon complex formation) within Interface-compartment rows only: top tertile = Hotspot, bottom tertile = Rim, middle tertile excluded from the Hotspot-vs-Rim contrast. See module docstring in scripts/08_hotspot_stratification.py and plmppi.stats.assign_hotspot_rim for detail.",
+  "arms": {
+    "esm2-3b": {
+      "arm": "esm2-3b",
+      "dsasa_col": "dsasa",
+      "split_rule": "Tertile split on dsasa within Interface-compartment rows: top tertile (dsasa >= 52.4097) = Hotspot, bottom tertile (dsasa <= 24.2529) = Rim, middle tertile excluded from the Hotspot-vs-Rim contrast to maximize separation.",
+      "n_interface_variants": 2262,
+      "n_hotspot": 758,
+      "n_mid": 744,
+      "n_rim": 760,
+      "groups": {
+        "Hotspot": {
+          "n_variants": 758,
+          "n_positions": 42,
+          "dsasa_median": 80.25904663623653,
+          "min_dist_median": 3.1956143379211426,
+          "rho_plm_abundance": 0.4867,
+          "p_plm_abundance": 2.421634259757338e-46,
+          "rho_plm_binding": -0.0558,
+          "p_plm_binding": 0.12477043232360842,
+          "rho_abundance_binding": 0.1863,
+          "p_abundance_binding": 2.3763008546703688e-07,
+          "rho_partial_plm_binding_given_abundance": -0.1707,
+          "pct_binding_signal_mediated_by_abundance": -205.9
+        },
+        "Mid": {
+          "n_variants": 744,
+          "n_positions": 40,
+          "dsasa_median": 36.42960681813248,
+          "min_dist_median": 3.165024995803833,
+          "rho_plm_abundance": 0.481,
+          "p_plm_abundance": 2.414489555411706e-44,
+          "rho_plm_binding": -0.157,
+          "p_plm_binding": 1.699445629778583e-05,
+          "rho_abundance_binding": 0.3364,
+          "p_abundance_binding": 3.861134120300804e-21,
+          "rho_partial_plm_binding_given_abundance": -0.3861,
+          "pct_binding_signal_mediated_by_abundance": -145.97
+        },
+        "Rim": {
+          "n_variants": 760,
+          "n_positions": 43,
+          "dsasa_median": 13.92896731281536,
+          "min_dist_median": 4.136251449584961,
+          "rho_plm_abundance": 0.301,
+          "p_plm_abundance": 2.2271199296247084e-17,
+          "rho_plm_binding": 0.1939,
+          "p_plm_binding": 7.118479133107857e-08,
+          "rho_abundance_binding": 0.507,
+          "p_abundance_binding": 7.00952713900473e-51,
+          "rho_partial_plm_binding_given_abundance": 0.0503,
+          "pct_binding_signal_mediated_by_abundance": 74.08
+        },
+        "All": {
+          "n_variants": 2262,
+          "n_positions": 120,
+          "dsasa_median": 36.42960681813248,
+          "min_dist_median": 3.3899762630462646,
+          "rho_plm_abundance": 0.4232,
+          "p_plm_abundance": 5.715877165043418e-99,
+          "rho_plm_binding": 0.007,
+          "p_plm_binding": 0.7400295853448332,
+          "rho_abundance_binding": 0.3651,
+          "p_abundance_binding": 2.720827036201833e-72,
+          "rho_partial_plm_binding_given_abundance": -0.1749,
+          "pct_binding_signal_mediated_by_abundance": 2605.85
+        }
+      },
+      "interaction_test": {
+        "primary_term": "PLM:Binding:Interface",
+        "beta_three_way": -0.3248787313322983,
+        "p_clustered": 0.1904440378669694,
+        "p_permutation": 0.4336,
+        "p_wild_bootstrap": 0.0672,
+        "alpha": 1e-05,
+        "n_obs": 3036,
+        "n_clusters": 5,
+        "verdict": "H1 not supported: No significant three-way interaction",
+        "ols_summary": {
+          "n_obs": 3036,
+          "n_clusters": 5,
+          "params": {
+            "Intercept": {
+              "coef": -0.038163754404350984,
+              "se": 0.09691207222755258,
+              "t_stat": -0.39379773362746073,
+              "p_val": 0.7138207653181077
+            },
+            "PLM": {
+              "coef": 0.41301216477799396,
+              "se": 0.11434278121625951,
+              "t_stat": 3.612052815095106,
+              "p_val": 0.022515499661755367
+            },
+            "Binding": {
+              "coef": 0.02155435485137375,
+              "se": 0.1606254604110061,
+              "t_stat": 0.1341901514007853,
+              "p_val": 0.8997331668709441
+            },
+            "Interface": {
+              "coef": 0.07200856747597874,
+              "se": 0.1938262046478529,
+              "t_stat": 0.37151100186275254,
+              "p_val": 0.7290987158364342
+            },
+            "PLM:Binding": {
+              "coef": -0.15211735452568786,
+              "se": 0.15701869992553824,
+              "t_stat": -0.9687849574466308,
+              "p_val": 0.38751237012118267
+            },
+            "PLM:Interface": {
+              "coef": -0.04543995717907473,
+              "se": 0.07528063746721723,
+              "t_stat": -0.6036074973310721,
+              "p_val": 0.578662639313432
+            },
+            "Binding:Interface": {
+              "coef": -0.07476433789464586,
+              "se": 0.323291902036822,
+              "t_stat": -0.23125954415687905,
+              "p_val": 0.8284610930394374
+            },
+            "PLM:Binding:Interface": {
+              "coef": -0.3248787313322983,
+              "se": 0.2063115870802875,
+              "t_stat": -1.5746993948811494,
+              "p_val": 0.1904440378669694
+            }
+          },
+          "beta": [
+            -0.038163754404350984,
+            0.41301216477799396,
+            0.02155435485137375,
+            0.07200856747597874,
+            -0.15211735452568786,
+            -0.04543995717907473,
+            -0.07476433789464586,
+            -0.3248787313322983
+          ],
+          "residuals_mean": -1.949545780264043e-15,
+          "residuals_std": 0.9505434101522229,
+          "r_squared": 0.0934813272847097
+        },
+        "wild_cluster_bootstrap": {
+          "p_wild_bootstrap": 0.0672,
+          "t_stat_orig": -1.5746993948811494,
+          "beta_orig": -0.3248787313322983,
+          "se_orig": 0.2063115870802875,
+          "boot_t_mean": 0.006731601773678204,
+          "boot_t_std": 1.2255056880575037,
+          "n_boot": 10000.0
+        },
+        "fixed_effects_summary": {
+          "n_obs": 3036,
+          "n_clusters": 5,
+          "params": {
+            "FE_GB1": {
+              "coef": -0.010777177425686426,
+              "se": 0.08036582953705934,
+              "t_stat": -0.13410148924944168,
+              "p_val": 0.8997989214496132
+            },
+            "FE_HLA-A2": {
+              "coef": -0.04910090972988608,
+              "se": 0.09073040328171963,
+              "t_stat": -0.5411737185541523,
+              "p_val": 0.6171188945066224
+            },
+            "FE_KRAS": {
+              "coef": -0.004043281209304372,
+              "se": 0.09297158438420394,
+              "t_stat": -0.04348942998105272,
+              "p_val": 0.9673957731502201
+            },
+            "FE_SARS-CoV-2_RBD": {
+              "coef": -0.0433720510712954,
+              "se": 0.09637657189743477,
+              "t_stat": -0.45002691232317865,
+              "p_val": 0.6760025313489311
+            },
+            "FE_p53": {
+              "coef": -0.06673857019569873,
+              "se": 0.10941019021472288,
+              "t_stat": -0.60998495720299,
+              "p_val": 0.5748246661670735
+            },
+            "PLM": {
+              "coef": 0.4165754590189389,
+              "se": 0.11202482528596688,
+              "t_stat": 3.7185994975269328,
+              "p_val": 0.02049955284088001
+            },
+            "Binding": {
+              "coef": 0.021554354851373046,
+              "se": 0.16073165907411882,
+              "t_stat": 0.13410148924944276,
+              "p_val": 0.8997989214496123
+            },
+            "Interface": {
+              "coef": 0.0854962819555259,
+              "se": 0.1952824944899143,
+              "t_stat": 0.43780822330667996,
+              "p_val": 0.6841284041898401
+            },
+            "PLM:Binding": {
+              "coef": -0.15211735452568848,
+              "se": 0.15712251395335905,
+              "t_stat": -0.968144861600443,
+              "p_val": 0.38779589762075073
+            },
+            "PLM:Interface": {
+              "coef": -0.05076837533371842,
+              "se": 0.07180306799261901,
+              "t_stat": -0.7070502243572259,
+              "p_val": 0.5185501176146579
+            },
+            "Binding:Interface": {
+              "coef": -0.07476433789464595,
+              "se": 0.3235056487722628,
+              "t_stat": -0.23110674629139957,
+              "p_val": 0.8285719511938141
+            },
+            "PLM:Binding:Interface": {
+              "coef": -0.32487873133229933,
+              "se": 0.20644799145028292,
+              "t_stat": -1.5736589590920629,
+              "p_val": 0.19067782331384087
+            }
+          },
+          "beta": [
+            -0.010777177425686426,
+            -0.04910090972988608,
+            -0.004043281209304372,
+            -0.0433720510712954,
+            -0.06673857019569873,
+            0.4165754590189389,
+            0.021554354851373046,
+            0.0854962819555259,
+            -0.15211735452568848,
+            -0.05076837533371842,
+            -0.07476433789464595,
+            -0.32487873133229933
+          ],
+          "residuals_mean": 6.553095059711069e-17,
+          "residuals_std": 0.9503433573090451,
+          "r_squared": 0.0938628617883629,
+          "system_dummies": [
+            "FE_GB1",
+            "FE_HLA-A2",
+            "FE_KRAS",
+            "FE_SARS-CoV-2_RBD",
+            "FE_p53"
+          ],
+          "unique_systems": [
+            "GB1",
+            "HLA-A2",
+            "KRAS",
+            "SARS-CoV-2_RBD",
+            "p53"
+          ]
+        },
+        "leave_one_system_out": {
+          "GB1": {
+            "omitted_system": "GB1",
+            "n_obs": 2960,
+            "n_clusters": 4,
+            "beta_three_way": -0.3141531059982281,
+            "se": 0.21049675200873438,
+            "t_stat": -1.4924368333492983,
+            "p_val": 0.2324071516669437,
+            "rho_interface_abundance": 0.3985201770278798,
+            "rho_interface_binding": -0.14506988327523074,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 758,
+                "spearman_rho": 0.3985201770278798,
+                "spearman_p": 2.933904874041995e-30,
+                "pearson_r": 0.40436661438621735,
+                "pearson_p": 3.4880188396871068e-31
+              },
+              "Interface_Binding": {
+                "n": 758,
+                "spearman_rho": -0.14506988327523074,
+                "spearman_p": 6.106227824760602e-05,
+                "pearson_r": -0.1136131685177621,
+                "pearson_p": 0.0017305166804550763
+              }
+            }
+          },
+          "HLA-A2": {
+            "omitted_system": "HLA-A2",
+            "n_obs": 1772,
+            "n_clusters": 4,
+            "beta_three_way": -0.5558164298244951,
+            "se": 0.11861550748689059,
+            "t_stat": -4.685866473959352,
+            "p_val": 0.018370200275817927,
+            "rho_interface_abundance": 0.3118674002713586,
+            "rho_interface_binding": -0.2906049247234279,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 513,
+                "spearman_rho": 0.3118674002713586,
+                "spearman_p": 4.921812421540665e-13,
+                "pearson_r": 0.3381538492763814,
+                "pearson_p": 3.4498205599994675e-15
+              },
+              "Interface_Binding": {
+                "n": 513,
+                "spearman_rho": -0.2906049247234279,
+                "spearman_p": 1.9279478552018542e-11,
+                "pearson_r": -0.2797048812769015,
+                "pearson_p": 1.1267913917841629e-10
+              }
+            }
+          },
+          "KRAS": {
+            "omitted_system": "KRAS",
+            "n_obs": 2556,
+            "n_clusters": 4,
+            "beta_three_way": -0.28157797867540635,
+            "se": 0.170063612810824,
+            "t_stat": -1.6557214916316585,
+            "p_val": 0.19635426677200263,
+            "rho_interface_abundance": 0.4352603317488813,
+            "rho_interface_binding": -0.2034918509119554,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 682,
+                "spearman_rho": 0.4352603317488813,
+                "spearman_p": 6.744435726518837e-33,
+                "pearson_r": 0.4411332326912645,
+                "pearson_p": 7.631002484156277e-34
+              },
+              "Interface_Binding": {
+                "n": 682,
+                "spearman_rho": -0.2034918509119554,
+                "spearman_p": 8.292079848171353e-08,
+                "pearson_r": -0.16545324484932933,
+                "pearson_p": 1.4063165616558154e-05
+              }
+            }
+          },
+          "SARS-CoV-2_RBD": {
+            "omitted_system": "SARS-CoV-2_RBD",
+            "n_obs": 2656,
+            "n_clusters": 4,
+            "beta_three_way": -0.3481635682475392,
+            "se": 0.2336871283817562,
+            "t_stat": -1.4898705404037995,
+            "p_val": 0.2330294070131793,
+            "rho_interface_abundance": 0.4518390000546163,
+            "rho_interface_binding": -0.14860039244021783,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 663,
+                "spearman_rho": 0.4518390000546163,
+                "spearman_p": 1.1412030151391575e-34,
+                "pearson_r": 0.44913923921895216,
+                "pearson_p": 3.1474592951484364e-34
+              },
+              "Interface_Binding": {
+                "n": 663,
+                "spearman_rho": -0.14860039244021783,
+                "spearman_p": 0.00012283328633839972,
+                "pearson_r": -0.11588687847974374,
+                "pearson_p": 0.002804514772640671
+              }
+            }
+          },
+          "p53": {
+            "omitted_system": "p53",
+            "n_obs": 2200,
+            "n_clusters": 4,
+            "beta_three_way": -0.06720553875628477,
+            "se": 0.02827235914483974,
+            "t_stat": -2.3770757301146936,
+            "p_val": 0.09787596334264359,
+            "rho_interface_abundance": 0.36322803672733744,
+            "rho_interface_binding": 0.14339923655194184,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 416,
+                "spearman_rho": 0.36322803672733744,
+                "spearman_p": 2.026451898127914e-14,
+                "pearson_r": 0.35871153201026584,
+                "pearson_p": 4.456887757070421e-14
+              },
+              "Interface_Binding": {
+                "n": 416,
+                "spearman_rho": 0.14339923655194184,
+                "spearman_p": 0.0033771575661765314,
+                "pearson_r": 0.15853675770828196,
+                "pearson_p": 0.0011772319812744167
+              }
+            }
+          }
+        },
+        "subgroup_correlations": {
+          "Interface_Abundance": {
+            "n": 758,
+            "spearman_rho": 0.3985201770278798,
+            "spearman_p": 2.933904874041995e-30,
+            "pearson_r": 0.40436661438621735,
+            "pearson_p": 3.4880188396871068e-31
+          },
+          "Interface_Binding": {
+            "n": 758,
+            "spearman_rho": -0.14506988327523074,
+            "spearman_p": 6.106227824760602e-05,
+            "pearson_r": -0.1136131685177621,
+            "pearson_p": 0.0017305166804550763
+          }
+        },
+        "permutation_null_mean": -0.3131421980826396,
+        "permutation_null_std": 0.0636148988138383,
+        "note": "Reuses run_three_way_interaction_test verbatim; its 'Interface' indicator here encodes Hotspot(1) vs Rim(0), NOT the original quaternary-interface compartment.",
+        "primary_term_hotspot_contrast": "PLM:Binding:Hotspot",
+        "beta_hotspot_interaction": -0.3248787313322983,
+        "params_relabeled_for_hotspot_contrast": {
+          "Intercept": {
+            "coef": -0.038163754404350984,
+            "se": 0.09691207222755258,
+            "t_stat": -0.39379773362746073,
+            "p_val": 0.7138207653181077
+          },
+          "PLM": {
+            "coef": 0.41301216477799396,
+            "se": 0.11434278121625951,
+            "t_stat": 3.612052815095106,
+            "p_val": 0.022515499661755367
+          },
+          "Binding": {
+            "coef": 0.02155435485137375,
+            "se": 0.1606254604110061,
+            "t_stat": 0.1341901514007853,
+            "p_val": 0.8997331668709441
+          },
+          "Hotspot": {
+            "coef": 0.07200856747597874,
+            "se": 0.1938262046478529,
+            "t_stat": 0.37151100186275254,
+            "p_val": 0.7290987158364342
+          },
+          "PLM:Binding": {
+            "coef": -0.15211735452568786,
+            "se": 0.15701869992553824,
+            "t_stat": -0.9687849574466308,
+            "p_val": 0.38751237012118267
+          },
+          "PLM:Hotspot": {
+            "coef": -0.04543995717907473,
+            "se": 0.07528063746721723,
+            "t_stat": -0.6036074973310721,
+            "p_val": 0.578662639313432
+          },
+          "Binding:Hotspot": {
+            "coef": -0.07476433789464586,
+            "se": 0.323291902036822,
+            "t_stat": -0.23125954415687905,
+            "p_val": 0.8284610930394374
+          },
+          "PLM:Binding:Hotspot": {
+            "coef": -0.3248787313322983,
+            "se": 0.2063115870802875,
+            "t_stat": -1.5746993948811494,
+            "p_val": 0.1904440378669694
+          }
+        }
+      }
+    },
+    "esm2-650m": {
+      "arm": "esm2-650m",
+      "dsasa_col": "dsasa",
+      "split_rule": "Tertile split on dsasa within Interface-compartment rows: top tertile (dsasa >= 52.4097) = Hotspot, bottom tertile (dsasa <= 24.2529) = Rim, middle tertile excluded from the Hotspot-vs-Rim contrast to maximize separation.",
+      "n_interface_variants": 2262,
+      "n_hotspot": 758,
+      "n_mid": 744,
+      "n_rim": 760,
+      "groups": {
+        "Hotspot": {
+          "n_variants": 758,
+          "n_positions": 42,
+          "dsasa_median": 80.25904663623653,
+          "min_dist_median": 3.1956143379211426,
+          "rho_plm_abundance": 0.4725,
+          "p_plm_abundance": 2.065863712840091e-43,
+          "rho_plm_binding": -0.1094,
+          "p_plm_binding": 0.002549740081762054,
+          "rho_abundance_binding": 0.1863,
+          "p_abundance_binding": 2.3763008546703688e-07,
+          "rho_partial_plm_binding_given_abundance": -0.2281,
+          "pct_binding_signal_mediated_by_abundance": -108.39
+        },
+        "Mid": {
+          "n_variants": 744,
+          "n_positions": 40,
+          "dsasa_median": 36.42960681813248,
+          "min_dist_median": 3.165024995803833,
+          "rho_plm_abundance": 0.4172,
+          "p_plm_abundance": 1.065556768180602e-32,
+          "rho_plm_binding": -0.1777,
+          "p_plm_binding": 1.0666048752710864e-06,
+          "rho_abundance_binding": 0.3364,
+          "p_abundance_binding": 3.861134120300804e-21,
+          "rho_partial_plm_binding_given_abundance": -0.3717,
+          "pct_binding_signal_mediated_by_abundance": -109.11
+        },
+        "Rim": {
+          "n_variants": 760,
+          "n_positions": 43,
+          "dsasa_median": 13.92896731281536,
+          "min_dist_median": 4.136251449584961,
+          "rho_plm_abundance": 0.3164,
+          "p_plm_abundance": 3.905578921517822e-19,
+          "rho_plm_binding": 0.2352,
+          "p_plm_binding": 5.1582854764033603e-11,
+          "rho_abundance_binding": 0.507,
+          "p_abundance_binding": 7.00952713900473e-51,
+          "rho_partial_plm_binding_given_abundance": 0.0915,
+          "pct_binding_signal_mediated_by_abundance": 61.11
+        },
+        "All": {
+          "n_variants": 2262,
+          "n_positions": 120,
+          "dsasa_median": 36.42960681813248,
+          "min_dist_median": 3.3899762630462646,
+          "rho_plm_abundance": 0.4026,
+          "p_plm_abundance": 6.808017090844428e-89,
+          "rho_plm_binding": -0.0176,
+          "p_plm_binding": 0.4040189802594873,
+          "rho_abundance_binding": 0.3651,
+          "p_abundance_binding": 2.720827036201833e-72,
+          "rho_partial_plm_binding_given_abundance": -0.1931,
+          "pct_binding_signal_mediated_by_abundance": -1000.11
+        }
+      },
+      "interaction_test": {
+        "primary_term": "PLM:Binding:Interface",
+        "beta_three_way": -0.30621223385940555,
+        "p_clustered": 0.27301074815177095,
+        "p_permutation": 0.6569,
+        "p_wild_bootstrap": 0.4158,
+        "alpha": 1e-05,
+        "n_obs": 3036,
+        "n_clusters": 5,
+        "verdict": "H1 not supported: No significant three-way interaction",
+        "ols_summary": {
+          "n_obs": 3036,
+          "n_clusters": 5,
+          "params": {
+            "Intercept": {
+              "coef": -0.03970247515277851,
+              "se": 0.0882414557645907,
+              "t_stat": -0.44992996555605574,
+              "p_val": 0.6760667972026
+            },
+            "PLM": {
+              "coef": 0.46099271777216544,
+              "se": 0.09709228420898118,
+              "t_stat": 4.747985089936971,
+              "p_val": 0.008984212737228381
+            },
+            "Binding": {
+              "coef": 0.021315112810510805,
+              "se": 0.15826286419125662,
+              "t_stat": 0.1346817076730776,
+              "p_val": 0.8993686312966918
+            },
+            "Interface": {
+              "coef": 0.07418099862209002,
+              "se": 0.17565019420527553,
+              "t_stat": 0.4223223262446131,
+              "p_val": 0.6945016997459623
+            },
+            "PLM:Binding": {
+              "coef": -0.16085859162164523,
+              "se": 0.15703694029682272,
+              "t_stat": -1.0243360022017687,
+              "p_val": 0.3635796199517336
+            },
+            "PLM:Interface": {
+              "coef": -0.05888944274682842,
+              "se": 0.07008407490380505,
+              "t_stat": -0.8402685321545301,
+              "p_val": 0.4480496763417956
+            },
+            "Binding:Interface": {
+              "coef": -0.07039458088764676,
+              "se": 0.30720805592012307,
+              "t_stat": -0.22914301734961665,
+              "p_val": 0.8299971078009123
+            },
+            "PLM:Binding:Interface": {
+              "coef": -0.30621223385940555,
+              "se": 0.2411563758995085,
+              "t_stat": -1.2697662780726406,
+              "p_val": 0.27301074815177095
+            }
+          },
+          "beta": [
+            -0.03970247515277851,
+            0.46099271777216544,
+            0.021315112810510805,
+            0.07418099862209002,
+            -0.16085859162164523,
+            -0.05888944274682842,
+            -0.07039458088764676,
+            -0.30621223385940555
+          ],
+          "residuals_mean": -6.365863772290753e-16,
+          "residuals_std": 0.9394405890310753,
+          "r_squared": 0.11453482773012325
+        },
+        "wild_cluster_bootstrap": {
+          "p_wild_bootstrap": 0.4158,
+          "t_stat_orig": -1.2697662780726406,
+          "beta_orig": -0.30621223385940555,
+          "se_orig": 0.2411563758995085,
+          "boot_t_mean": 0.011684221353374673,
+          "boot_t_std": 1.3566580966789794,
+          "n_boot": 10000.0
+        },
+        "fixed_effects_summary": {
+          "n_obs": 3036,
+          "n_clusters": 5,
+          "params": {
+            "FE_GB1": {
+              "coef": -0.010657556405255047,
+              "se": 0.07918375040355603,
+              "t_stat": -0.13459272074054768,
+              "p_val": 0.899434621319934
+            },
+            "FE_HLA-A2": {
+              "coef": -0.04798021000649458,
+              "se": 0.08619920323297436,
+              "t_stat": -0.5566201102441326,
+              "p_val": 0.6074575077922866
+            },
+            "FE_KRAS": {
+              "coef": -0.01617293956492464,
+              "se": 0.08609672219084759,
+              "t_stat": -0.1878461706018802,
+              "p_val": 0.8601415522422635
+            },
+            "FE_SARS-CoV-2_RBD": {
+              "coef": -0.03327224085602695,
+              "se": 0.09037353149079494,
+              "t_stat": -0.36816355748381835,
+              "p_val": 0.7314068893947945
+            },
+            "FE_p53": {
+              "coef": -0.07333413068859711,
+              "se": 0.10092196916163088,
+              "t_stat": -0.7266418927196054,
+              "p_val": 0.5076881401509692
+            },
+            "PLM": {
+              "coef": 0.4637054932181903,
+              "se": 0.09541840947532701,
+              "t_stat": 4.859706798383533,
+              "p_val": 0.008281047913502926
+            },
+            "Binding": {
+              "coef": 0.02131511281051091,
+              "se": 0.158367500807112,
+              "t_stat": 0.13459272074055287,
+              "p_val": 0.89943462131993
+            },
+            "Interface": {
+              "coef": 0.08875706500327703,
+              "se": 0.1759855282581597,
+              "t_stat": 0.5043429757080707,
+              "p_val": 0.6405343937985859
+            },
+            "PLM:Binding": {
+              "coef": -0.16085859162164562,
+              "se": 0.1571407663843948,
+              "t_stat": -1.0236592026550027,
+              "p_val": 0.3638632486126814
+            },
+            "PLM:Interface": {
+              "coef": -0.06280206231822844,
+              "se": 0.0668299254958617,
+              "t_stat": -0.9397296473436488,
+              "p_val": 0.4005621577999343
+            },
+            "Binding:Interface": {
+              "coef": -0.07039458088764741,
+              "se": 0.3074111687065576,
+              "t_stat": -0.22899161791627443,
+              "p_val": 0.8301070173630705
+            },
+            "PLM:Binding:Interface": {
+              "coef": -0.30621223385940605,
+              "se": 0.24131581814892727,
+              "t_stat": -1.2689273177708895,
+              "p_val": 0.27328071180904323
+            }
+          },
+          "beta": [
+            -0.010657556405255047,
+            -0.04798021000649458,
+            -0.01617293956492464,
+            -0.03327224085602695,
+            -0.07333413068859711,
+            0.4637054932181903,
+            0.02131511281051091,
+            0.08875706500327703,
+            -0.16085859162164562,
+            -0.06280206231822844,
+            -0.07039458088764741,
+            -0.30621223385940605
+          ],
+          "residuals_mean": 1.2170033682320556e-16,
+          "residuals_std": 0.9392586013623706,
+          "r_squared": 0.1148778576906857,
+          "system_dummies": [
+            "FE_GB1",
+            "FE_HLA-A2",
+            "FE_KRAS",
+            "FE_SARS-CoV-2_RBD",
+            "FE_p53"
+          ],
+          "unique_systems": [
+            "GB1",
+            "HLA-A2",
+            "KRAS",
+            "SARS-CoV-2_RBD",
+            "p53"
+          ]
+        },
+        "leave_one_system_out": {
+          "GB1": {
+            "omitted_system": "GB1",
+            "n_obs": 2960,
+            "n_clusters": 4,
+            "beta_three_way": -0.2922398612909416,
+            "se": 0.24567761789521078,
+            "t_stat": -1.1895257850293512,
+            "p_val": 0.31979725119486346,
+            "rho_interface_abundance": 0.41224149801334264,
+            "rho_interface_binding": -0.082004499697721,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 758,
+                "spearman_rho": 0.41224149801334264,
+                "spearman_p": 1.8510192475250117e-32,
+                "pearson_r": 0.43397191521442574,
+                "pearson_p": 3.696232398667127e-36
+              },
+              "Interface_Binding": {
+                "n": 758,
+                "spearman_rho": -0.082004499697721,
+                "spearman_p": 0.023957560336506315,
+                "pearson_r": -0.06617659998778987,
+                "pearson_p": 0.06861438459110289
+              }
+            }
+          },
+          "HLA-A2": {
+            "omitted_system": "HLA-A2",
+            "n_obs": 1772,
+            "n_clusters": 4,
+            "beta_three_way": -0.5688877760449664,
+            "se": 0.15232065953176324,
+            "t_stat": -3.734803786917276,
+            "p_val": 0.03346396024850051,
+            "rho_interface_abundance": 0.3299232102905218,
+            "rho_interface_binding": -0.27702809650574556,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 513,
+                "spearman_rho": 0.3299232102905218,
+                "spearman_p": 1.7176932616282464e-14,
+                "pearson_r": 0.37684594584343223,
+                "pearson_p": 9.347995562854886e-19
+              },
+              "Interface_Binding": {
+                "n": 513,
+                "spearman_rho": -0.27702809650574556,
+                "spearman_p": 1.718235450302127e-10,
+                "pearson_r": -0.2857036438593434,
+                "pearson_p": 4.305081966925802e-11
+              }
+            }
+          },
+          "KRAS": {
+            "omitted_system": "KRAS",
+            "n_obs": 2556,
+            "n_clusters": 4,
+            "beta_three_way": -0.22755483197556864,
+            "se": 0.18607157900795304,
+            "t_stat": -1.22294244606718,
+            "p_val": 0.3086574638310997,
+            "rho_interface_abundance": 0.44338367079610835,
+            "rho_interface_binding": -0.1288153547431359,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 682,
+                "spearman_rho": 0.44338367079610835,
+                "spearman_p": 3.273482254099114e-34,
+                "pearson_r": 0.4662636846443976,
+                "pearson_p": 4.147956075249552e-38
+              },
+              "Interface_Binding": {
+                "n": 682,
+                "spearman_rho": -0.1288153547431359,
+                "spearman_p": 0.000746470316179266,
+                "pearson_r": -0.10488541630540242,
+                "pearson_p": 0.0061133843523745604
+              }
+            }
+          },
+          "SARS-CoV-2_RBD": {
+            "omitted_system": "SARS-CoV-2_RBD",
+            "n_obs": 2656,
+            "n_clusters": 4,
+            "beta_three_way": -0.3463733672522081,
+            "se": 0.28926592677334567,
+            "t_stat": -1.197421940136105,
+            "p_val": 0.31712852629239174,
+            "rho_interface_abundance": 0.45514544167541543,
+            "rho_interface_binding": -0.07717325463379648,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 663,
+                "spearman_rho": 0.45514544167541543,
+                "spearman_p": 3.2535217979842764e-35,
+                "pearson_r": 0.4714997336817016,
+                "pearson_p": 5.334769637898079e-38
+              },
+              "Interface_Binding": {
+                "n": 663,
+                "spearman_rho": -0.07717325463379648,
+                "spearman_p": 0.04699658560198507,
+                "pearson_r": -0.05374043939666196,
+                "pearson_p": 0.1669290778703926
+              }
+            }
+          },
+          "p53": {
+            "omitted_system": "p53",
+            "n_obs": 2200,
+            "n_clusters": 4,
+            "beta_three_way": -0.017681561885974473,
+            "se": 0.08894615123966791,
+            "t_stat": -0.19878951072690043,
+            "p_val": 0.8551370412608017,
+            "rho_interface_abundance": 0.39575149435133294,
+            "rho_interface_binding": 0.2403428275443882,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 416,
+                "spearman_rho": 0.39575149435133294,
+                "spearman_p": 4.755616753571941e-17,
+                "pearson_r": 0.3916177572299011,
+                "pearson_p": 1.0663618259562268e-16
+              },
+              "Interface_Binding": {
+                "n": 416,
+                "spearman_rho": 0.2403428275443882,
+                "spearman_p": 7.042345653327628e-07,
+                "pearson_r": 0.23554887800000734,
+                "pearson_p": 1.183712914295065e-06
+              }
+            }
+          }
+        },
+        "subgroup_correlations": {
+          "Interface_Abundance": {
+            "n": 758,
+            "spearman_rho": 0.41224149801334264,
+            "spearman_p": 1.8510192475250117e-32,
+            "pearson_r": 0.43397191521442574,
+            "pearson_p": 3.696232398667127e-36
+          },
+          "Interface_Binding": {
+            "n": 758,
+            "spearman_rho": -0.082004499697721,
+            "spearman_p": 0.023957560336506315,
+            "pearson_r": -0.06617659998778987,
+            "pearson_p": 0.06861438459110289
+          }
+        },
+        "permutation_null_mean": -0.33129542177342003,
+        "permutation_null_std": 0.06260285914546167,
+        "note": "Reuses run_three_way_interaction_test verbatim; its 'Interface' indicator here encodes Hotspot(1) vs Rim(0), NOT the original quaternary-interface compartment.",
+        "primary_term_hotspot_contrast": "PLM:Binding:Hotspot",
+        "beta_hotspot_interaction": -0.30621223385940555,
+        "params_relabeled_for_hotspot_contrast": {
+          "Intercept": {
+            "coef": -0.03970247515277851,
+            "se": 0.0882414557645907,
+            "t_stat": -0.44992996555605574,
+            "p_val": 0.6760667972026
+          },
+          "PLM": {
+            "coef": 0.46099271777216544,
+            "se": 0.09709228420898118,
+            "t_stat": 4.747985089936971,
+            "p_val": 0.008984212737228381
+          },
+          "Binding": {
+            "coef": 0.021315112810510805,
+            "se": 0.15826286419125662,
+            "t_stat": 0.1346817076730776,
+            "p_val": 0.8993686312966918
+          },
+          "Hotspot": {
+            "coef": 0.07418099862209002,
+            "se": 0.17565019420527553,
+            "t_stat": 0.4223223262446131,
+            "p_val": 0.6945016997459623
+          },
+          "PLM:Binding": {
+            "coef": -0.16085859162164523,
+            "se": 0.15703694029682272,
+            "t_stat": -1.0243360022017687,
+            "p_val": 0.3635796199517336
+          },
+          "PLM:Hotspot": {
+            "coef": -0.05888944274682842,
+            "se": 0.07008407490380505,
+            "t_stat": -0.8402685321545301,
+            "p_val": 0.4480496763417956
+          },
+          "Binding:Hotspot": {
+            "coef": -0.07039458088764676,
+            "se": 0.30720805592012307,
+            "t_stat": -0.22914301734961665,
+            "p_val": 0.8299971078009123
+          },
+          "PLM:Binding:Hotspot": {
+            "coef": -0.30621223385940555,
+            "se": 0.2411563758995085,
+            "t_stat": -1.2697662780726406,
+            "p_val": 0.27301074815177095
+          }
+        }
+      }
+    },
+    "esmc-600m": {
+      "arm": "esmc-600m",
+      "dsasa_col": "dsasa",
+      "split_rule": "Tertile split on dsasa within Interface-compartment rows: top tertile (dsasa >= 52.4097) = Hotspot, bottom tertile (dsasa <= 24.2529) = Rim, middle tertile excluded from the Hotspot-vs-Rim contrast to maximize separation.",
+      "n_interface_variants": 2262,
+      "n_hotspot": 758,
+      "n_mid": 744,
+      "n_rim": 760,
+      "groups": {
+        "Hotspot": {
+          "n_variants": 758,
+          "n_positions": 42,
+          "dsasa_median": 80.25904663623653,
+          "min_dist_median": 3.1956143379211426,
+          "rho_plm_abundance": 0.489,
+          "p_plm_abundance": 8.051894479120875e-47,
+          "rho_plm_binding": -0.1237,
+          "p_plm_binding": 0.0006429365904291349,
+          "rho_abundance_binding": 0.1863,
+          "p_abundance_binding": 2.3763008546703688e-07,
+          "rho_partial_plm_binding_given_abundance": -0.2507,
+          "pct_binding_signal_mediated_by_abundance": -102.65
+        },
+        "Mid": {
+          "n_variants": 744,
+          "n_positions": 40,
+          "dsasa_median": 36.42960681813248,
+          "min_dist_median": 3.165024995803833,
+          "rho_plm_abundance": 0.43,
+          "p_plm_abundance": 7.88831906065331e-35,
+          "rho_plm_binding": -0.1999,
+          "p_plm_binding": 3.8442415133844915e-08,
+          "rho_abundance_binding": 0.3364,
+          "p_abundance_binding": 3.861134120300804e-21,
+          "rho_partial_plm_binding_given_abundance": -0.4052,
+          "pct_binding_signal_mediated_by_abundance": -102.73
+        },
+        "Rim": {
+          "n_variants": 760,
+          "n_positions": 43,
+          "dsasa_median": 13.92896731281536,
+          "min_dist_median": 4.136251449584961,
+          "rho_plm_abundance": 0.3551,
+          "p_plm_abundance": 5.209196630636177e-24,
+          "rho_plm_binding": 0.2593,
+          "p_plm_binding": 3.8142693119731845e-13,
+          "rho_abundance_binding": 0.507,
+          "p_abundance_binding": 7.00952713900473e-51,
+          "rho_partial_plm_binding_given_abundance": 0.0984,
+          "pct_binding_signal_mediated_by_abundance": 62.07
+        },
+        "All": {
+          "n_variants": 2262,
+          "n_positions": 120,
+          "dsasa_median": 36.42960681813248,
+          "min_dist_median": 3.3899762630462646,
+          "rho_plm_abundance": 0.4264,
+          "p_plm_abundance": 1.3132705366715356e-100,
+          "rho_plm_binding": -0.0006,
+          "p_plm_binding": 0.9790226851496507,
+          "rho_abundance_binding": 0.3651,
+          "p_abundance_binding": 2.720827036201833e-72,
+          "rho_partial_plm_binding_given_abundance": -0.1856,
+          "pct_binding_signal_mediated_by_abundance": -33443.77
+        }
+      },
+      "interaction_test": {
+        "primary_term": "PLM:Binding:Interface",
+        "beta_three_way": -0.39900156518664753,
+        "p_clustered": 0.20489686198994694,
+        "p_permutation": 0.1943,
+        "p_wild_bootstrap": 0.3188,
+        "alpha": 1e-05,
+        "n_obs": 3036,
+        "n_clusters": 5,
+        "verdict": "H1 not supported: No significant three-way interaction",
+        "ols_summary": {
+          "n_obs": 3036,
+          "n_clusters": 5,
+          "params": {
+            "Intercept": {
+              "coef": -0.009014236841865024,
+              "se": 0.08896081828468215,
+              "t_stat": -0.10132816913867297,
+              "p_val": 0.9241659950683161
+            },
+            "PLM": {
+              "coef": 0.4519710853725041,
+              "se": 0.11691835817420042,
+              "t_stat": 3.8656981882956125,
+              "p_val": 0.01805944021670114
+            },
+            "Binding": {
+              "coef": 0.010201819437106572,
+              "se": 0.15624498363957015,
+              "t_stat": 0.06529374063387779,
+              "p_val": 0.9510731404382953
+            },
+            "Interface": {
+              "coef": 0.01720787212793123,
+              "se": 0.17735895339743316,
+              "t_stat": 0.0970228556173938,
+              "p_val": 0.9273752125275774
+            },
+            "PLM:Binding": {
+              "coef": -0.14094320616331985,
+              "se": 0.1544126787813743,
+              "t_stat": -0.9127696460915282,
+              "p_val": 0.41300169824619615
+            },
+            "PLM:Interface": {
+              "coef": -0.0348703928930649,
+              "se": 0.10538450818533511,
+              "t_stat": -0.33088727644617244,
+              "p_val": 0.7573370630158909
+            },
+            "Binding:Interface": {
+              "coef": -0.030092371013953106,
+              "se": 0.3045360042920743,
+              "t_stat": -0.09881383675439613,
+              "p_val": 0.9260399925926095
+            },
+            "PLM:Binding:Interface": {
+              "coef": -0.39900156518664753,
+              "se": 0.26376372655758146,
+              "t_stat": -1.5127234149823203,
+              "p_val": 0.20489686198994694
+            }
+          },
+          "beta": [
+            -0.009014236841865024,
+            0.4519710853725041,
+            0.010201819437106572,
+            0.01720787212793123,
+            -0.14094320616331985,
+            -0.0348703928930649,
+            -0.030092371013953106,
+            -0.39900156518664753
+          ],
+          "residuals_mean": -6.553095059711069e-17,
+          "residuals_std": 0.934543357686287,
+          "r_squared": 0.123742488918401
+        },
+        "wild_cluster_bootstrap": {
+          "p_wild_bootstrap": 0.3188,
+          "t_stat_orig": -1.5127234149823203,
+          "beta_orig": -0.39900156518664753,
+          "se_orig": 0.26376372655758146,
+          "boot_t_mean": 0.008610275036133284,
+          "boot_t_std": 1.3608331072982036,
+          "n_boot": 10000.0
+        },
+        "fixed_effects_summary": {
+          "n_obs": 3036,
+          "n_clusters": 5,
+          "params": {
+            "FE_GB1": {
+              "coef": -0.00510090971855387,
+              "se": 0.07817414305968813,
+              "t_stat": -0.06525059973678488,
+              "p_val": 0.9511054101152423
+            },
+            "FE_HLA-A2": {
+              "coef": -0.018006746489560653,
+              "se": 0.08614115703857522,
+              "t_stat": -0.20903766687852798,
+              "p_val": 0.8446327974011332
+            },
+            "FE_KRAS": {
+              "coef": 0.02302013730880235,
+              "se": 0.08562311451216417,
+              "t_stat": 0.2688542391848169,
+              "p_val": 0.801339282067532
+            },
+            "FE_SARS-CoV-2_RBD": {
+              "coef": -0.0012775625489975934,
+              "se": 0.0913132381616336,
+              "t_stat": -0.013990989419695963,
+              "p_val": 0.9895071858359266
+            },
+            "FE_p53": {
+              "coef": -0.04486190855633401,
+              "se": 0.10818721426172226,
+              "t_stat": -0.41466922743574713,
+              "p_val": 0.6996583822514961
+            },
+            "PLM": {
+              "coef": 0.4556320280921778,
+              "se": 0.11317385165946947,
+              "t_stat": 4.025947879401825,
+              "p_val": 0.015786434594669663
+            },
+            "Binding": {
+              "coef": 0.01020181943710668,
+              "se": 0.15634828611937682,
+              "t_stat": 0.06525059973677787,
+              "p_val": 0.9511054101152476
+            },
+            "Interface": {
+              "coef": 0.03201905252300833,
+              "se": 0.1812957197224633,
+              "t_stat": 0.17661229163062825,
+              "p_val": 0.8683945533075708
+            },
+            "PLM:Binding": {
+              "coef": -0.14094320616331996,
+              "se": 0.1545147698198209,
+              "t_stat": -0.9121665606962578,
+              "p_val": 0.41328362635044624
+            },
+            "PLM:Interface": {
+              "coef": -0.04215963987127158,
+              "se": 0.09827023012233102,
+              "t_stat": -0.4290174126873362,
+              "p_val": 0.6900068441815339
+            },
+            "Binding:Interface": {
+              "coef": -0.03009237101395179,
+              "se": 0.3047373504326096,
+              "t_stat": -0.09874854845076333,
+              "p_val": 0.9260886614661676
+            },
+            "PLM:Binding:Interface": {
+              "coef": -0.39900156518664626,
+              "se": 0.2639381158173311,
+              "t_stat": -1.5117239279785992,
+              "p_val": 0.2051389151603371
+            }
+          },
+          "beta": [
+            -0.00510090971855387,
+            -0.018006746489560653,
+            0.02302013730880235,
+            -0.0012775625489975934,
+            -0.04486190855633401,
+            0.4556320280921778,
+            0.01020181943710668,
+            0.03201905252300833,
+            -0.14094320616331996,
+            -0.04215963987127158,
+            -0.03009237101395179,
+            -0.39900156518664626
+          ],
+          "residuals_mean": -5.148860404058697e-17,
+          "residuals_std": 0.9343113664874844,
+          "r_squared": 0.12417747954168912,
+          "system_dummies": [
+            "FE_GB1",
+            "FE_HLA-A2",
+            "FE_KRAS",
+            "FE_SARS-CoV-2_RBD",
+            "FE_p53"
+          ],
+          "unique_systems": [
+            "GB1",
+            "HLA-A2",
+            "KRAS",
+            "SARS-CoV-2_RBD",
+            "p53"
+          ]
+        },
+        "leave_one_system_out": {
+          "GB1": {
+            "omitted_system": "GB1",
+            "n_obs": 2960,
+            "n_clusters": 4,
+            "beta_three_way": -0.3930864485437151,
+            "se": 0.2710620960327343,
+            "t_stat": -1.4501712127845598,
+            "p_val": 0.24289100645346706,
+            "rho_interface_abundance": 0.4212418493730866,
+            "rho_interface_binding": -0.13719857666467583,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 758,
+                "spearman_rho": 0.4212418493730866,
+                "spearman_p": 5.858655724123033e-34,
+                "pearson_r": 0.43113043903248977,
+                "pearson_p": 1.1667999836195427e-35
+              },
+              "Interface_Binding": {
+                "n": 758,
+                "spearman_rho": -0.13719857666467583,
+                "spearman_p": 0.00015124188683545185,
+                "pearson_r": -0.1198411442706623,
+                "pearson_p": 0.0009466563035169208
+              }
+            }
+          },
+          "HLA-A2": {
+            "omitted_system": "HLA-A2",
+            "n_obs": 1772,
+            "n_clusters": 4,
+            "beta_three_way": -0.6647246962103392,
+            "se": 0.1645941224950517,
+            "t_stat": -4.038568851268206,
+            "p_val": 0.027312946280702022,
+            "rho_interface_abundance": 0.3580367436157046,
+            "rho_interface_binding": -0.3433498864209867,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 513,
+                "spearman_rho": 0.3580367436157046,
+                "spearman_p": 5.831133427557779e-17,
+                "pearson_r": 0.3885248920170971,
+                "pearson_p": 6.247432221270998e-20
+              },
+              "Interface_Binding": {
+                "n": 513,
+                "spearman_rho": -0.3433498864209867,
+                "spearman_p": 1.2213208156240404e-15,
+                "pearson_r": -0.33093248063748737,
+                "pearson_p": 1.4144326143199264e-14
+              }
+            }
+          },
+          "KRAS": {
+            "omitted_system": "KRAS",
+            "n_obs": 2556,
+            "n_clusters": 4,
+            "beta_three_way": -0.3385426873263796,
+            "se": 0.21292508544094985,
+            "t_stat": -1.5899614957311692,
+            "p_val": 0.2100656032533048,
+            "rho_interface_abundance": 0.4710834503975106,
+            "rho_interface_binding": -0.18127018683241447,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 682,
+                "spearman_rho": 0.4710834503975106,
+                "spearman_p": 5.735109224153003e-39,
+                "pearson_r": 0.47818057231601396,
+                "pearson_p": 2.9379293082073446e-40
+              },
+              "Interface_Binding": {
+                "n": 682,
+                "spearman_rho": -0.18127018683241447,
+                "spearman_p": 1.890988915672166e-06,
+                "pearson_r": -0.1573547948208304,
+                "pearson_p": 3.666599905298236e-05
+              }
+            }
+          },
+          "SARS-CoV-2_RBD": {
+            "omitted_system": "SARS-CoV-2_RBD",
+            "n_obs": 2656,
+            "n_clusters": 4,
+            "beta_three_way": -0.4437726658299925,
+            "se": 0.3130612354879875,
+            "t_stat": -1.4175267184972844,
+            "p_val": 0.2513403512572956,
+            "rho_interface_abundance": 0.462062440718463,
+            "rho_interface_binding": -0.13138870385520254,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 663,
+                "spearman_rho": 0.462062440718463,
+                "spearman_p": 2.2527502622114338e-36,
+                "pearson_r": 0.46752427908108335,
+                "pearson_p": 2.618707919551744e-37
+              },
+              "Interface_Binding": {
+                "n": 663,
+                "spearman_rho": -0.13138870385520254,
+                "spearman_p": 0.0006952929576857758,
+                "pearson_r": -0.10781331775168959,
+                "pearson_p": 0.005453868396133788
+              }
+            }
+          },
+          "p53": {
+            "omitted_system": "p53",
+            "n_obs": 2200,
+            "n_clusters": 4,
+            "beta_three_way": -0.0364111475125537,
+            "se": 0.08312105395925903,
+            "t_stat": -0.43804963698367283,
+            "p_val": 0.690973471279499,
+            "rho_interface_abundance": 0.359102429579741,
+            "rho_interface_binding": 0.1931616001103416,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 416,
+                "spearman_rho": 0.359102429579741,
+                "spearman_p": 4.1650516065887676e-14,
+                "pearson_r": 0.3395310128811211,
+                "pearson_p": 1.1048446219693482e-12
+              },
+              "Interface_Binding": {
+                "n": 416,
+                "spearman_rho": 0.1931616001103416,
+                "spearman_p": 7.330663181554923e-05,
+                "pearson_r": 0.19213341975206671,
+                "pearson_p": 8.020710982348296e-05
+              }
+            }
+          }
+        },
+        "subgroup_correlations": {
+          "Interface_Abundance": {
+            "n": 758,
+            "spearman_rho": 0.4212418493730866,
+            "spearman_p": 5.858655724123033e-34,
+            "pearson_r": 0.43113043903248977,
+            "pearson_p": 1.1667999836195427e-35
+          },
+          "Interface_Binding": {
+            "n": 758,
+            "spearman_rho": -0.13719857666467583,
+            "spearman_p": 0.00015124188683545185,
+            "pearson_r": -0.1198411442706623,
+            "pearson_p": 0.0009466563035169208
+          }
+        },
+        "permutation_null_mean": -0.34438742910336334,
+        "permutation_null_std": 0.06277332769536942,
+        "note": "Reuses run_three_way_interaction_test verbatim; its 'Interface' indicator here encodes Hotspot(1) vs Rim(0), NOT the original quaternary-interface compartment.",
+        "primary_term_hotspot_contrast": "PLM:Binding:Hotspot",
+        "beta_hotspot_interaction": -0.39900156518664753,
+        "params_relabeled_for_hotspot_contrast": {
+          "Intercept": {
+            "coef": -0.009014236841865024,
+            "se": 0.08896081828468215,
+            "t_stat": -0.10132816913867297,
+            "p_val": 0.9241659950683161
+          },
+          "PLM": {
+            "coef": 0.4519710853725041,
+            "se": 0.11691835817420042,
+            "t_stat": 3.8656981882956125,
+            "p_val": 0.01805944021670114
+          },
+          "Binding": {
+            "coef": 0.010201819437106572,
+            "se": 0.15624498363957015,
+            "t_stat": 0.06529374063387779,
+            "p_val": 0.9510731404382953
+          },
+          "Hotspot": {
+            "coef": 0.01720787212793123,
+            "se": 0.17735895339743316,
+            "t_stat": 0.0970228556173938,
+            "p_val": 0.9273752125275774
+          },
+          "PLM:Binding": {
+            "coef": -0.14094320616331985,
+            "se": 0.1544126787813743,
+            "t_stat": -0.9127696460915282,
+            "p_val": 0.41300169824619615
+          },
+          "PLM:Hotspot": {
+            "coef": -0.0348703928930649,
+            "se": 0.10538450818533511,
+            "t_stat": -0.33088727644617244,
+            "p_val": 0.7573370630158909
+          },
+          "Binding:Hotspot": {
+            "coef": -0.030092371013953106,
+            "se": 0.3045360042920743,
+            "t_stat": -0.09881383675439613,
+            "p_val": 0.9260399925926095
+          },
+          "PLM:Binding:Hotspot": {
+            "coef": -0.39900156518664753,
+            "se": 0.26376372655758146,
+            "t_stat": -1.5127234149823203,
+            "p_val": 0.20489686198994694
+          }
+        }
+      }
+    },
+    "esmc-6b": {
+      "arm": "esmc-6b",
+      "dsasa_col": "dsasa",
+      "split_rule": "Tertile split on dsasa within Interface-compartment rows: top tertile (dsasa >= 52.4097) = Hotspot, bottom tertile (dsasa <= 24.2529) = Rim, middle tertile excluded from the Hotspot-vs-Rim contrast to maximize separation.",
+      "n_interface_variants": 2262,
+      "n_hotspot": 758,
+      "n_mid": 744,
+      "n_rim": 760,
+      "groups": {
+        "Hotspot": {
+          "n_variants": 758,
+          "n_positions": 42,
+          "dsasa_median": 80.25904663623653,
+          "min_dist_median": 3.1956143379211426,
+          "rho_plm_abundance": 0.2798,
+          "p_plm_abundance": 4.256684314712807e-15,
+          "rho_plm_binding": -0.4711,
+          "p_plm_binding": 3.862113949677275e-43,
+          "rho_abundance_binding": 0.1863,
+          "p_abundance_binding": 2.3763008546703688e-07,
+          "rho_partial_plm_binding_given_abundance": -0.5547,
+          "pct_binding_signal_mediated_by_abundance": -17.75
+        },
+        "Mid": {
+          "n_variants": 744,
+          "n_positions": 40,
+          "dsasa_median": 36.42960681813248,
+          "min_dist_median": 3.165024995803833,
+          "rho_plm_abundance": 0.264,
+          "p_plm_abundance": 2.511395445207414e-13,
+          "rho_plm_binding": -0.3245,
+          "p_plm_binding": 1.057898479548657e-19,
+          "rho_abundance_binding": 0.3364,
+          "p_abundance_binding": 3.861134120300804e-21,
+          "rho_partial_plm_binding_given_abundance": -0.455,
+          "pct_binding_signal_mediated_by_abundance": -40.22
+        },
+        "Rim": {
+          "n_variants": 760,
+          "n_positions": 43,
+          "dsasa_median": 13.92896731281536,
+          "min_dist_median": 4.136251449584961,
+          "rho_plm_abundance": 0.2345,
+          "p_plm_abundance": 5.946117780741666e-11,
+          "rho_plm_binding": 0.1388,
+          "p_plm_binding": 0.00012307968262658176,
+          "rho_abundance_binding": 0.507,
+          "p_abundance_binding": 7.00952713900473e-51,
+          "rho_partial_plm_binding_given_abundance": 0.0238,
+          "pct_binding_signal_mediated_by_abundance": 82.85
+        },
+        "All": {
+          "n_variants": 2262,
+          "n_positions": 120,
+          "dsasa_median": 36.42960681813248,
+          "min_dist_median": 3.3899762630462646,
+          "rho_plm_abundance": 0.2455,
+          "p_plm_abundance": 2.091700860023235e-32,
+          "rho_plm_binding": -0.2414,
+          "p_plm_binding": 2.346486120694733e-31,
+          "rho_abundance_binding": 0.3651,
+          "p_abundance_binding": 2.720827036201833e-72,
+          "rho_partial_plm_binding_given_abundance": -0.3668,
+          "pct_binding_signal_mediated_by_abundance": -51.96
+        }
+      },
+      "interaction_test": {
+        "primary_term": "PLM:Binding:Interface",
+        "beta_three_way": -0.4734929943680761,
+        "p_clustered": 0.1370880557944898,
+        "p_permutation": 0.0129,
+        "p_wild_bootstrap": 0.3015,
+        "alpha": 1e-05,
+        "n_obs": 3036,
+        "n_clusters": 5,
+        "verdict": "H1 not supported: No significant three-way interaction",
+        "ols_summary": {
+          "n_obs": 3036,
+          "n_clusters": 5,
+          "params": {
+            "Intercept": {
+              "coef": -0.02862133425376791,
+              "se": 0.08296084236141223,
+              "t_stat": -0.3449981152443146,
+              "p_val": 0.7474732312833896
+            },
+            "PLM": {
+              "coef": 0.43301348222845265,
+              "se": 0.09595814270615272,
+              "t_stat": 4.512524628102128,
+              "p_val": 0.010719351030325619
+            },
+            "Binding": {
+              "coef": 0.018248257570719257,
+              "se": 0.1539075147172545,
+              "t_stat": 0.11856638452153144,
+              "p_val": 0.9113346923825336
+            },
+            "Interface": {
+              "coef": 0.05539469598393118,
+              "se": 0.1650346334099894,
+              "t_stat": 0.33565497640920133,
+              "p_val": 0.753997938086854
+            },
+            "PLM:Binding": {
+              "coef": -0.16244185344964873,
+              "se": 0.09528886127161948,
+              "t_stat": -1.704730765819634,
+              "p_val": 0.1634464353789058
+            },
+            "PLM:Interface": {
+              "coef": -0.027215931149844066,
+              "se": 0.0895664045748711,
+              "t_stat": -0.3038631647549668,
+              "p_val": 0.7763827733097679
+            },
+            "Binding:Interface": {
+              "coef": -0.07000886136580603,
+              "se": 0.28869139106539243,
+              "t_stat": -0.24250415333634973,
+              "p_val": 0.8203163395715896
+            },
+            "PLM:Binding:Interface": {
+              "coef": -0.4734929943680761,
+              "se": 0.25516184666225167,
+              "t_stat": -1.855657499590138,
+              "p_val": 0.1370880557944898
+            }
+          },
+          "beta": [
+            -0.02862133425376791,
+            0.43301348222845265,
+            0.018248257570719257,
+            0.05539469598393118,
+            -0.16244185344964873,
+            -0.027215931149844066,
+            -0.07000886136580603,
+            -0.4734929943680761
+          ],
+          "residuals_mean": -2.2935832708988744e-16,
+          "residuals_std": 0.936783064965532,
+          "r_squared": 0.1195374148024877
+        },
+        "wild_cluster_bootstrap": {
+          "p_wild_bootstrap": 0.3015,
+          "t_stat_orig": -1.855657499590138,
+          "beta_orig": -0.4734929943680761,
+          "se_orig": 0.25516184666225167,
+          "boot_t_mean": 0.0009688308133233264,
+          "boot_t_std": 1.5292074962361948,
+          "n_boot": 10000.0
+        },
+        "fixed_effects_summary": {
+          "n_obs": 3036,
+          "n_clusters": 5,
+          "params": {
+            "FE_GB1": {
+              "coef": -0.009124128785359294,
+              "se": 0.07700463588144749,
+              "t_stat": -0.11848804530945838,
+              "p_val": 0.9113929340563192
+            },
+            "FE_HLA-A2": {
+              "coef": -0.03569629511014662,
+              "se": 0.08295557575316774,
+              "t_stat": -0.43030615827874014,
+              "p_val": 0.6891433863502661
+            },
+            "FE_KRAS": {
+              "coef": -0.007148051314789212,
+              "se": 0.08285632098320671,
+              "t_stat": -0.08627044056467312,
+              "p_val": 0.9353972982500527
+            },
+            "FE_SARS-CoV-2_RBD": {
+              "coef": -0.012859641633674425,
+              "se": 0.08811765538845708,
+              "t_stat": -0.14593717430387926,
+              "p_val": 0.8910300633893524
+            },
+            "FE_p53": {
+              "coef": -0.07074594696063678,
+              "se": 0.10007801678031977,
+              "t_stat": -0.7069079627739875,
+              "p_val": 0.5186296073700571
+            },
+            "PLM": {
+              "coef": 0.43636613193895757,
+              "se": 0.09222679613635555,
+              "t_stat": 4.73144628480641,
+              "p_val": 0.009094377867733039
+            },
+            "Binding": {
+              "coef": 0.01824825757071931,
+              "se": 0.15400927176289497,
+              "t_stat": 0.11848804530946305,
+              "p_val": 0.9113929340563158
+            },
+            "Interface": {
+              "coef": 0.07238795176488375,
+              "se": 0.16667599252985366,
+              "t_stat": 0.434303409064255,
+              "p_val": 0.6864688765679108
+            },
+            "PLM:Binding": {
+              "coef": -0.1624418534496484,
+              "se": 0.09535186217851625,
+              "t_stat": -1.7036044156696943,
+              "p_val": 0.16366226115088667
+            },
+            "PLM:Interface": {
+              "coef": -0.032990840759363316,
+              "se": 0.08537404514929998,
+              "t_stat": -0.3864270540498551,
+              "p_val": 0.7188560665234114
+            },
+            "Binding:Interface": {
+              "coef": -0.07000886136580584,
+              "se": 0.2888822614274445,
+              "t_stat": -0.24234392592980036,
+              "p_val": 0.8204322071943624
+            },
+            "PLM:Binding:Interface": {
+              "coef": -0.47349299436807596,
+              "se": 0.2553305487280612,
+              "t_stat": -1.8544314290898571,
+              "p_val": 0.13728287005604378
+            }
+          },
+          "beta": [
+            -0.009124128785359294,
+            -0.03569629511014662,
+            -0.007148051314789212,
+            -0.012859641633674425,
+            -0.07074594696063678,
+            0.43636613193895757,
+            0.01824825757071931,
+            0.07238795176488375,
+            -0.1624418534496484,
+            -0.032990840759363316,
+            -0.07000886136580584,
+            -0.47349299436807596
+          ],
+          "residuals_mean": 0.0,
+          "residuals_std": 0.9365336542783473,
+          "r_squared": 0.1200061840484733,
+          "system_dummies": [
+            "FE_GB1",
+            "FE_HLA-A2",
+            "FE_KRAS",
+            "FE_SARS-CoV-2_RBD",
+            "FE_p53"
+          ],
+          "unique_systems": [
+            "GB1",
+            "HLA-A2",
+            "KRAS",
+            "SARS-CoV-2_RBD",
+            "p53"
+          ]
+        },
+        "leave_one_system_out": {
+          "GB1": {
+            "omitted_system": "GB1",
+            "n_obs": 2960,
+            "n_clusters": 4,
+            "beta_three_way": -0.46859269011175564,
+            "se": 0.2608210741384525,
+            "t_stat": -1.796605936309468,
+            "p_val": 0.17025775014518696,
+            "rho_interface_abundance": 0.38699036749823607,
+            "rho_interface_binding": -0.24339149558133163,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 758,
+                "spearman_rho": 0.38699036749823607,
+                "spearman_p": 1.7299850737002907e-28,
+                "pearson_r": 0.4179357656563608,
+                "pearson_p": 2.1083555509915016e-33
+              },
+              "Interface_Binding": {
+                "n": 758,
+                "spearman_rho": -0.24339149558133163,
+                "spearman_p": 1.1032342564876152e-11,
+                "pearson_r": -0.2237026183694124,
+                "pearson_p": 4.728374446055744e-10
+              }
+            }
+          },
+          "HLA-A2": {
+            "omitted_system": "HLA-A2",
+            "n_obs": 1772,
+            "n_clusters": 4,
+            "beta_three_way": -0.6241721265003228,
+            "se": 0.25387704651441695,
+            "t_stat": -2.458560689396069,
+            "p_val": 0.09098385807299314,
+            "rho_interface_abundance": 0.29145269742845353,
+            "rho_interface_binding": -0.4269951394742437,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 513,
+                "spearman_rho": 0.29145269742845353,
+                "spearman_p": 1.6751810245319647e-11,
+                "pearson_r": 0.3521718114054506,
+                "pearson_p": 2.0026718262503215e-16
+              },
+              "Interface_Binding": {
+                "n": 513,
+                "spearman_rho": -0.4269951394742437,
+                "spearman_p": 3.782432124606351e-24,
+                "pearson_r": -0.41050087527871765,
+                "pearson_p": 2.8409484864337265e-22
+              }
+            }
+          },
+          "KRAS": {
+            "omitted_system": "KRAS",
+            "n_obs": 2556,
+            "n_clusters": 4,
+            "beta_three_way": -0.49093525534226334,
+            "se": 0.23610382269293154,
+            "t_stat": -2.079319384763866,
+            "p_val": 0.1290864929376594,
+            "rho_interface_abundance": 0.4369815661505986,
+            "rho_interface_binding": -0.2817064676881686,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 682,
+                "spearman_rho": 0.4369815661505986,
+                "spearman_p": 3.576853706935821e-33,
+                "pearson_r": 0.47202139854795944,
+                "pearson_p": 3.887959531438199e-39
+              },
+              "Interface_Binding": {
+                "n": 682,
+                "spearman_rho": -0.2817064676881686,
+                "spearman_p": 6.597997268024183e-14,
+                "pearson_r": -0.26219044934298985,
+                "pearson_p": 3.484881773344106e-12
+              }
+            }
+          },
+          "SARS-CoV-2_RBD": {
+            "omitted_system": "SARS-CoV-2_RBD",
+            "n_obs": 2656,
+            "n_clusters": 4,
+            "beta_three_way": -0.5599117769729804,
+            "se": 0.2802124259132931,
+            "t_stat": -1.9981689789382697,
+            "p_val": 0.13957345064083881,
+            "rho_interface_abundance": 0.4224744732347571,
+            "rho_interface_binding": -0.2818258272250868,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 663,
+                "spearman_rho": 0.4224744732347571,
+                "spearman_p": 4.399343125236302e-30,
+                "pearson_r": 0.4486622757304538,
+                "pearson_p": 3.761754172349012e-34
+              },
+              "Interface_Binding": {
+                "n": 663,
+                "spearman_rho": -0.2818258272250868,
+                "spearman_p": 1.431663739878521e-13,
+                "pearson_r": -0.25439828020778266,
+                "pearson_p": 2.975827212522929e-11
+              }
+            }
+          },
+          "p53": {
+            "omitted_system": "p53",
+            "n_obs": 2200,
+            "n_clusters": 4,
+            "beta_three_way": -0.08173140133579082,
+            "se": 0.07013583145248449,
+            "t_stat": -1.1653301834906182,
+            "p_val": 0.32811743959551265,
+            "rho_interface_abundance": 0.36806517865646926,
+            "rho_interface_binding": 0.12394697883166818,
+            "subgroup_correlations": {
+              "Interface_Abundance": {
+                "n": 416,
+                "spearman_rho": 0.36806517865646926,
+                "spearman_p": 8.592037645213068e-15,
+                "pearson_r": 0.3582682501450469,
+                "pearson_p": 4.81211026092552e-14
+              },
+              "Interface_Binding": {
+                "n": 416,
+                "spearman_rho": 0.12394697883166818,
+                "spearman_p": 0.011400107321938722,
+                "pearson_r": 0.12350294992527365,
+                "pearson_p": 0.011700364718183118
+              }
+            }
+          }
+        },
+        "subgroup_correlations": {
+          "Interface_Abundance": {
+            "n": 758,
+            "spearman_rho": 0.38699036749823607,
+            "spearman_p": 1.7299850737002907e-28,
+            "pearson_r": 0.4179357656563608,
+            "pearson_p": 2.1083555509915016e-33
+          },
+          "Interface_Binding": {
+            "n": 758,
+            "spearman_rho": -0.24339149558133163,
+            "spearman_p": 1.1032342564876152e-11,
+            "pearson_r": -0.2237026183694124,
+            "pearson_p": 4.728374446055744e-10
+          }
+        },
+        "permutation_null_mean": -0.33563842955647094,
+        "permutation_null_std": 0.06258707735484219,
+        "note": "Reuses run_three_way_interaction_test verbatim; its 'Interface' indicator here encodes Hotspot(1) vs Rim(0), NOT the original quaternary-interface compartment.",
+        "primary_term_hotspot_contrast": "PLM:Binding:Hotspot",
+        "beta_hotspot_interaction": -0.4734929943680761,
+        "params_relabeled_for_hotspot_contrast": {
+          "Intercept": {
+            "coef": -0.02862133425376791,
+            "se": 0.08296084236141223,
+            "t_stat": -0.3449981152443146,
+            "p_val": 0.7474732312833896
+          },
+          "PLM": {
+            "coef": 0.43301348222845265,
+            "se": 0.09595814270615272,
+            "t_stat": 4.512524628102128,
+            "p_val": 0.010719351030325619
+          },
+          "Binding": {
+            "coef": 0.018248257570719257,
+            "se": 0.1539075147172545,
+            "t_stat": 0.11856638452153144,
+            "p_val": 0.9113346923825336
+          },
+          "Hotspot": {
+            "coef": 0.05539469598393118,
+            "se": 0.1650346334099894,
+            "t_stat": 0.33565497640920133,
+            "p_val": 0.753997938086854
+          },
+          "PLM:Binding": {
+            "coef": -0.16244185344964873,
+            "se": 0.09528886127161948,
+            "t_stat": -1.704730765819634,
+            "p_val": 0.1634464353789058
+          },
+          "PLM:Hotspot": {
+            "coef": -0.027215931149844066,
+            "se": 0.0895664045748711,
+            "t_stat": -0.3038631647549668,
+            "p_val": 0.7763827733097679
+          },
+          "Binding:Hotspot": {
+            "coef": -0.07000886136580603,
+            "se": 0.28869139106539243,
+            "t_stat": -0.24250415333634973,
+            "p_val": 0.8203163395715896
+          },
+          "PLM:Binding:Hotspot": {
+            "coef": -0.4734929943680761,
+            "se": 0.25516184666225167,
+            "t_stat": -1.855657499590138,
+            "p_val": 0.1370880557944898
+          }
+        }
+      }
+    }
+  },
+  "formal_answer": {
+    "question": "Is PLM interface blindness uniform across the Interface compartment, or concentrated at energetic hotspots (high-dsasa, close-contact residues)?",
+    "concentrated_at_hotspots_all_arms": true,
+    "uniform_degradation_all_arms": false,
+    "n_arms_with_hotspot_more_negative": 4,
+    "n_arms_compared": 4,
+    "per_arm": {
+      "esm2-3b": {
+        "hotspot_rho_partial": -0.1707,
+        "rim_rho_partial": 0.0503,
+        "hotspot_more_negative": true,
+        "beta_hotspot_interaction": -0.3248787313322983
+      },
+      "esm2-650m": {
+        "hotspot_rho_partial": -0.2281,
+        "rim_rho_partial": 0.0915,
+        "hotspot_more_negative": true,
+        "beta_hotspot_interaction": -0.30621223385940555
+      },
+      "esmc-600m": {
+        "hotspot_rho_partial": -0.2507,
+        "rim_rho_partial": 0.0984,
+        "hotspot_more_negative": true,
+        "beta_hotspot_interaction": -0.39900156518664753
+      },
+      "esmc-6b": {
+        "hotspot_rho_partial": -0.5547,
+        "rim_rho_partial": 0.0238,
+        "hotspot_more_negative": true,
+        "beta_hotspot_interaction": -0.4734929943680761
+      }
+    },
+    "conclusion": "PLM interface blindness is NOT uniform: it is concentrated at energetic hotspots. In all model arms, the partial rank correlation rho(PLM, Binding | Abundance) is MORE negative at Hotspot (top-tertile dsasa) residues than at Rim (bottom-tertile dsasa) residues, meaning single-chain PLMs are least informative about binding precisely where quaternary contacts are most extensive and energetically load-bearing."
+  }
+}

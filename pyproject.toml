@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=78"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plmconfound"
+version = "0.1.0"
+requires-python = ">=3.12"
+description = "Confirmatory study of whether protein language models encode post-translational-modification chemistry, or only generic positional conservation."
+
+# Mirrors requirements-core.txt. The torch pin drops its local `+cu121` tag
+# here: a local version identifier is not resolvable from PyPI and would make
+# the project uninstallable for anyone without the CUDA 12.1 wheel index
+# configured. bin/setup.sh installs torch from requirements-core.txt (with
+# --extra-index-url) *before* `pip install -e .`, so the CUDA build is already
+# present and this constraint is satisfied by it rather than re-resolved.
+#
+# The ESMC stack (esm==3.4.0) is intentionally absent from every extra: it
+# hard-requires torch 2.11.0+cu130 and transformers 4.57.x, which would clobber
+# the pinned core environment the committed results were measured in. It lives
+# in a second venv, .venv-esmc, driven by requirements-esmc.txt.
+dependencies = [
+    "torch==2.5.1",
+    "transformers==5.16.1",
+    "pandas==3.0.5",
+    "numpy==2.5.2",
+    "scipy==1.18.1",
+    "biopython==1.88",
+    "requests==2.34.2",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "slow: tests that read the 1GB bulk ProteinGym dataset",
+    "network: tests that query remote APIs (e.g. RCSB PDB)",
+]
+
+[tool.ruff]
+line-length = 100

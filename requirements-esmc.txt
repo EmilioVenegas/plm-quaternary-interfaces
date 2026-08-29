@@ -1,0 +1,35 @@
+# ESMC environment (.venv-esmc) -- direct dependencies only.
+#
+# This is a SEPARATE virtualenv on purpose. `pip install esm` hard-requires its
+# own torch (2.11.0+cu130) and transformers 4.57.x; installing it into the core
+# env would silently replace torch 2.5.1+cu121 / transformers 5.16.1 and
+# invalidate every number the core pipeline has already produced. Two envs is
+# the cheap fix; downgrading esm or upgrading the core env is not, because the
+# core results are committed.
+#
+# Exact pins transcribed from requirements-esmc.lock.txt.
+
+esm==3.4.0
+accelerate==1.14.0
+pandas==3.0.5
+
+# torch==2.11.0 and transformers==4.57.6 arrive as `esm` transitives. Do NOT
+# pin them here: any pin written against the core env's versions (2.5.1+cu121 /
+# 5.16.1) makes this file unresolvable, and pinning them at esm's versions just
+# duplicates metadata that esm already enforces. requirements-esmc.lock.txt
+# records what actually landed.
+
+# --- Optional fused-kernel stack (not installed by bin/setup.sh) -------------
+# ESMC probes for these at import and falls back to eager attention / plain
+# PyTorch LayerNorm+MLP when they are absent. The fallback is numerically
+# non-identical, but the drift lives on the *unnormalized* residual stream:
+# after the final LayerNorm the two paths agree to within a few ULP, so any
+# measurement taken in logit space (masked log-probs, log-odds ratios, the
+# additive/joint/conditional pair scores) is rounding-noise safe without them.
+# Install before a publication run so the reported numbers come off the same
+# kernels the model was released with; skip for iteration, they are slow to
+# build and pull a compiler toolchain.
+#
+# transformer-engine[pytorch]
+# xformers
+# flash-attn

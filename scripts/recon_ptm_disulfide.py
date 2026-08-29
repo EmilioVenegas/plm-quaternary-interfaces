@@ -71,7 +71,7 @@ BULK = PG / "bulk" / "DMS_ProteinGym_substitutions"
 REF_CSV = PG / "DMS_substitutions_ref.csv"
 FEAT_CACHE = REPO / "data" / "ptm" / "uniprot_features.json"
 MEGASCALE = REPO / "data" / "megascale" / "Processed_K50_dG_datasets" / "Tsuboyama2023_Dataset2_Dataset3_20230416.csv"
-OUT = REPO / "analysis" / "results"
+OUT = REPO / "results" / "recon"
 
 MODEL_650M = "facebook/esm2_t33_650M_UR50D"
 AA = list("ACDEFGHIKLMNPQRSTVWY")
@@ -732,7 +732,7 @@ def main():
     }
 
     # ---- scoring mechanics, validated against real structural ground truth
-    tok, model = load_esm()
+    tok, model = load_esm(dtype=torch.float16)
     blat = ref[ref.DMS_id == "BLAT_ECOLX_Stiffler_2015"].iloc[0].target_seq
     gfp = ref[ref.DMS_id == "GFP_AEQVI_Sarkisyan_2016"].iloc[0].target_seq
     summary["mechanics"] = {

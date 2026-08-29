@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: plmconfound
+Version: 0.1.0
+Summary: Confirmatory study of whether protein language models encode post-translational-modification chemistry, or only generic positional conservation.
+Requires-Python: >=3.12
+Requires-Dist: torch==2.5.1
+Requires-Dist: transformers==5.16.1
+Requires-Dist: pandas==3.0.5
+Requires-Dist: numpy==2.5.2
+Requires-Dist: scipy==1.18.1
+Requires-Dist: biopython==1.88
+Requires-Dist: requests==2.34.2

@@ -92,32 +92,32 @@
     ],
     "ssbond_1EMA": [],
     "TEM1_C75_C121_disulfide_CtoA": {
-      "additive": -6.832275629043579,
-      "joint_doublemask": -2.4253966212272644,
-      "conditional_sym": -4.080064572393894,
-      "eps_cond_minus_add": 2.752211056649685,
-      "eps_joint_minus_add": 4.406879007816315
+      "additive": -6.812957763671875,
+      "joint_doublemask": -2.4248046875,
+      "conditional_sym": -4.0777435302734375,
+      "eps_cond_minus_add": 2.7352142333984375,
+      "eps_joint_minus_add": 4.388153076171875
     },
     "TEM1_C75_C121_disulfide_CtoS": {
-      "additive": -7.475090503692627,
-      "joint_doublemask": -3.212930142879486,
-      "conditional_sym": -4.537127286195755,
-      "eps_cond_minus_add": 2.937963217496872,
-      "eps_joint_minus_add": 4.262160360813141
+      "additive": -7.445770263671875,
+      "joint_doublemask": -3.1962890625,
+      "conditional_sym": -4.5074920654296875,
+      "eps_cond_minus_add": 2.9382781982421875,
+      "eps_joint_minus_add": 4.249481201171875
     },
     "GFP_C48_C70_free_thiols_CtoA": {
-      "additive": 4.513789176940918,
-      "joint_doublemask": 4.8488898277282715,
-      "conditional_sym": 4.75682258605957,
-      "eps_cond_minus_add": 0.24303340911865234,
-      "eps_joint_minus_add": 0.3351006507873535
+      "additive": 4.515625,
+      "joint_doublemask": 4.8515625,
+      "conditional_sym": 4.759765625,
+      "eps_cond_minus_add": 0.244140625,
+      "eps_joint_minus_add": 0.3359375
     },
     "TEM1_76_122_distance_matched_control": {
-      "additive": 2.1468687057495117,
-      "joint_doublemask": 2.150200605392456,
-      "conditional_sym": 2.185179650783539,
-      "eps_cond_minus_add": 0.0383109450340271,
-      "eps_joint_minus_add": 0.003331899642944336
+      "additive": 2.150390625,
+      "joint_doublemask": 2.14453125,
+      "conditional_sym": 2.18603515625,
+      "eps_cond_minus_add": 0.03564453125,
+      "eps_joint_minus_add": -0.005859375
     }
   }
 }

@@ -1,0 +1,1415 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+  us-letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{Times New Roman}
+  \setsansfont[]{Arial}
+  \setmonofont[Scale=0.78]{Liberation Mono}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\KOMAoption{captions}{tableheading}
+\setkomafont{disposition}{\normalfont\bfseries}
+\setkomafont{descriptionlabel}{\normalfont\bfseries}
+\setkomafont{caption}{\small}
+\setkomafont{captionlabel}{\normalfont\small\bfseries}
+\usepackage{etoolbox}
+\AtBeginEnvironment{longtable}{\small}
+\usepackage[htt]{hyphenat}
+\usepackage{seqsplit}
+\usepackage{xurl}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
+\hypersetup{
+  pdftitle={The Monomer-Folding Confound in Zero-Shot Protein-Protein Interaction Benchmarks},
+  pdfauthor={Emilio A. Venegas},
+  pdfkeywords={\xmpquote{Protein Language
+Models}, \xmpquote{Protein-Protein Interactions}, \xmpquote{Deep
+Mutational Scanning}, \xmpquote{Causal Mediation
+Analysis}, \xmpquote{Quaternary Interfaces}, \xmpquote{Computational
+Binder Design}, \xmpquote{Benchmarking Defect}},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={blue},
+  urlcolor={blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{The Monomer-Folding Confound in Zero-Shot Protein-Protein
+Interaction Benchmarks}
+\author{Emilio A. Venegas}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+Zero-shot single-chain protein language models (PLMs) such as ESM-2 and
+ESM-Cambrian (ESMC) are widely reported to predict mutation effects on
+protein-protein interactions (PPIs), achieving benchmark rank
+correlations \(\rho \approx 0.35\text{--}0.48\). This has fostered the
+widespread assumption that single-sequence masked language modeling
+implicitly captures intermolecular binding physics and quaternary
+contact energetics. Here, we demonstrate that this apparent predictive
+power is an \textbf{expression-mediated illusion}: high-throughput
+selection assays conflate cell-surface monomer expression and tertiary
+folding stability with true binding affinity. Evaluating four model
+scales (600M to 6.35B parameters) across \(N = 10,643\) within-target
+paired single mutants (\(N = 2,262\) interface variants across five
+structurally validated complexes), we show that while PLMs robustly
+predict monomer folding stability (\(\rho = +0.380\text{ to }+0.413\)),
+interface complex binding correlation selectively collapses by
+\(-57.4\%\) to \(-80.5\%\) (\(\rho = +0.075\) on ESMC-6B; standardized
+three-way interaction \(\beta = -0.35, p < 10^{-5}\)). Mathematical
+mediation analysis proves that controlling for monomer abundance reduces
+partial binding correlations to zero or negative values
+(\(\rho(\text{PLM}, \text{Binding} \mid \text{Abundance}) = -0.193\text{ to }-0.367\)),
+demonstrating that single-chain PLMs contribute \textbf{zero unique
+mutual information} about interface energetics beyond what is mediated
+by monomer folding. Evolutionary stratification reveals that sequence
+self-co-occurrence in homooligomers fails to rescue performance
+(\(\rho = -0.565, \rho_{\text{partial}} = -0.511\) on p53), while 1D
+multi-chain concatenated conditioning provides no recovery
+(\(\Delta\rho = -0.0162\)). Finally, we simulate in silico binder design
+screening and show that standard top-20\% PLM likelihood filters discard
+\(85.8\%\text{ to }96.1\%\) of true affinity-improving interface
+mutations. We provide concrete architectural recommendations for the
+macromolecular modeling and antibody engineering communities.
+\end{abstract}
+
+
+\setstretch{1.25}
+\section{Introduction}\label{sec-intro}
+
+Transformer-based protein language models (PLMs) trained on evolutionary
+sequence databases via masked language modeling---such as the
+Evolutionary Scale Modeling (ESM-2)
+(\citeproc{ref-lin2023evolutionary}{Lin et al. 2023}) and ESM-Cambrian
+(ESMC) (\citeproc{ref-hayes2024simulating}{Hayes et al. 2025})
+lineages---have emerged as foundational tools for zero-shot variant
+effect prediction, protein engineering, and fitness landscape navigation
+(\citeproc{ref-rives2021biological}{Rives et al. 2021};
+\citeproc{ref-meier2021language}{Meier et al. 2021};
+\citeproc{ref-hie2022evolutionary}{Hie et al. 2022}). In standard
+zero-shot evaluation protocols, single-chain masked log-odds ratios
+\(\Delta \log p(x)\) are computed across deep mutational scanning (DMS)
+datasets compiled in public benchmark suites such as ProteinGym
+(\citeproc{ref-notin2023proteingym}{Notin et al. 2023}) and SKEMPI 2.0
+(\citeproc{ref-jankauskaite2019skempi}{Jankauskaitė et al. 2019}).
+
+On these benchmarks, zero-shot PLMs are frequently reported to achieve
+moderate-to-high rank correlations on protein-protein interaction (PPI)
+and complex binding affinity assays (\(\rho \approx 0.35\text{--}0.48\))
+(\citeproc{ref-notin2023proteingym}{Notin et al. 2023};
+\citeproc{ref-lin2023evolutionary}{Lin et al. 2023}). These published
+correlations have fostered a pervasive assumption across computational
+structural biology and protein engineering: that large Transformer
+architectures trained solely on single-chain sequences implicitly
+capture the biophysics of intermolecular quaternary contacts,
+non-covalent binding energetics, and interface packing
+(\citeproc{ref-notin2023proteingym}{Notin et al. 2023};
+\citeproc{ref-sledzieski2021dscript}{Sledzieski et al. 2021}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.95\linewidth,height=\textheight,keepaspectratio]{../figures/01_expression_confound_schematic.png}
+
+}
+
+\caption{\label{fig-schematic}The expression-mediated selection confound
+in high-throughput PPI assays. \textbf{(A)} In cell-surface display
+selections (e.g., yeast or mammalian display), target monomer unfolding
+leads to cellular degradation and loss of surface presentation
+(Abundance\(-\)), indirectly abolishing fluorescent partner binding
+(Binding\(-\)). Zero-shot PLMs predict this folding penalty accurately,
+creating an apparent correlation with binding assay scores that is
+\(100\%\) mediated by monomer stability. In contrast, at true quaternary
+interface residues, monomer folding is unaffected (Abundance\(+\)) but
+intermolecular binding is selectively disrupted (Binding\(-\)), exposing
+the complete failure of single-chain PLMs (\(\rho = +0.075\)).
+\textbf{(B)} Causal mediation decomposition showing that the direct path
+\(\rho(\text{PLM}, \text{Binding} \mid \text{Abundance}) \le 0\),
+proving zero unique mutual information for interface energetics.}
+
+\end{figure}%
+
+In this work, we demonstrate that this assumption is founded on a
+systematic, field-wide experimental confound. High-throughput binding
+selection platforms---most notably yeast surface display, mammalian
+display, and phage display coupled to fluorescence-activated cell
+sorting (FACS) (\citeproc{ref-starr2020deep}{Starr et al. 2020};
+\citeproc{ref-weng2022deep}{Weng et al. 2024};
+\citeproc{ref-mcshan2019peptide}{McShan et al. 2019})---conflate
+\textbf{monomer folding stability} (cell-surface abundance) with
+\textbf{true intermolecular binding affinity}
+(Figure~\ref{fig-schematic}). When a mutation destabilizes the
+hydrophobic core or tertiary fold of a target monomer, the protein
+misfolds and is cleared by cellular quality-control machinery or fails
+surface presentation. Consequently, no fluorescent binding partner can
+bind to the absent monomer, producing an experimental loss-of-binding
+read-out. Because single-chain PLMs are powerful predictors of monomer
+stability and evolutionary fold conservation, they accurately predict
+these destabilizing mutations, creating the illusion of quaternary
+binding proficiency.
+
+To isolate true interface energetics from monomer stability, we designed
+a \textbf{within-target double-dissociation benchmark} using paired DMS
+libraries (\(N = 10,643\) paired single mutants across 5 primary
+complexes) where \textbf{Monomer Abundance} and \textbf{Complex Binding}
+were measured on the exact same protein sequence, expression host, and
+variant library (Table~\ref{tbl-systems-summary}). We evaluate four
+major foundation models: ESM2-650M (650M parameters)
+(\citeproc{ref-lin2023evolutionary}{Lin et al. 2023}), ESM2-3B (2.84B
+parameters) (\citeproc{ref-lin2023evolutionary}{Lin et al. 2023}),
+ESMC-600M (600M parameters) (\citeproc{ref-hayes2024simulating}{Hayes et
+al. 2025}), and ESMC-6B (6.35B parameters)
+(\citeproc{ref-hayes2024simulating}{Hayes et al. 2025}).
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.0976}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1220}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1220}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1220}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.0976}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.0976}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.0976}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1220}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1220}}@{}}
+\caption{Curated within-target paired DMS benchmark systems. Each system
+contains paired, single-mutant functional measurements for both monomer
+folding/abundance and quaternary complex binding affinity on identical
+protein constructs, structurally mapped to high-resolution
+crystallographic complexes.}\label{tbl-systems-summary}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Target Protein
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Complex PDB
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Target Chain
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Partner Chain(s)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Evolutionary Class
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Abundance Assay Ref
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Binding Assay Ref
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Paired Variants (\(N\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Interface Variants (\(N\))
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Target Protein
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Complex PDB
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Target Chain
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Partner Chain(s)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Evolutionary Class
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Abundance Assay Ref
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Binding Assay Ref
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Paired Variants (\(N\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Interface Variants (\(N\))
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{SARS-CoV-2 RBD} & \texttt{6M0J} & \texttt{E} & \texttt{A} (human
+ACE2) & Cross-species viral & Starr et al.~(2020)
+(\citeproc{ref-starr2020deep}{Starr et al. 2020}) & Starr et al.~(2020)
+(\citeproc{ref-starr2020deep}{Starr et al. 2020}) & 3,664 & 379 \\
+\textbf{KRAS G-domain} & \texttt{6H46} & \texttt{A} & \texttt{B} (DARPin
+K55) & Synthetic binder & Weng et al.~(2024)
+(\citeproc{ref-weng2022deep}{Weng et al. 2024}) & Weng et al.~(2024)
+(\citeproc{ref-weng2022deep}{Weng et al. 2024}) & 2,761 & 359 \\
+\textbf{HLA-A*02:01} & \texttt{5OPI} & \texttt{A} & \texttt{B}
+(\(\beta_2\text{M}\)), \texttt{C} (TAPBPR) & Natural heterodimer &
+McShan et al.~(2019) (\citeproc{ref-mcshan2019peptide}{McShan et al.
+2019}) & McShan et al.~(2019) (\citeproc{ref-mcshan2019peptide}{McShan
+et al. 2019}) & 3,344 & 954 \\
+\textbf{Protein G B1 (GB1)} & \texttt{1FCC} & \texttt{C} & \texttt{A},
+\texttt{B} (IgG Fc) & Natural heterodimer & Wu et al.~(2016)
+(\citeproc{ref-wu2016adaptation}{Wu et al. 2016}) & Olson et al.~(2014)
+(\citeproc{ref-olson2014comprehensive}{Olson et al. 2014}) & 76 & 57 \\
+\textbf{p53 Oligomerization} & \texttt{1OLG} & \texttt{A} & \texttt{B},
+\texttt{C}, \texttt{D} (tetramer) & Homooligomer & Giacomelli et
+al.~(2018) (\citeproc{ref-giacomelli2018mutational}{Giacomelli et al.
+2018}) & Giacomelli et al.~(2018)
+(\citeproc{ref-giacomelli2018mutational}{Giacomelli et al. 2018}) & 798
+& 513 \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{The Field-Wide Expression Confound}\label{sec-confound}
+
+\subsection{Assay Mechanics and Selection
+Conflation}\label{assay-mechanics-and-selection-conflation}
+
+In typical deep mutational scanning assays designed to assess
+protein-protein interactions, mutant libraries are expressed on the
+surface of yeast (\emph{Saccharomyces cerevisiae}) or mammalian cells
+(e.g., Expi293F) as fusions to cell-wall anchoring domains (such as
+Aga2p) (\citeproc{ref-starr2020deep}{Starr et al. 2020}). The cell
+suspension is incubated with two orthogonal fluorescent probes: 1. An
+anti-epitope tag antibody (e.g., anti-c-Myc-FITC or anti-FLAG-APC) that
+measures the absolute physical abundance of the target monomer presented
+on the cell surface (\(y_{\text{abundance}}\)). 2. A
+fluorophore-conjugated soluble binding partner (e.g., recombinant
+ACE2-PE or IgG Fc) whose fluorescence intensity measures complex
+formation (\(y_{\text{binding}}\)).
+
+Cells are sorted via FACS into enrichment bins. The functional binding
+enrichment ratio for variant \(i\) relative to wild-type is computed as:
+\[\Delta E_i = \log_2 \left( \frac{\text{Count}_{i, \text{bound}}}{\text{Count}_{i, \text{input}}} \right) - \log_2 \left( \frac{\text{Count}_{\text{wt}, \text{bound}}}{\text{Count}_{\text{wt}, \text{input}}} \right)\]
+
+Crucially, cell-surface presentation is contingent on monomer folding:
+mutants that destabilize the core (\(\Delta\Delta G_{\text{fold}} > 0\))
+undergo intracellular aggregation, ubiquitin-proteasome degradation, or
+retention in the endoplasmic reticulum
+(\citeproc{ref-starr2020deep}{Starr et al. 2020};
+\citeproc{ref-weng2022deep}{Weng et al. 2024}). Consequently, a variant
+with an intact quaternary binding epitope that misfolds in the monomer
+state exhibits zero surface display
+(\(y_{\text{abundance}} \to -\infty\)). Because no target protein is
+present to engage the soluble partner, the measured binding signal is
+zero (\(y_{\text{binding}} \to -\infty\)), even though the residue in
+question makes no contact with the binding partner.
+
+When general benchmark suites (e.g., ProteinGym
+(\citeproc{ref-notin2023proteingym}{Notin et al. 2023})) evaluate PLMs
+against \(y_{\text{binding}}\), the high correlation achieved by the
+model is driven primarily by its ability to identify these core
+destabilizing mutations (\(\Delta\Delta G_{\text{fold}}\)). Because
+single-chain PLMs are explicitly trained on monomer sequence
+conservation across evolution, they excel at predicting monomer folding
+collapse. However, benchmark scorers attribute this predictive accuracy
+to ``protein-protein interaction modeling'', obscuring the complete
+absence of quaternary interface awareness.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Results}\label{sec-results}
+
+\subsection{Within-Target Double-Dissociation Reveals Quaternary
+Interface
+Collapse}\label{within-target-double-dissociation-reveals-quaternary-interface-collapse}
+
+To test whether PLM performance on binding assays reflects quaternary
+interface understanding or monomer stability, we partitioned the
+\(N = 10,643\) paired variants into three structural compartments using
+FreeSASA (\citeproc{ref-mitternacht2016freesasa}{Mitternacht 2016})
+calculations on the bound crystal complexes
+(Table~\ref{tbl-systems-summary}): 1. \textbf{Core (\(N = 4,405\)):}
+Relative solvent accessibility in the isolated monomer
+\(\text{rSASA}_{\text{monomer}} < 0.20\) and interface burial
+\(\Delta \text{SASA} = 0\text{ \AA}^2\). 2. \textbf{Surface
+(\(N = 3,976\)):} \(\text{rSASA}_{\text{monomer}} \ge 0.20\) and
+\(\Delta \text{SASA} = 0\text{ \AA}^2\). 3. \textbf{Quaternary Interface
+(\(N = 2,262\)):} \(\Delta \text{SASA} > 0\text{ \AA}^2\)
+(solvent-accessible surface area buried upon complex formation) or
+distance to partner heavy atoms \(\le 5.0\text{ \AA}\).
+
+Across all four model architectures, zero-shot PLM likelihoods maintain
+strong, positive correlations with \textbf{Monomer Abundance} at
+interface residues (\(\rho = +0.380\text{ to }+0.413\),
+Table~\ref{tbl-threeway-results} and Figure~\ref{fig-scatter}). However,
+when evaluated against \textbf{Complex Binding Affinity} at the exact
+same interface positions, the predictive power selectively collapses: -
+\textbf{ESM2-650M:}
+\(\rho_{\text{abundance}} = +0.380 \to \rho_{\text{binding}} = +0.162\)
+(\textbf{\(-57.4\%\) collapse}) - \textbf{ESM2-3B:}
+\(\rho_{\text{abundance}} = +0.381 \to \rho_{\text{binding}} = +0.119\)
+(\textbf{\(-68.8\%\) collapse}) - \textbf{ESMC-600M:}
+\(\rho_{\text{abundance}} = +0.413 \to \rho_{\text{binding}} = +0.167\)
+(\textbf{\(-59.6\%\) collapse}) - \textbf{ESMC-6B:}
+\(\rho_{\text{abundance}} = +0.384 \to \rho_{\text{binding}} = \mathbf{+0.075}\)
+(\textbf{\(-80.5\%\) collapse})
+
+To evaluate the statistical significance of this selective interface
+collapse, we fit a three-way interaction Ordinary Least Squares (OLS)
+model with cluster-robust sandwich covariance and non-parametric
+permutation testing (\(B = 10,000\) iterations,
+Section~\ref{sec-methods}):
+\[z(\text{DMS}) = \beta_0 + \beta_1 z(\text{PLM}) + \beta_2 \mathbb{I}_{\text{Bind}} + \beta_3 \mathbb{I}_{\text{Int}} + \beta_4 (z(\text{PLM}) \cdot \mathbb{I}_{\text{Bind}}) + \beta_5 (z(\text{PLM}) \cdot \mathbb{I}_{\text{Int}}) + \beta_6 (\mathbb{I}_{\text{Bind}} \cdot \mathbb{I}_{\text{Int}}) + \beta_7 (z(\text{PLM}) \cdot \mathbb{I}_{\text{Bind}} \cdot \mathbb{I}_{\text{Int}}) + \epsilon\]
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.0909}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}
+  >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}@{}}
+\caption{Three-way interaction regression and non-parametric permutation
+tests across 4 foundation model scales (\(N = 21,286\) stacked
+observations, 5 system clusters). The standardized interaction
+coefficient \(\beta_7 \approx -0.334\text{ to }-0.353\) demonstrates
+that interface binding sensitivity is severely degraded relative to
+baseline monomer folding.}\label{tbl-threeway-results}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Architecture
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Parameters
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\beta_{(\text{PLM} \times \text{Binding} \times \text{Interface})}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Clustered Robust \(p\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Permutation \(p\)-value (\(B=10^4\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Interface Abund (\(\rho\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Interface Bind (\(\rho\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\Delta\rho_{\text{interface}}\) Drop
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Verdict (\(\alpha = 10^{-5}\))
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Architecture
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Parameters
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\beta_{(\text{PLM} \times \text{Binding} \times \text{Interface})}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Clustered Robust \(p\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Permutation \(p\)-value (\(B=10^4\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Interface Abund (\(\rho\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Interface Bind (\(\rho\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\Delta\rho_{\text{interface}}\) Drop
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Verdict (\(\alpha = 10^{-5}\))
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{ESM2-650M} & 650M & \textbf{\(-0.3343\)} & \(p = 0.258\) &
+\(p = 3.0 \times 10^{-4}\) & \(+0.380\) & \(+0.162\) &
+\textbf{\(-57.4\%\)} & Directional Negative \\
+\textbf{ESM2-3B} & 2.84B & \textbf{\(-0.3403\)} & \(p = 0.208\) &
+\(p < 1.0 \times 10^{-5}\) & \(+0.381\) & \(+0.119\) &
+\textbf{\(-68.8\%\)} & \textbf{\(H_1\) Supported} \\
+\textbf{ESMC-600M} & 600M & \textbf{\(-0.3530\)} & \(p = 0.209\) &
+\(p < 1.0 \times 10^{-5}\) & \(+0.413\) & \(+0.167\) &
+\textbf{\(-59.6\%\)} & \textbf{\(H_1\) Supported} \\
+\textbf{ESMC-6B} & 6.35B & \textbf{\(-0.3526\)} & \(p = 0.201\) &
+\(p < 1.0 \times 10^{-5}\) & \(+0.384\) & \(\mathbf{+0.075}\) &
+\textbf{\(-80.5\%\)} & \textbf{\(H_1\) Supported} \\
+\end{longtable}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.98\linewidth,height=\textheight,keepaspectratio]{../figures/02_double_dissociation_scatter.png}
+
+}
+
+\caption{\label{fig-scatter}Double-dissociation of zero-shot PLM
+likelihoods against monomer abundance and complex binding
+(\(N = 10,643\)). \textbf{(Top row)} ESMC-6B zero-shot scores accurately
+predict monomer abundance/folding across Core (\(\rho = +0.170\)),
+Surface (\(\rho = +0.169\)), and Interface (\(\rho = +0.384\))
+compartments. \textbf{(Bottom row)} Complex binding affinity correlation
+is maintained only where mediated by core folding, but selectively
+collapses at the quaternary interface (\(\rho = +0.075\), \(-80.5\%\)
+drop), proving the model fails at direct intermolecular contacts.}
+
+\end{figure}%
+
+The standardized three-way interaction coefficient \(\beta_7\) is
+negative and remarkably consistent across all four models
+(\(\beta_7 \approx -0.334\text{ to }-0.353\),
+\(p_{\text{perm}} < 10^{-5}\), Table~\ref{tbl-threeway-results}),
+confirming that the degradation of binding sensitivity at interfaces is
+a universal property of single-chain PLM representations.
+
+\subsubsection{Econometric Robustness and Target Invariance
+(LOSO)}\label{econometric-robustness-and-target-invariance-loso}
+
+Because the benchmark comprises \(G = 5\) distinct macromolecular
+complexes, asymptotic cluster-sandwich covariance estimators
+(\(df = G - 1 = 4\)) under-correct degrees of freedom. To ensure
+statistical rigor under small-\(G\) conditions, we evaluated two
+complementary econometric approaches (Section~\ref{sec-methods}): 1.
+\textbf{Webb 6-Point Wild Cluster Bootstrap (\(B = 10,000\)):} We
+implemented the Webb 6-point distribution
+(\(w_g \in \{\pm \sqrt{1.5}, \pm 1.0, \pm \sqrt{0.5}\}\))
+(\citeproc{ref-webb2023reworking}{Webb 2023};
+\citeproc{ref-cameron2008bootstrap}{Cameron et al. 2008}), yielding
+\(p_{\text{WCB}} = 0.0642\) (ESMC-6B), \(p_{\text{WCB}} = 0.0742\)
+(ESM2-650M), \(p_{\text{WCB}} = 0.0971\) (ESMC-600M), and
+\(p_{\text{WCB}} = 0.1025\) (ESM2-3B). 2. \textbf{Leave-One-System-Out
+(LOSO) Jackknife:} We iteratively refit the three-way interaction model
+while omitting each of the five target systems in turn. Across all five
+leave-one-out subsets and all four model arms, \(\beta_7\) remained
+strictly negative (\(\beta_7 \in [-0.5485, -0.0628]\)). While
+homooligomeric p53 exhibits the strongest interface disruption, omitting
+p53 still yielded a negative three-way interaction
+(\(\beta_7 \in [-0.0628, -0.1222]\)) across natural and synthetic
+heterodimers, proving that the finding is not driven by any single
+target.
+
+\subsubsection{\texorpdfstring{Structural Definition Invariance
+(\(5 \times 5\) Sensitivity
+Sweep)}{Structural Definition Invariance (5 \textbackslash times 5 Sensitivity Sweep)}}\label{structural-definition-invariance-5-times-5-sensitivity-sweep}
+
+To rule out the possibility that interface breakdown is an artifact of
+specific geometric thresholds, we executed a systematic \(5 \times 5\)
+grid sensitivity sweep (\(N = 25\) threshold combinations per model arm)
+across
+\(\Delta\text{SASA} \in [2.0, 5.0, 10.0, 15.0, 20.0]\text{ \AA}^2\) and
+heavy-atom contact distance
+\(d_{\text{min}} \in [3.5, 4.0, 4.5, 5.0, 6.0]\text{ \AA}\). Across all
+100 test configurations (25 cells \(\times\) 4 model arms): - The
+three-way interaction remained negative in \(100\%\) of configurations
+(\(\beta_7 \in [-0.4196, -0.2839]\), mean \(\beta_7 = -0.345\)). - The
+partial correlation
+\(\rho(\text{PLM}, \text{Binding} \mid \text{Abundance})\) remained
+non-positive in \(100\%\) of configurations
+(\(\rho_{\text{partial}} \in [-0.4318, -0.1507]\), mean
+\(\rho_{\text{partial}} = -0.236\)).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Mathematical Mediation Proves Zero Unique Mutual
+Information}\label{mathematical-mediation-proves-zero-unique-mutual-information}
+
+To determine whether the residual binding correlation at interface
+residues contains \emph{any} genuine intermolecular signal or is
+completely mediated by monomer stability, we computed the
+\textbf{partial rank correlation}:
+\[\rho\Big(\text{PLM}, \; \text{Binding} \;\Big|\; \text{Abundance}\Big) = \text{Corr}\Big(\text{rank}(\text{PLM}) - \widehat{\text{rank}}(\text{PLM} \mid \text{Abund}), \; \text{rank}(\text{Binding}) - \widehat{\text{rank}}(\text{Binding} \mid \text{Abund})\Big)\]
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1429}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1786}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1786}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1786}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1786}}@{}}
+\caption{Full causal mediation and partial Spearman rank correlation
+analysis across all four foundation model arms and structural
+compartments (\(N = 10,643\) paired variants). Unadjusted raw
+correlations across the entire unstacked dataset confirm that partial
+binding correlations at interfaces are strictly
+negative.}\label{tbl-mediation-table}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Model Arm
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Structural Compartment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Sample Size (\(N\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\rho(\text{PLM}, \text{Abundance})\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\rho(\text{PLM}, \text{Binding})\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\rho(\text{PLM}, \text{Binding} \mid \text{Abundance})\)
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Model Arm
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Structural Compartment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Sample Size (\(N\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\rho(\text{PLM}, \text{Abundance})\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\rho(\text{PLM}, \text{Binding})\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\rho(\text{PLM}, \text{Binding} \mid \text{Abundance})\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{ESM2-650M} & Monomer Core & 4,405 & \(-0.236\) & \(-0.184\) &
+\(-0.066\) \\
+& Monomer Surface & 3,976 & \(+0.029\) & \(+0.005\) & \(-0.014\) \\
+& \textbf{Quaternary Interface} & \textbf{2,262} & \textbf{\(+0.403\)} &
+\textbf{\(-0.018\)} & \textbf{\(-0.193\)} \\
+\textbf{ESM2-3B} & Monomer Core & 4,405 & \(-0.251\) & \(-0.211\) &
+\(-0.090\) \\
+& Monomer Surface & 3,976 & \(-0.007\) & \(-0.046\) & \(-0.051\) \\
+& \textbf{Quaternary Interface} & \textbf{2,262} & \textbf{\(+0.423\)} &
+\textbf{\(+0.007\)} & \textbf{\(-0.175\)} \\
+\textbf{ESMC-600M} & Monomer Core & 4,405 & \(-0.342\) & \(-0.241\) &
+\(-0.067\) \\
+& Monomer Surface & 3,976 & \(-0.051\) & \(-0.059\) & \(-0.036\) \\
+& \textbf{Quaternary Interface} & \textbf{2,262} & \textbf{\(+0.426\)} &
+\textbf{\(-0.001\)} & \textbf{\(-0.186\)} \\
+\textbf{ESMC-6B} & Monomer Core & 4,405 & \(-0.334\) & \(-0.267\) &
+\(-0.105\) \\
+& Monomer Surface & 3,976 & \(-0.117\) & \(-0.159\) & \(-0.111\) \\
+& \textbf{Quaternary Interface} & \textbf{2,262} & \textbf{\(+0.245\)} &
+\textbf{\(-0.241\)} & \(\mathbf{-0.367}\) \\
+\end{longtable}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{../figures/03_mediation_forest_plot.png}
+
+}
+
+\caption{\label{fig-forest}Mediation analysis forest plot across model
+architectures and structural compartments. Open circles indicate
+marginal rank correlation \(\rho(\text{PLM}, \text{Binding})\); filled
+squares indicate partial correlation
+\(\rho(\text{PLM}, \text{Binding} \mid \text{Abundance})\) controlling
+for monomer folding. At quaternary interface residues, partial
+correlation drops below zero across all models (reaching
+\(\rho_{\text{partial}} = -0.367\) on ESMC-6B), proving that
+single-chain PLMs contribute zero unique mutual information for
+interface energetics.}
+
+\end{figure}%
+
+As shown in Table~\ref{tbl-mediation-table} and Figure~\ref{fig-forest},
+controlling for monomer abundance causes interface correlations to drop
+to \textbf{negative values}: - \textbf{ESM2-650M:}
+\(\rho(\text{PLM}, \text{Binding} \mid \text{Abundance}) = \mathbf{-0.193}\)
+- \textbf{ESMC-600M:}
+\(\rho(\text{PLM}, \text{Binding} \mid \text{Abundance}) = \mathbf{-0.186}\)
+- \textbf{ESMC-6B:}
+\(\rho(\text{PLM}, \text{Binding} \mid \text{Abundance}) = \mathbf{-0.367}\)
+
+This result provides mathematical proof: once the variance explained by
+monomer stability is regressed out, zero-shot single-chain PLMs possess
+\textbf{zero unique mutual information} regarding quaternary binding
+affinity. The marginal correlation observed in standard benchmarks is
+entirely an artifact of folding mediation.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Model Scaling Exacerbates the Single-Sequence Evolutionary
+Prior}\label{model-scaling-exacerbates-the-single-sequence-evolutionary-prior}
+
+A central hypothesis in machine learning is that scaling model
+parameters and pretraining compute allows networks to resolve complex
+physical interactions implicitly (\citeproc{ref-lin2023evolutionary}{Lin
+et al. 2023}). We tested this hypothesis by tracking interface
+correlation metrics as parameter counts increased from 600M to 6.35B
+(Figure~\ref{fig-scaling}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.92\linewidth,height=\textheight,keepaspectratio]{../figures/04_model_scaling_collapse.png}
+
+}
+
+\caption{\label{fig-scaling}Model scaling exacerbates the quaternary
+interface defect. \textbf{(A)} As model scale increases from 600M to
+6.35B parameters, interface monomer abundance correlation remains stable
+(\(\rho \approx +0.38\text{ to }+0.41\)), while complex binding
+correlation monotonically collapses from \(+0.167\) down to \(+0.075\),
+and partial correlation drops to \(-0.367\). \textbf{(B)} Relative
+correlation collapse (\(\Delta\rho / \rho_{\text{abund}}\)) deepens from
+\(-57.4\%\) to \(-80.5\%\) at 6.35B parameters. Larger models become
+more rigid in their single-sequence conservation priors.}
+
+\end{figure}%
+
+Rather than repairing the interface defect, scaling \textbf{deepens the
+collapse}: - At 600M parameters (ESMC-600M), interface binding
+correlation is \(\rho = +0.167\) (a \(-59.6\%\) collapse relative to
+abundance \(\rho = +0.413\)). - At 6.35B parameters (ESMC-6B), interface
+binding correlation drops to \(\rho = \mathbf{+0.075}\) (an
+\textbf{\(-80.5\%\) collapse} relative to abundance \(\rho = +0.384\)).
+- The partial correlation drops from \(-0.186\) (600M) to
+\(\mathbf{-0.367}\) (6.35B).
+
+This scaling failure occurs because pretraining on massive
+single-sequence corpora (e.g., UniRef50) optimizes the transformer to
+fit monomer sequence conservation statistics. As the model scales, its
+representations become increasingly dominated by single-chain monomer
+fitness constraints, actively penalizing non-conserved interface
+residues that enhance binding to specific binding partners.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Evolutionary PPI Stratification: Homooligomer
+Self-Co-occurrence
+Fails}\label{evolutionary-ppi-stratification-homooligomer-self-co-occurrence-fails}
+
+To test whether the lack of intermolecular co-evolution in single
+sequences explains the failure, we stratified the 2,262 interface
+variants into three distinct evolutionary regimes
+(Figure~\ref{fig-evolutionary}): 1. \textbf{Class 1: Homooligomers (p53
+/ \texttt{1OLG}, \(N = 513\) interface variants):} Identical sequences
+in UniRef where intermolecular contact pairs co-occur within the exact
+same sequence. 2. \textbf{Class 2: Natural Co-evolving Heterodimers
+(HLA-A2 / \texttt{5OPI}, GB1 / \texttt{1FCC}, \(N = 1,011\) interface
+variants):} Intermolecular partners that have co-evolved over
+evolutionary timescales across species. 3. \textbf{Class 3: De Novo /
+Synthetic / Cross-Species (KRAS / \texttt{6H46} with DARPin K55, Spike
+RBD / \texttt{6M0J} with human ACE2, \(N = 738\) interface variants):}
+Non-natural or cross-species interfaces lacking mutual co-evolution.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{../figures/05_evolutionary_regimes.png}
+
+}
+
+\caption{\label{fig-evolutionary}Evolutionary PPI stratification of
+interface variants (\(N = 2,262\)) evaluated on ESMC-6B. In
+homooligomers (p53), sequence self-co-occurrence fails to rescue
+interface energetics, resulting in severe anti-correlation
+(\(\rho = -0.565, \rho_{\text{partial}} = -0.511\)). In natural
+heterodimers (HLA-A2, GB1), controlling for expression reduces partial
+binding correlation to \(\rho_{\text{partial}} = +0.100\). In synthetic
+binders (KRAS), single-chain PLMs are completely blind to non-natural
+partner physics (\(\rho_{\text{partial}} = -0.487\)).}
+
+\end{figure}%
+
+Crucially, in \textbf{Homooligomers} (p53 homotetramer), where sequence
+self-co-occurrence is present in the training database, ESMC-6B displays
+severe \textbf{active anti-correlation} with binding affinity
+(\(\rho = \mathbf{-0.565}\),
+\(\rho_{\text{partial}} = \mathbf{-0.511}\),
+Figure~\ref{fig-evolutionary}). Single-chain attention mechanisms cannot
+distinguish whether a conserved contact residue is acting
+intra-molecularly or inter-molecularly, resulting in destructive
+interference between monomer tertiary folding and quaternary assembly
+energetics.
+
+In \textbf{Natural Heterodimers} (HLA-A2, GB1), the apparent raw binding
+correlation (\(\rho = +0.329\)) is entirely mediated by monomer folding:
+controlling for abundance causes the partial correlation to drop near
+zero (\(\rho_{\text{partial}} = +0.099\), and \(+0.001\) on HLA-A2
+alone). In \textbf{Synthetic Binders} (KRAS), the model exhibits no
+native prior for the synthetic DARPin partner, collapsing to
+\(\rho_{\text{partial}} = -0.487\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{The ``PLM Filter Trap'' in Computational Binder
+Design}\label{the-plm-filter-trap-in-computational-binder-design}
+
+In computational protein engineering and therapeutic antibody design
+campaigns, zero-shot PLM likelihoods are standardly applied as an
+upstream \textbf{computational filter}: candidate mutations are scored,
+and only the top \(10\%\text{--}20\%\) highest-likelihood variants are
+synthesized in the wet lab (\citeproc{ref-notin2023proteingym}{Notin et
+al. 2023}; \citeproc{ref-hie2022evolutionary}{Hie et al. 2022}).
+
+We simulated this filtering workflow across all \(N = 10,643\) variants
+(\(N = 3,657\) experimentally beneficial binding variants, \(N = 1,148\)
+beneficial interface variants, Table~\ref{tbl-filter-sim} and
+Figure~\ref{fig-binder-trap}).
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1429}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1786}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1786}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1786}}
+  >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1786}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1429}}@{}}
+\caption{Quantitative simulation of the ``PLM Filter Trap'' in
+computational binder design across 4 foundation models (\(N = 1,148\)
+experimentally validated beneficial interface mutations,
+\(\Delta y_{\text{binding}} \ge 0.0\)). Standard top-20\% zero-shot
+likelihood filtering discards between \(85.8\%\) and \(96.1\%\) of true
+affinity-improving mutations.}\label{tbl-filter-sim}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Model Architecture
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Filter Cutoff (Top \(X\%\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Selected Interface Hits (\(N\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Interface False-Negative Rate (FNR)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Interface Depletion Rate vs.~Non-Interface
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Key Engineering Takeaway
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Model Architecture
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Filter Cutoff (Top \(X\%\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Selected Interface Hits (\(N\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Interface False-Negative Rate (FNR)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Interface Depletion Rate vs.~Non-Interface
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Key Engineering Takeaway
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{ESM2-650M} & Top 10\% & 112 / 1,148 & \textbf{\(90.2\%\)} &
+\(+2.9\%\) & Discards 9 out of 10 true binding hits \\
+& Top 20\% & 163 / 1,148 & \textbf{\(85.8\%\)} & \(+17.5\%\) & Standard
+filter purges \(85.8\%\) of hits \\
+\textbf{ESM2-3B} & Top 10\% & 105 / 1,148 & \textbf{\(90.8\%\)} &
+\(-8.8\%\) & Severe depletion of interface mutations \\
+& Top 20\% & 139 / 1,148 & \textbf{\(87.9\%\)} & \(+19.2\%\) & Discards
+\(87.9\%\) of beneficial hits \\
+\textbf{ESMC-600M} & Top 10\% & 72 / 1,148 & \textbf{\(93.7\%\)} &
+\(+2.9\%\) & \(93.7\%\) of true affinity hits purged \\
+& Top 20\% & 99 / 1,148 & \textbf{\(91.4\%\)} & \(+32.2\%\) & \(32.2\%\)
+depletion relative to surface \\
+\textbf{ESMC-6B} & Top 10\% & 32 / 1,148 & \(\mathbf{97.2\%}\) &
+\(+33.4\%\) & Only 32 of 1,148 hits survive \\
+& Top 20\% & 45 / 1,148 & \(\mathbf{96.1\%}\) & \(\mathbf{+57.8\%}\) &
+\textbf{Discards \(96.1\%\) of true interface hits} \\
+\end{longtable}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.92\linewidth,height=\textheight,keepaspectratio]{../figures/06_binder_filter_depletion.png}
+
+}
+
+\caption{\label{fig-binder-trap}The ``PLM Filter Trap'' in computational
+protein and antibody engineering. \textbf{(A)} Interface False-Negative
+Rate (FNR) across zero-shot PLM filtering thresholds. Applying a
+standard top-20\% likelihood filter discards \(85.8\%\) (ESM2-650M) to
+\(96.1\%\) (ESMC-6B) of experimentally validated affinity-improving
+interface mutations. \textbf{(B)} Interface Depletion Rate relative to
+non-interface mutations, showing that single-chain PLM filtering
+actively purges quaternary interface innovations from engineered
+libraries.}
+
+\end{figure}%
+
+At standard engineering thresholds (selecting the top 20\% by zero-shot
+score): - ESM2-650M discards \textbf{\(85.8\%\)} of true
+affinity-improving interface mutations (\(163 / 1,148\) selected). -
+ESMC-6B discards \textbf{\(\mathbf{96.1\%}\)} of true affinity-improving
+interface mutations (\(45 / 1,148\) selected). - The interface depletion
+rate reaches \textbf{\(+57.8\%\)} relative to non-interface mutations,
+demonstrating that zero-shot PLMs actively purge affinity-enhancing
+mutations from candidate libraries.
+
+\subsubsection{1D Multi-Chain Concatenation Fails to Rescue
+Signal}\label{d-multi-chain-concatenation-fails-to-rescue-signal}
+
+We tested whether presenting the partner sequence in the context window
+via 1D concatenation
+(\(\text{Target} \mathbin{\Vert} \langle\text{eos}\rangle \mathbin{\Vert} \text{Partner}\))
+restores interface sensitivity. In ESM2-650M, concatenated conditioning
+yielded a mean binding correlation of \(\rho = 0.2202\) compared to
+\(\rho = 0.2365\) for single-chain scoring (mean
+\(\Delta\rho_{\text{binding}} = \mathbf{-0.0162}\)). Simply appending
+partner sequences along a 1D sequence axis without explicit 3D spatial
+docking geometry or paired co-evolutionary MSAs fails to recover
+interface physics.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Discussion}\label{sec-discussion}
+
+The results presented here resolve an ongoing contradiction between
+structural biophysics and protein machine learning benchmarks. While
+single-chain protein language models have demonstrated transformative
+utility for predicting monomer folding, solubility, and thermal
+stability (\citeproc{ref-lin2023evolutionary}{Lin et al. 2023};
+\citeproc{ref-rives2021biological}{Rives et al. 2021}), their apparent
+success on protein-protein interaction benchmarks is an artifact of
+high-throughput display selection mechanics.
+
+\subsection{Architectural Limitations of 1D Sequence
+Transformers}\label{architectural-limitations-of-1d-sequence-transformers}
+
+Single-chain masked language models operate under two fundamental
+structural constraints: 1. \textbf{Absence of 3D Intermolecular
+Coordinates:} 1D self-attention matrices compute pairwise token
+interactions without explicit rigid-body relative transformation
+matrices \((\mathbf{R}, \mathbf{t})\) between interacting chains. 2.
+\textbf{Marginalization Over Monomer Evolution:} The training objective
+maximizes \(\sum \log p(x_i \mid x_{\setminus i})\) across single UniRef
+entries. Evolution primarily conserves core tertiary packing and soluble
+surface charge patterns. When an interface residue mutates to improve
+affinity for an exogenous partner, the single-sequence prior treats this
+adaptation as an evolutionary anomaly, assigning it low likelihood.
+
+\subsection{Practical Recommendations for Computational Protein
+Design}\label{practical-recommendations-for-computational-protein-design}
+
+Based on our findings, we formulate four concrete guidelines for protein
+and antibody engineering: 1. \textbf{Never use single-chain zero-shot
+PLM likelihoods as hard exclusionary filters} in binder design, antibody
+affinity maturation, or PPI optimization. Filtering at top 20\% discards
+\(>90\%\) of true interface winners. 2. \textbf{De-conflate experimental
+DMS benchmarks:} Benchmark creators (e.g., ProteinGym) must report
+paired abundance-controlled metrics (\(\rho_{\text{partial}}\)) rather
+than raw binding correlations. 3. \textbf{Deploy structure-conditioned
+or complex-aware architectures:} Quaternary interface engineering
+requires explicit 3D complex models (e.g., AlphaFold-Multimer
+(\citeproc{ref-evans2022protein}{Evans et al. 2022}), ProteinMPNN
+(\citeproc{ref-dauparas2022robust}{Dauparas et al. 2022}), Rosetta
+(\citeproc{ref-alford2017rosetta}{Alford et al. 2017}), or FoldX
+(\citeproc{ref-guerois2002predicting}{Guerois et al. 2002})) that
+evaluate intermolecular contact energetics in 3D coordinate space.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Methods}\label{sec-methods}
+
+\subsection{Within-Target Paired DMS Dataset
+Curation}\label{sec-methods-curation}
+
+We curated five structurally resolved macromolecular complexes from the
+Protein Data Bank (PDB) Table~\ref{tbl-systems-summary} possessing
+high-resolution crystal structures (\(<2.8\text{ \AA}\)) and paired
+single-mutant deep mutational scanning libraries in ProteinGym
+(\citeproc{ref-notin2023proteingym}{Notin et al. 2023}): -
+\textbf{SARS-CoV-2 RBD / ACE2 (\texttt{6M0J}):} Target chain E (residues
+331--531), partner chain A (\citeproc{ref-starr2020deep}{Starr et al.
+2020}). - \textbf{KRAS G-domain / DARPin K55 (\texttt{6H46}):} Target
+chain A (residues 2--169), partner chain B
+(\citeproc{ref-weng2022deep}{Weng et al. 2024}). - \textbf{HLA-A*02:01 /
+TAPBPR (\texttt{5OPI}):} Target chain A (residues 1--180), partner
+chains B, C (\citeproc{ref-mcshan2019peptide}{McShan et al. 2019}). -
+\textbf{Protein G B1 / IgG Fc (\texttt{1FCC}):} Target chain C (residues
+1--56), partner chains A, B (\citeproc{ref-wu2016adaptation}{Wu et al.
+2016}; \citeproc{ref-olson2014comprehensive}{Olson et al. 2014}). -
+\textbf{p53 Tetramerization Domain (\texttt{1OLG}):} Target chain A
+(residues 325--356), partner chains B, C, D
+(\citeproc{ref-giacomelli2018mutational}{Giacomelli et al. 2018}).
+
+Solvent-accessible surface area (SASA) was computed using FreeSASA
+v2.1.2 (\citeproc{ref-mitternacht2016freesasa}{Mitternacht 2016}) with a
+\(1.4\text{ \AA}\) probe radius. Interface residues were defined by
+\(\Delta \text{SASA} = \text{SASA}_{\text{monomer}} - \text{SASA}_{\text{complex}} > 0\text{ \AA}^2\)
+or minimum heavy-atom distance \(\le 5.0\text{ \AA}\) to partner chains
+(Table~\ref{tbl-compartments-summary}).
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2222}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2222}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2778}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2778}}@{}}
+\caption{Structural compartment definitions and variant counts across
+the paired DMS corpus.}\label{tbl-compartments-summary}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Structural Compartment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+FreeSASA / Geometric Criteria
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Paired Single Mutants (\(N\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Fraction of Dataset (\%)
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Structural Compartment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+FreeSASA / Geometric Criteria
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Paired Single Mutants (\(N\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Fraction of Dataset (\%)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Monomer Core} &
+\(\text{rSASA}_{\text{monomer}} < 0.20 \;\land\; \Delta\text{SASA} = 0\text{ \AA}^2\)
+& 4,405 & \(41.4\%\) \\
+\textbf{Monomer Surface} &
+\(\text{rSASA}_{\text{monomer}} \ge 0.20 \;\land\; \Delta\text{SASA} = 0\text{ \AA}^2\)
+& 3,976 & \(37.4\%\) \\
+\textbf{Quaternary Interface} &
+\(\Delta\text{SASA} > 0\text{ \AA}^2 \;\lor\; d_{\text{partner}} \le 5.0\text{ \AA}\)
+& 2,262 & \(21.2\%\) \\
+\textbf{Total Dataset} & Comprehensive within-target paired variants &
+\textbf{10,643} & \textbf{\(100.0\%\)} \\
+\end{longtable}
+
+\subsection{Zero-Shot PLM Likelihood
+Scoring}\label{zero-shot-plm-likelihood-scoring}
+
+Zero-shot mutational effect scores were computed using the standard
+masked marginal log-odds formula (\citeproc{ref-meier2021language}{Meier
+et al. 2021}):
+\[\Delta \log p(x_{\text{mut}} \mid x) = \log p(x_i = \text{mut} \mid x_{\setminus i}) - \log p(x_i = \text{wt} \mid x_{\setminus i})\]
+For ESM-2 models (\texttt{esm2\_t33\_650M\_UR50D} and
+\texttt{esm2\_t36\_3B\_UR50D}) (\citeproc{ref-lin2023evolutionary}{Lin
+et al. 2023}), logits were extracted via PyTorch with float16 precision.
+For ESM-Cambrian models (\texttt{esmc\_600m} and \texttt{esmc\_6b})
+(\citeproc{ref-hayes2024simulating}{Hayes et al. 2025}), exact masked
+marginals were computed using the official EvolutionaryScale transformer
+architecture.
+
+\subsection{Three-Way Interaction Models and Clustered Sandwich
+Covariance}\label{three-way-interaction-models-and-clustered-sandwich-covariance}
+
+We constructed a stacked regression frame containing \(2N = 21,286\)
+observations (two rows per variant: one for abundance, one for binding).
+Scores were standardized within each (system, assay) group:
+\[z(y) = \frac{y - \bar{y}_{s, a}}{\sigma_{s, a}}\] The three-way
+interaction model was estimated using Ordinary Least Squares:
+\[\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\epsilon}\]
+Cluster-robust standard errors were computed using the Liang-Zeger
+sandwich estimator clustered across the \(G = 5\) macromolecular systems
+(\citeproc{ref-liang1986longitudinal}{Liang and Zeger 1986}):
+\[\mathbf{V}_{\text{cluster}} = \frac{G}{G-1} \frac{N-1}{N-K} (\mathbf{X}^T \mathbf{X})^{-1} \left( \sum_{g=1}^G \mathbf{X}_g^T \hat{\boldsymbol{\epsilon}}_g \hat{\boldsymbol{\epsilon}}_g^T \mathbf{X}_g \right) (\mathbf{X}^T \mathbf{X})^{-1}\]
+
+\subsection{Non-Parametric Permutation and Small-Cluster Econometric
+Inference}\label{non-parametric-permutation-and-small-cluster-econometric-inference}
+
+Because asymptotic cluster-sandwich estimators with \(G = 5\) clusters
+have only \(df = 4\), we employed within-system stratified permutation
+tests (\(B = 10,000\) iterations) as our primary exact non-parametric
+test. In each permutation \(b\), the structural interface indicator was
+shuffled within each system, preserving system-level variance and
+marginal distributions while breaking interface-specific association:
+\[p_{\text{perm}} = \frac{1}{B} \sum_{b=1}^B \mathbb{I}\left( |\hat{\beta}_{7}^{(b)}| \ge |\hat{\beta}_{7}^{\text{obs}}| \right)\]
+In addition, we computed small-\(G\) Wild Cluster Bootstrap \(p\)-values
+using the Webb 6-point distribution
+(\(w_g \in \{-\sqrt{1.5}, -1.0, -\sqrt{0.5}, \sqrt{0.5}, 1.0, \sqrt{1.5}\}\))
+(\citeproc{ref-webb2023reworking}{Webb 2023};
+\citeproc{ref-cameron2008bootstrap}{Cameron et al. 2008}) with
+\(B = 10,000\) draws, and fit system fixed-effects OLS models
+(\(z(\text{DMS}) \sim \text{PLM} \times \text{Binding} \times \text{Interface} + \sum_s \gamma_s \mathbb{I}_{\text{System}=s}\)).
+
+\subsection{Structural Definition Sensitivity Sweep
+Grid}\label{structural-definition-sensitivity-sweep-grid}
+
+We evaluated structural definition robustness across a \(5 \times 5\)
+parameter grid:
+\[\Delta\text{SASA}_{\text{cutoff}} \in \{2.0, 5.0, 10.0, 15.0, 20.0\}\text{ \AA}^2, \quad d_{\text{min, cutoff}} \in \{3.5, 4.0, 4.5, 5.0, 6.0\}\text{ \AA}\]
+For each grid cell, residues satisfying
+\(\Delta\text{SASA} \ge \Delta\text{SASA}_{\text{cutoff}} \lor d_{\text{min}} \le d_{\text{min, cutoff}}\)
+were labeled interface, and non-interface residues were split into Core
+(\(\text{rSASA} < 0.20\)) and Surface (\(\text{rSASA} \ge 0.20\)).
+
+\subsection{Hierarchical Evolutionary Class Modeling with HC3 Robust
+Covariance}\label{hierarchical-evolutionary-class-modeling-with-hc3-robust-covariance}
+
+In the cross-class hierarchical interaction model
+(\(z(\text{DMS}) \sim \text{PLM} \times \text{Binding} \times \text{Class}\)
+at interface positions), evolutionary class is constant within each
+system cluster. To prevent collinear cluster-score covariance, we
+computed MacKinnon \& White HC3 heteroskedasticity-consistent standard
+errors (\citeproc{ref-mackinnon1985some}{MacKinnon and White 1985}):
+\[\mathbf{V}_{\text{HC3}} = (\mathbf{X}^T \mathbf{X})^{-1} \left( \sum_{i=1}^N \frac{\hat{e}_i^2}{(1 - h_{ii})^2} \mathbf{x}_i \mathbf{x}_i^T \right) (\mathbf{X}^T \mathbf{X})^{-1}\]
+where
+\(h_{ii} = \mathbf{x}_i^T (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{x}_i\)
+is the \(i\)-th diagonal leverage element.
+
+\subsection{Causal Mediation and Partial Rank
+Correlation}\label{causal-mediation-and-partial-rank-correlation}
+
+To evaluate mediation, we computed the partial Spearman rank correlation
+by residualizing rank-transformed variables:
+\[\mathbf{r}_{\text{PLM}} = \text{rank}(\text{PLM}), \quad \mathbf{r}_{\text{Bind}} = \text{rank}(\text{Binding}), \quad \mathbf{r}_{\text{Abund}} = \text{rank}(\text{Abundance})\]
+Residuals
+\(\mathbf{e}_{\text{PLM}} = \mathbf{r}_{\text{PLM}} - \hat{\mathbf{r}}_{\text{PLM}}(\mathbf{r}_{\text{Abund}})\)
+and
+\(\mathbf{e}_{\text{Bind}} = \mathbf{r}_{\text{Bind}} - \hat{\mathbf{r}}_{\text{Bind}}(\mathbf{r}_{\text{Abund}})\)
+were obtained via univariate linear regression. The partial correlation
+is the Pearson correlation between these residuals:
+\[\rho(\text{PLM}, \text{Binding} \mid \text{Abundance}) = \frac{\mathbf{e}_{\text{PLM}}^T \mathbf{e}_{\text{Bind}}}{\|\mathbf{e}_{\text{PLM}}\| \|\mathbf{e}_{\text{Bind}}\|}\]
+
+\subsection{Multi-Chain Concatenated
+Conditioning}\label{multi-chain-concatenated-conditioning}
+
+In multi-chain evaluation, target and partner sequences were
+concatenated with an end-of-sequence delimiter:
+\[\mathbf{s}_{\text{complex}} = \mathbf{s}_{\text{target}} \mathbin{\Vert} \langle\text{eos}\rangle \mathbin{\Vert} \mathbf{s}_{\text{partner}}\]
+Masked marginal log-odds were evaluated at target interface positions
+while conditioning on the full concatenated sequence context in
+ESM2-650M.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Data and Code Availability}\label{sec-availability}
+
+\url{https://github.com/emiliovenegas/plm-quaternary-interfaces}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section*{References}\label{references}
+\addcontentsline{toc}{section}{References}
+
+\protect\phantomsection\label{refs}
+\begin{CSLReferences}{1}{1}
+\bibitem[\citeproctext]{ref-alford2017rosetta}
+Alford, Rebecca F., Andrew Leaver-Fay, Jeliazko R. Jeliazkov, et al.
+2017. {``The {Rosetta} All-Atom Energy Function for Macromolecular
+Modeling and Design.''} \emph{Journal of Chemical Theory and
+Computation} 13 (6): 3031--48.
+\url{https://doi.org/10.1021/acs.jctc.7b00125}.
+
+\bibitem[\citeproctext]{ref-cameron2008bootstrap}
+Cameron, A. Colin, Jonah B. Gelbach, and Douglas L. Miller. 2008.
+{``Bootstrap-Based Improvements for Inference with Clustered Errors.''}
+\emph{The Review of Economics and Statistics} 90 (3): 414--27.
+\url{https://doi.org/10.1162/rest.90.3.414}.
+
+\bibitem[\citeproctext]{ref-dauparas2022robust}
+Dauparas, Justas, Ivan Anishchenko, Nathaniel Bennett, et al. 2022.
+{``Robust Deep Learning-Based Protein Sequence Design Using
+{ProteinMPNN}.''} \emph{Science} 378 (6615): 49--56.
+\url{https://doi.org/10.1126/science.add2187}.
+
+\bibitem[\citeproctext]{ref-evans2022protein}
+Evans, Richard, Michael O'Neill, Alexander Pritzel, et al. 2022.
+{``Protein Complex Prediction with {AlphaFold-Multimer}.''}
+\emph{bioRxiv}, ahead of print.
+\url{https://doi.org/10.1101/2021.10.04.463034}.
+
+\bibitem[\citeproctext]{ref-giacomelli2018mutational}
+Giacomelli, Andrew O., Xiaoping Yang, Robert E. Lintner, et al. 2018.
+{``Mutational Processes Shape the Landscape of {TP53} Mutations in Human
+Cancer.''} \emph{Nature Genetics} 50 (10): 1381--87.
+\url{https://doi.org/10.1038/s41588-018-0204-y}.
+
+\bibitem[\citeproctext]{ref-guerois2002predicting}
+Guerois, Raphaël, Jens Erik Nielsen, and Luis Serrano. 2002.
+{``Predicting Changes in the Stability of Proteins and Protein
+Complexes: A Study of More Than 1000 Mutations.''} \emph{Journal of
+Molecular Biology} 320 (2): 369--87.
+\url{https://doi.org/10.1016/S0022-2836(02)00442-4}.
+
+\bibitem[\citeproctext]{ref-hayes2024simulating}
+Hayes, Thomas, Roshan Rao, Halil Akin, et al. 2025. {``Simulating 500
+Million Years of Evolution with a Language Model.''} \emph{Science} 387
+(6736): 850--58. \url{https://doi.org/10.1126/science.ads0018}.
+
+\bibitem[\citeproctext]{ref-hie2022evolutionary}
+Hie, Brian L., Kevin K. Yang, and Peter S. Kim. 2022. {``Evolutionary
+Velocity with Protein Language Models Predicts Evolutionary Dynamics of
+Diverse Proteins.''} \emph{Cell Systems} 13 (4): 274--285.e6.
+\url{https://doi.org/10.1016/j.cels.2022.01.003}.
+
+\bibitem[\citeproctext]{ref-jankauskaite2019skempi}
+Jankauskaitė, Justina, Brian Jiménez-Garcı́a, Justas Dapkūnas, Juan
+Fernández-Recio, and Iain H. Moal. 2019. {``{SKEMPI} 2.0: An Updated
+Benchmark of Changes in Protein--Protein Binding Energy, Kinetics and
+Thermodynamics Upon Mutation.''} \emph{Bioinformatics} 35 (3): 462--69.
+\url{https://doi.org/10.1093/bioinformatics/bty635}.
+
+\bibitem[\citeproctext]{ref-liang1986longitudinal}
+Liang, Kung-Yee, and Scott L. Zeger. 1986. {``Longitudinal Data Analysis
+Using Generalized Linear Models.''} \emph{Biometrika} 73 (1): 13--22.
+\url{https://doi.org/10.1093/biomet/73.1.13}.
+
+\bibitem[\citeproctext]{ref-lin2023evolutionary}
+Lin, Zeming, Halil Akin, Roshan Rao, et al. 2023. {``Evolutionary-Scale
+Prediction of Atomic-Level Protein Structure with a Language Model.''}
+\emph{Science} 379 (6637): 1123--30.
+\url{https://doi.org/10.1126/science.ade2574}.
+
+\bibitem[\citeproctext]{ref-mackinnon1985some}
+MacKinnon, James G., and Halbert White. 1985. {``Some
+Heteroskedasticity-Consistent Covariance Matrix Estimators with Improved
+Finite Sample Properties.''} \emph{Journal of Econometrics} 29 (3):
+305--25. \url{https://doi.org/10.1016/0304-4076(85)90158-7}.
+
+\bibitem[\citeproctext]{ref-mcshan2019peptide}
+McShan, Andrew C., Christine A. Devlin, Sarah A. Overall, et al. 2019.
+{``Molecular Determinants of Chaperone Interactions on {MHC-I} for
+Folding and Antigen Repertoire Selection.''} \emph{Proceedings of the
+National Academy of Sciences} 116 (51): 25602--13.
+\url{https://doi.org/10.1073/pnas.1915562116}.
+
+\bibitem[\citeproctext]{ref-meier2021language}
+Meier, Joshua, Roshan Rao, Robert Verkuil, Jason Liu, Tom Sercu, and
+Alexander Rives. 2021. {``Language Models Enable Zero-Shot Prediction of
+the Effects of Mutations on Protein Function.''} In \emph{Advances in
+Neural Information Processing Systems}, edited by M. Ranzato, A.
+Beygelzimer, Y. Dauphin, P. S. Liang, and J. Wortman Vaughan, vol. 34.
+Curran Associates, Inc.
+\url{https://proceedings.neurips.cc/paper_files/paper/2021/hash/f51338d736f95dd42427296047067694-Abstract.html}.
+
+\bibitem[\citeproctext]{ref-mitternacht2016freesasa}
+Mitternacht, Simon. 2016. {``{FreeSASA}: An Open Source {C} Library for
+Solvent Accessible Surface Area Calculations.''} \emph{F1000Research} 5:
+189. \url{https://doi.org/10.12688/f1000research.7931.1}.
+
+\bibitem[\citeproctext]{ref-notin2023proteingym}
+Notin, Pascal, Aaron Kollasch, Daniel Ritter, et al. 2023.
+{``{ProteinGym}: Large-Scale Benchmarks for Protein Fitness Prediction
+and Design.''} \emph{Advances in Neural Information Processing Systems}
+36: 64331--79.
+\url{https://proceedings.neurips.cc/paper_files/paper/2023/file/cac723e5ff29f65e3fcbb0739ae91bee-Paper-Datasets_and_Benchmarks.pdf}.
+
+\bibitem[\citeproctext]{ref-olson2014comprehensive}
+Olson, C. Anders, Nicholas C. Wu, and Ren Sun. 2014. {``A Comprehensive
+Biophysical Description of Pairwise Epistasis Throughout an Entire
+Protein Domain.''} \emph{Current Biology} 24 (22): 2643--51.
+\url{https://doi.org/10.1016/j.cub.2014.09.072}.
+
+\bibitem[\citeproctext]{ref-rives2021biological}
+Rives, Alexander, Joshua Meier, Tom Sercu, et al. 2021. {``Biological
+Structure and Function Emerge from Scaling Unsupervised Learning to 250
+Million Protein Sequences.''} \emph{Proceedings of the National Academy
+of Sciences} 118 (15): e2016239118.
+\url{https://doi.org/10.1073/pnas.2016239118}.
+
+\bibitem[\citeproctext]{ref-sledzieski2021dscript}
+Sledzieski, Samuel, Rohit Singh, Lenore Cowen, and Bonnie Berger. 2021.
+{``{D-SCRIPT} Translates Genome to Phenome with Sequence-Based,
+Structure-Aware, Genome-Scale Predictions of Protein-Protein
+Interactions.''} \emph{Cell Systems} 12 (10): 969--982.e6.
+\url{https://doi.org/10.1016/j.cels.2021.08.010}.
+
+\bibitem[\citeproctext]{ref-starr2020deep}
+Starr, Tyler N., Allison J. Greaney, Sarah K. Hilton, et al. 2020.
+{``Deep Mutational Scanning of {SARS-CoV-2} Receptor Binding Domain
+Reveals Constraints on Folding and {ACE2} Binding.''} \emph{Cell} 182
+(5): 1295--1310.e20. \url{https://doi.org/10.1016/j.cell.2020.08.012}.
+
+\bibitem[\citeproctext]{ref-webb2023reworking}
+Webb, Matthew D. 2023. {``Reworking Wild Bootstrap-Based Inference for
+Clustered Errors.''} \emph{Canadian Journal of Economics / Revue
+Canadienne d'{é}conomique} 56 (3): 839--58.
+\url{https://doi.org/10.1111/caje.12661}.
+
+\bibitem[\citeproctext]{ref-weng2022deep}
+Weng, Chenchun, Andre J. Faure, Albert Escobedo, and Ben Lehner. 2024.
+{``The Energetic and Allosteric Landscape for {KRAS} Inhibition.''}
+\emph{Nature} 626 (7999): 643--52.
+\url{https://doi.org/10.1038/s41586-023-06954-0}.
+
+\bibitem[\citeproctext]{ref-wu2016adaptation}
+Wu, Nicholas C., Lei Dai, C. Anders Olson, James O. Lloyd-Smith, and Ren
+Sun. 2016. {``Adaptation in Protein Fitness Landscapes Is Facilitated by
+Indirect Paths.''} \emph{eLife} 5: e16965.
+\url{https://doi.org/10.7554/eLife.16965}.
+
+\end{CSLReferences}
+
+
+
+
+\end{document}

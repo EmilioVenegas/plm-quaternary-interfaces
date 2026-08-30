@@ -36,48 +36,51 @@ import pandas as pd
 from diagram import Ctx, card, paragraph, bullets, pill, PAPER, WASH, HAIR, INK, BODY, MUTED, DOT, SLATE, EMERALD, ROSE, INDIGO, VIOLET, AMBER, flow, descend
 from scipy import stats
 
-# Publication styling defaults
+# Publication styling defaults (Nature / Science guidelines)
 plt.rcParams.update({
     "font.family": "sans-serif",
-    "font.sans-serif": ["DejaVu Sans", "Arial", "Helvetica"],
-    "font.size": 10,
-    "axes.labelsize": 11,
-    "axes.titlesize": 12,
-    "xtick.labelsize": 9.5,
-    "ytick.labelsize": 9.5,
-    "legend.fontsize": 9.5,
-    "figure.titlesize": 13,
-    "axes.edgecolor": "#333333",
-    "axes.linewidth": 0.8,
-    "grid.color": "#e0e0e0",
+    "font.sans-serif": ["Liberation Sans", "Arial", "DejaVu Sans"],
+    "font.size": 8.8,
+    "axes.labelsize": 9.5,
+    "axes.titlesize": 10.0,
+    "xtick.labelsize": 8.5,
+    "ytick.labelsize": 8.5,
+    "legend.fontsize": 8.5,
+    "axes.edgecolor": "#cbd5e1",
+    "axes.linewidth": 0.7,
+    "grid.color": "#f1f5f9",
     "grid.linestyle": "--",
     "grid.linewidth": 0.5,
-    "grid.alpha": 0.7,
+    "grid.alpha": 0.8,
+    "figure.autolayout": False,
 })
 
 RESULTS_DIR = REPO_ROOT / "results"
 DOCS_FIGS_DIR = REPO_ROOT / "docs" / "figures"
 DOCS_FIGS_DIR.mkdir(parents=True, exist_ok=True)
 
-# Color palettes
+# Subdued, mature, publication-grade academic palette
 PALETTE = {
     # Structural Compartments
-    "Core": "#334155",       # Slate 700
-    "Surface": "#16a34a",    # Emerald 600
-    "Interface": "#dc2626",  # Crimson 600
+    "Core": "#475569",       # Deep slate grey
+    "Surface": "#2d6a4f",    # Muted forest/sage green
+    "Interface": "#a83232",  # Subdued brick/crimson red
+
     # Assay / Readout Types
-    "Abundance": "#2563eb",  # Blue 600
-    "Binding": "#db2777",    # Rose / Pink 600
-    "Partial": "#d97706",    # Amber 600
-    # Model Architectures (harmonious progression)
-    "ESMC-600M": "#0284c7",  # Sky 600
-    "ESM2-650M": "#2563eb",  # Blue 600
-    "ESM2-3B": "#4f46e5",    # Indigo 600
-    "ESMC-6B": "#7c3aed",    # Violet 600
+    "Abundance": "#3b6998",  # Muted steel/slate blue
+    "Binding": "#9c3848",    # Muted rose/wine red
+    "Partial": "#c07f1a",    # Warm antique ochre/amber
+
+    # Model Architectures (Muted sequential blues/purples)
+    "ESMC-600M": "#5a7d9a",  # Soft slate cyan
+    "ESM2-650M": "#3b6998",  # Muted steel blue
+    "ESM2-3B": "#4f5fc4",    # Subdued indigo
+    "ESMC-6B": "#7c5cc7",    # Muted deep violet
+
     # Evolutionary PPI Regimes
-    "Homooligomer": "#7c3aed",       # Violet 600
-    "Natural_Heterodimer": "#059669", # Emerald 600
-    "Synthetic_CrossSpecies": "#d97706", # Amber 600
+    "Homooligomer": "#7c5cc7",       # Muted violet
+    "Natural_Heterodimer": "#2d6a4f", # Muted forest green
+    "Synthetic_CrossSpecies": "#c07f1a", # Muted warm amber
 }
 
 
@@ -579,7 +582,7 @@ def plot_figure_1_schematic():
 # -----------------------------------------------------------------------------
 def plot_figure_2_double_dissociation(df_scores):
     """Figure 2: Multi-panel scatter plot comparing PLM vs DMS Abundance & Binding across compartments."""
-    fig, axes = plt.subplots(2, 3, figsize=(13, 7.8), dpi=300, sharex=True, sharey=True)
+    fig, axes = plt.subplots(2, 3, figsize=(12.5, 7.5), dpi=300, sharex=True, sharey=True, facecolor="#ffffff")
 
     compartments = ["Core", "Surface", "Interface"]
     comp_colors = {"Core": PALETTE["Core"], "Surface": PALETTE["Surface"], "Interface": PALETTE["Interface"]}
@@ -601,17 +604,17 @@ def plot_figure_2_double_dissociation(df_scores):
         sub = df[df["compartment"] == comp].dropna(subset=["plm_z", "dms_abund_z"])
         rho, _ = stats.spearmanr(sub["plm_z"], sub["dms_abund_z"])
 
-        ax.scatter(sub["plm_z"], sub["dms_abund_z"], color=comp_colors[comp], alpha=0.22, s=12, edgecolors="none")
+        ax.scatter(sub["plm_z"], sub["dms_abund_z"], color=comp_colors[comp], alpha=0.18, s=10, edgecolors="none")
         m, b = np.polyfit(sub["plm_z"], sub["dms_abund_z"], 1)
         x_line = np.linspace(-3.5, 3.5, 100)
-        ax.plot(x_line, m * x_line + b, color="#1e293b", lw=1.8, linestyle="-")
+        ax.plot(x_line, m * x_line + b, color="#334155", lw=1.5, linestyle="-")
 
-        ax.text(-0.10, 1.06, panel_labels[0][col_idx], transform=ax.transAxes, fontsize=12, fontweight="bold", va="top")
-        ax.set_title(f"{comp} ({comp_ns[comp]})\nMonomer Abundance", fontsize=10, fontweight="bold", pad=6)
+        ax.text(-0.10, 1.05, panel_labels[0][col_idx], transform=ax.transAxes, fontsize=11.5, fontweight="bold", va="top")
+        ax.set_title(f"{comp} ({comp_ns[comp]})\nMonomer Abundance", fontsize=9.5, fontweight="bold", color="#1e293b", pad=5)
         ax.text(0.05, 0.90, f"Spearman $\\rho = {rho:+.3f}$", transform=ax.transAxes,
-                fontsize=9.5, fontweight="bold", color="#1e293b",
-                bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="#cbd5e1", lw=0.8, alpha=0.95))
-        ax.set_ylabel("Monomer Abundance ($z$-score)" if col_idx == 0 else "", fontsize=10)
+                fontsize=9.0, fontweight="bold", color="#1e293b",
+                bbox=dict(boxstyle="round,pad=0.22", fc="#f8fafc", ec="#cbd5e1", lw=0.7, alpha=0.95))
+        ax.set_ylabel("Monomer Abundance ($z$-score)" if col_idx == 0 else "", fontsize=9.5)
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         ax.grid(True)
@@ -622,21 +625,21 @@ def plot_figure_2_double_dissociation(df_scores):
         sub = df[df["compartment"] == comp].dropna(subset=["plm_z", "dms_bind_z"])
         rho, _ = stats.spearmanr(sub["plm_z"], sub["dms_bind_z"])
 
-        ax.scatter(sub["plm_z"], sub["dms_bind_z"], color=comp_colors[comp], alpha=0.22, s=12, edgecolors="none")
+        ax.scatter(sub["plm_z"], sub["dms_bind_z"], color=comp_colors[comp], alpha=0.18, s=10, edgecolors="none")
         m, b = np.polyfit(sub["plm_z"], sub["dms_bind_z"], 1)
         x_line = np.linspace(-3.5, 3.5, 100)
-        ax.plot(x_line, m * x_line + b, color="#dc2626" if comp == "Interface" else "#1e293b",
-                lw=1.8, linestyle="--" if comp == "Interface" else "-")
+        ax.plot(x_line, m * x_line + b, color="#a83232" if comp == "Interface" else "#334155",
+                lw=1.5, linestyle="--" if comp == "Interface" else "-")
 
-        ax.text(-0.10, 1.06, panel_labels[1][col_idx], transform=ax.transAxes, fontsize=12, fontweight="bold", va="top")
-        ax.set_title(f"{comp} ({comp_ns[comp]})\nComplex Binding", fontsize=10, fontweight="bold",
-                     color="#dc2626" if comp == "Interface" else "#1e293b", pad=6)
+        ax.text(-0.10, 1.05, panel_labels[1][col_idx], transform=ax.transAxes, fontsize=11.5, fontweight="bold", va="top")
+        ax.set_title(f"{comp} ({comp_ns[comp]})\nComplex Binding", fontsize=9.5, fontweight="bold",
+                     color="#a83232" if comp == "Interface" else "#1e293b", pad=5)
         ax.text(0.05, 0.90, f"Spearman $\\rho = {rho:+.3f}$", transform=ax.transAxes,
-                fontsize=9.5, fontweight="bold", color="#dc2626" if comp == "Interface" else "#1e293b",
-                bbox=dict(boxstyle="round,pad=0.25", fc="#fef2f2" if comp == "Interface" else "white",
-                          ec="#fca5a5" if comp == "Interface" else "#cbd5e1", lw=0.8, alpha=0.95))
-        ax.set_xlabel("ESMC-6B Zero-Shot Score ($z$-score)", fontsize=10)
-        ax.set_ylabel("Complex Binding ($z$-score)" if col_idx == 0 else "", fontsize=10)
+                fontsize=9.0, fontweight="bold", color="#a83232" if comp == "Interface" else "#1e293b",
+                bbox=dict(boxstyle="round,pad=0.22", fc="#fef2f2" if comp == "Interface" else "#f8fafc",
+                          ec="#fca5a5" if comp == "Interface" else "#cbd5e1", lw=0.7, alpha=0.95))
+        ax.set_xlabel("ESMC-6B Zero-Shot Score ($z$-score)", fontsize=9.5)
+        ax.set_ylabel("Complex Binding ($z$-score)" if col_idx == 0 else "", fontsize=9.5)
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         ax.grid(True)
@@ -651,77 +654,119 @@ def plot_figure_2_double_dissociation(df_scores):
 
 
 # -----------------------------------------------------------------------------
-# Figure 3: Mediation Analysis Forest Plot
+# Figure 3: Mediation Analysis Forest Plot (Editorial Meta-Analysis Grade)
 # -----------------------------------------------------------------------------
 def plot_figure_3_mediation_forest(mediation_data):
-    """Figure 3: Forest plot of marginal vs partial rank correlations across models and compartments."""
-    fig, ax = plt.subplots(figsize=(9.5, 6.0), dpi=300)
-
-    models = ["esm2-650m", "esm2-3b", "esmc-600m", "esmc-6b"]
-    model_labels = {
-        "esm2-650m": "ESM2-650M",
-        "esm2-3b": "ESM2-3B",
-        "esmc-600m": "ESMC-600M",
-        "esmc-6b": "ESMC-6B",
+    """Figure 3: Forest plot of marginal vs partial rank correlations with aligned data table."""
+    models = ["esmc-6b", "esmc-600m", "esm2-3b", "esm2-650m"]
+    model_meta = {
+        "esmc-6b": ("ESMC-6B", "6.35B"),
+        "esmc-600m": ("ESMC-600M", "600M"),
+        "esm2-3b": ("ESM2-3B", "2.84B"),
+        "esm2-650m": ("ESM2-650M", "650M"),
     }
     compartments = ["Core", "Surface", "Interface"]
 
-    y_positions = []
-    labels = []
-    marginal_rhos = []
-    partial_rhos = []
-    colors = []
+    fig = plt.figure(figsize=(10.5, 5.6), dpi=300, facecolor="#ffffff")
+    ax_plot = fig.add_axes([0.22, 0.13, 0.40, 0.79], facecolor="#ffffff")
+    ax_table = fig.add_axes([0.64, 0.13, 0.34, 0.79], facecolor="#ffffff")
+    ax_table.axis("off")
 
-    current_y = 0
-    for model in reversed(models):
+    y_coords = []
+    row_data = []
+
+    current_y = 0.0
+    for mod_idx, model in enumerate(reversed(models)):
         m_data = mediation_data[model]["compartments"]
+
+        # Model band background in ax_plot
+        y_bottom = current_y - 0.35
+        y_top = current_y + 2.35
+        band_color = "#f8fafc" if mod_idx % 2 == 0 else "#ffffff"
+
+        rect_p = patches.Rectangle((-0.15, y_bottom), 0.63, y_top - y_bottom,
+                                   facecolor=band_color, edgecolor="#f1f5f9", lw=0.6, zorder=0)
+        ax_plot.add_patch(rect_p)
+
         for comp in reversed(compartments):
             c_info = m_data[comp]
-            marginal_rhos.append(c_info["rho_plm_binding"])
-            partial_rhos.append(c_info["rho_partial_plm_binding_given_abundance"])
-            colors.append(PALETTE[comp])
-            labels.append(f"{model_labels[model]}  \u2502  {comp} ($N={c_info['n']:,}$)")
-            y_positions.append(current_y)
-            current_y += 1
-        current_y += 0.7  # gap between models
+            m_rho = c_info["rho_plm_binding"]
+            p_rho = c_info["rho_partial_plm_binding_given_abundance"]
+            d_rho = p_rho - m_rho
 
-    y_pos = np.array(y_positions)
-    ax.axvline(0, color="#64748b", linestyle="--", lw=1.0, alpha=0.8)
+            y_coords.append(current_y)
+            row_data.append((model, comp, c_info["n"], m_rho, p_rho, d_rho, current_y))
+            current_y += 1.0
+        current_y += 0.6  # gap between models
 
-    for i in range(len(y_pos)):
-        y = y_pos[i]
-        m_rho = marginal_rhos[i]
-        p_rho = partial_rhos[i]
+    # Draw zero reference line
+    ax_plot.axvline(0, color="#64748b", linestyle="--", lw=0.9, alpha=0.85, zorder=1)
 
-        ax.plot([m_rho, p_rho], [y, y], color="#94a3b8", lw=1.4, zorder=2)
-        ax.scatter(m_rho, y, color="white", edgecolors=colors[i], s=60, lw=1.8, zorder=3,
-                   label="Marginal $\\rho(\\mathrm{PLM}, \\mathrm{Binding})$" if i == 0 else "")
-        ax.scatter(p_rho, y, color=colors[i], marker="s", s=55, zorder=4,
-                   label="Partial $\\rho(\\mathrm{PLM}, \\mathrm{Binding} \\mid \\mathrm{Abundance})$" if i == 0 else "")
+    for model, comp, n, m_rho, p_rho, d_rho, y in row_data:
+        color = PALETTE[comp]
+        # Link line
+        ax_plot.plot([m_rho, p_rho], [y, y], color="#94a3b8", lw=1.2, zorder=2)
+        # Marginal point (open circle)
+        ax_plot.scatter(m_rho, y, color="white", edgecolors=color, s=45, lw=1.5, zorder=3)
+        # Partial point (filled square)
+        ax_plot.scatter(p_rho, y, color=color, marker="s", s=40, zorder=4)
 
-        if "Interface" in labels[i]:
-            drop_str = f"$\\Delta = {p_rho - m_rho:+.2f}$"
-            ax.text(min(m_rho, p_rho) - 0.02, y, drop_str, va="center", ha="right", fontsize=8.0,
-                    fontweight="bold", color="#dc2626")
+    ax_plot.set_xlim(-0.15, 0.48)
+    ax_plot.set_ylim(-0.5, current_y - 0.2)
+    ax_plot.set_xlabel("Spearman Rank Correlation ($\\rho$)", fontsize=9.5, fontweight="bold", color="#1e293b")
 
-    ax.set_yticks(y_pos)
-    ax.set_yticklabels(labels, fontsize=9.0)
-    ax.set_xlabel("Spearman Rank Correlation ($\\rho$)", fontsize=10.5, fontweight="bold")
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
+    # Y tick labels (indented compartment labels)
+    y_ticks = [r[6] for r in row_data]
+    y_labels = [f"{r[1]}" for r in row_data]
+    ax_plot.set_yticks(y_ticks)
+    ax_plot.set_yticklabels(y_labels, fontsize=8.5, color="#334155")
 
-    custom_lines = [
-        plt.Line2D([0], [0], marker="o", color="white", markeredgecolor="#334155", markeredgewidth=1.8, markersize=7, label="Marginal: $\\rho(\\mathrm{PLM}, \\mathrm{Binding})$"),
-        plt.Line2D([0], [0], marker="s", color="#334155", markersize=7, label="Partial: $\\rho(\\mathrm{PLM}, \\mathrm{Binding} \\mid \\mathrm{Abundance})$"),
+    # Add Model Group Headers on the left y-axis
+    for mod_idx, model in enumerate(reversed(models)):
+        mod_rows = [r for r in row_data if r[0] == model]
+        mid_y = (mod_rows[0][6] + mod_rows[-1][6]) / 2.0
+        name, params = model_meta[model]
+        ax_plot.text(-0.17, mid_y, f"{name}\n({params})", fontsize=8.5, fontweight="bold",
+                     color="#0f172a", ha="right", va="center")
+
+    ax_plot.spines["top"].set_visible(False)
+    ax_plot.spines["right"].set_visible(False)
+    ax_plot.grid(True, axis="x", color="#f1f5f9", linestyle="--", lw=0.5)
+
+    # Render aligned tabular breakdown on ax_table
+    ax_table.set_xlim(0, 1)
+    ax_table.set_ylim(-0.5, current_y - 0.2)
+
+    # Table Header
+    header_y = current_y - 0.1
+    col_x = [0.08, 0.32, 0.58, 0.84]
+    ax_table.text(col_x[0], header_y, "Sample $N$", fontsize=8.5, fontweight="bold", color="#475569", ha="center")
+    ax_table.text(col_x[1], header_y, "Marginal $\\rho$", fontsize=8.5, fontweight="bold", color="#475569", ha="center")
+    ax_table.text(col_x[2], header_y, "Partial $\\rho$", fontsize=8.5, fontweight="bold", color="#475569", ha="center")
+    ax_table.text(col_x[3], header_y, "$\\Delta\\rho$", fontsize=8.5, fontweight="bold", color="#475569", ha="center")
+    ax_table.plot([0.00, 0.98], [header_y - 0.35, header_y - 0.35], color="#cbd5e1", lw=0.8)
+
+    for model, comp, n, m_rho, p_rho, d_rho, y in row_data:
+        is_int = (comp == "Interface")
+        text_color = "#a83232" if is_int else "#334155"
+        weight = "bold" if is_int else "normal"
+
+        ax_table.text(col_x[0], y, f"{n:,}", fontsize=8.0, color="#64748b", ha="center", va="center")
+        ax_table.text(col_x[1], y, f"{m_rho:+.3f}", fontsize=8.0, color="#334155", ha="center", va="center")
+        ax_table.text(col_x[2], y, f"{p_rho:+.3f}", fontsize=8.0, fontweight=weight, color=text_color, ha="center", va="center")
+        ax_table.text(col_x[3], y, f"{d_rho:+.2f}", fontsize=8.0, fontweight=weight, color=text_color, ha="center", va="center")
+
+    # Clean Legend below plot
+    legend_elements = [
+        plt.Line2D([0], [0], marker="o", color="white", markeredgecolor="#475569", markeredgewidth=1.5, markersize=5.5, label="Marginal: $\\rho(\\mathrm{PLM}, \\mathrm{Binding})$"),
+        plt.Line2D([0], [0], marker="s", color="#475569", markersize=5.5, label="Partial: $\\rho(\\mathrm{PLM}, \\mathrm{Binding} \\mid \\mathrm{Abundance})$"),
         patches.Patch(color=PALETTE["Core"], label="Core"),
         patches.Patch(color=PALETTE["Surface"], label="Surface"),
         patches.Patch(color=PALETTE["Interface"], label="Quaternary Interface"),
     ]
-    ax.legend(handles=custom_lines, loc="lower right", framealpha=0.95, facecolor="white", edgecolor="#cbd5e1", fontsize=8.5)
-    ax.set_xlim(-0.15, 0.48)
-    ax.grid(True, axis="x")
+    ax_plot.legend(handles=legend_elements, loc="lower right", framealpha=0.95, facecolor="white",
+                   edgecolor="#e2e8f0", fontsize=7.8, ncol=2)
 
-    plt.tight_layout()
     out_path = DOCS_FIGS_DIR / "03_mediation_forest_plot.png"
     plt.savefig(out_path, dpi=300, bbox_inches="tight")
     plt.close()
@@ -733,7 +778,7 @@ def plot_figure_3_mediation_forest(mediation_data):
 # -----------------------------------------------------------------------------
 def plot_figure_4_scaling_collapse(test_data, mediation_data):
     """Figure 4: Tracking interface correlation collapse and widening gap across parameter scales."""
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.8), dpi=300)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10.5, 4.5), dpi=300, facecolor="#ffffff")
 
     scale_models = [
         {"id": "esmc-600m", "name": "ESMC\n600M", "params": 0.60, "family": "ESMC"},
@@ -762,38 +807,38 @@ def plot_figure_4_scaling_collapse(test_data, mediation_data):
     x = np.arange(len(scale_models))
 
     # Panel A: Absolute Correlations
-    ax1.text(-0.12, 1.05, "a", transform=ax1.transAxes, fontsize=13, fontweight="bold", va="top")
-    ax1.plot(x, rho_abund, marker="o", lw=2.2, markersize=7, color=PALETTE["Abundance"], label="Interface Monomer Abundance ($\\rho$)")
-    ax1.plot(x, rho_bind, marker="s", lw=2.2, markersize=7, color=PALETTE["Binding"], label="Interface Complex Binding ($\\rho$)")
-    ax1.plot(x, rho_partial, marker="^", lw=2.0, linestyle="--", markersize=7, color=PALETTE["Partial"], label="Partial Interface $\\rho(\\mathrm{PLM}, \\mathrm{Bind} \\mid \\mathrm{Abund})$")
+    ax1.text(-0.12, 1.05, "a", transform=ax1.transAxes, fontsize=12, fontweight="bold", va="top")
+    ax1.plot(x, rho_abund, marker="o", lw=1.8, markersize=6.5, color=PALETTE["Abundance"], label="Interface Monomer Abundance ($\\rho$)")
+    ax1.plot(x, rho_bind, marker="s", lw=1.8, markersize=6.5, color=PALETTE["Binding"], label="Interface Complex Binding ($\\rho$)")
+    ax1.plot(x, rho_partial, marker="^", lw=1.6, linestyle="--", markersize=6.5, color=PALETTE["Partial"], label="Partial Interface $\\rho(\\mathrm{PLM}, \\mathrm{Bind} \\mid \\mathrm{Abund})$")
 
     for i in range(len(x)):
-        ax1.text(x[i], rho_abund[i] + 0.025, f"{rho_abund[i]:.3f}", ha="center", fontsize=8.5, fontweight="bold", color=PALETTE["Abundance"])
-        ax1.text(x[i], rho_bind[i] - 0.035, f"{rho_bind[i]:.3f}", ha="center", fontsize=8.5, fontweight="bold", color=PALETTE["Binding"])
-        ax1.text(x[i], rho_partial[i] - 0.035, f"{rho_partial[i]:.3f}", ha="center", fontsize=8.5, fontweight="bold", color=PALETTE["Partial"])
+        ax1.text(x[i], rho_abund[i] + 0.025, f"{rho_abund[i]:.3f}", ha="center", fontsize=8.0, fontweight="bold", color=PALETTE["Abundance"])
+        ax1.text(x[i], rho_bind[i] - 0.035, f"{rho_bind[i]:.3f}", ha="center", fontsize=8.0, fontweight="bold", color=PALETTE["Binding"])
+        ax1.text(x[i], rho_partial[i] - 0.035, f"{rho_partial[i]:.3f}", ha="center", fontsize=8.0, fontweight="bold", color=PALETTE["Partial"])
 
     ax1.set_xticks(x)
-    ax1.set_xticklabels(names, fontsize=9.5)
-    ax1.set_ylabel("Spearman Rank Correlation ($\\rho$)", fontsize=10.5, fontweight="bold")
-    ax1.set_ylim(-0.15, 0.50)
-    ax1.axhline(0, color="#64748b", linestyle=":", lw=0.9)
+    ax1.set_xticklabels(names, fontsize=9.0)
+    ax1.set_ylabel("Spearman Rank Correlation ($\\rho$)", fontsize=9.5, fontweight="bold")
+    ax1.set_ylim(-0.12, 0.48)
+    ax1.axhline(0, color="#64748b", linestyle=":", lw=0.8)
     ax1.spines["top"].set_visible(False)
     ax1.spines["right"].set_visible(False)
     ax1.grid(True)
-    ax1.legend(loc="lower left", fontsize=8.5, framealpha=0.95, edgecolor="#cbd5e1")
+    ax1.legend(loc="lower left", fontsize=8.0, framealpha=0.95, edgecolor="#cbd5e1")
 
     # Panel B: Drop Percentage / Widening Defect
-    ax2.text(-0.12, 1.05, "b", transform=ax2.transAxes, fontsize=13, fontweight="bold", va="top")
+    ax2.text(-0.12, 1.05, "b", transform=ax2.transAxes, fontsize=12, fontweight="bold", va="top")
     model_bar_colors = [PALETTE["ESMC-600M"], PALETTE["ESM2-650M"], PALETTE["ESM2-3B"], PALETTE["ESMC-6B"]]
-    bars = ax2.bar(x, drop_pct, color=model_bar_colors, width=0.52, edgecolor="#334155", lw=1.0)
+    bars = ax2.bar(x, drop_pct, color=model_bar_colors, width=0.48, edgecolor="#334155", lw=0.8)
     for bar, dp in zip(bars, drop_pct):
         y_val = bar.get_height()
         ax2.text(bar.get_x() + bar.get_width() / 2, y_val - 4.5, f"{dp:.1f}%", ha="center", va="top",
-                 fontsize=9.0, fontweight="bold", color="white" if abs(y_val) > 40 else "#1e293b")
+                 fontsize=8.5, fontweight="bold", color="white" if abs(y_val) > 40 else "#1e293b")
 
     ax2.set_xticks(x)
-    ax2.set_xticklabels(names, fontsize=9.5)
-    ax2.set_ylabel("Relative Interface Collapse ($\\Delta\\rho / \\rho_{\\mathrm{abund}}$ %)", fontsize=10.5, fontweight="bold")
+    ax2.set_xticklabels(names, fontsize=9.0)
+    ax2.set_ylabel("Relative Interface Collapse ($\\Delta\\rho / \\rho_{\\mathrm{abund}}$ %)", fontsize=9.5, fontweight="bold")
     ax2.set_ylim(-95, 0)
     ax2.spines["top"].set_visible(False)
     ax2.spines["right"].set_visible(False)
@@ -811,7 +856,7 @@ def plot_figure_4_scaling_collapse(test_data, mediation_data):
 # -----------------------------------------------------------------------------
 def plot_figure_5_evolutionary_regimes(evo_data):
     """Figure 5: Comparing Homooligomer anti-correlation vs Natural Heterodimer vs Synthetic Binders."""
-    fig, ax = plt.subplots(figsize=(10, 5.2), dpi=300)
+    fig, ax = plt.subplots(figsize=(9.5, 4.8), dpi=300, facecolor="#ffffff")
 
     arm = "esmc-6b"
     classes = evo_data["arms"][arm]["classes"]
@@ -823,7 +868,7 @@ def plot_figure_5_evolutionary_regimes(evo_data):
     ]
 
     x = np.arange(len(regimes))
-    width = 0.24
+    width = 0.22
 
     rho_abund = []
     rho_bind = []
@@ -835,38 +880,39 @@ def plot_figure_5_evolutionary_regimes(evo_data):
         rho_bind.append(int_c["rho_plm_binding"])
         rho_part.append(int_c["rho_partial_plm_binding_given_abundance"])
 
-    b1 = ax.bar(x - width, rho_abund, width, label="Monomer Abundance $\\rho(\\mathrm{PLM}, \\mathrm{Abund})$", color=PALETTE["Abundance"], edgecolor="#334155", lw=0.9)
-    b2 = ax.bar(x, rho_bind, width, label="Complex Binding $\\rho(\\mathrm{PLM}, \\mathrm{Bind})$", color=PALETTE["Binding"], edgecolor="#334155", lw=0.9)
-    b3 = ax.bar(x + width, rho_part, width, label="Partial Binding $\\rho(\\mathrm{PLM}, \\mathrm{Bind} \\mid \\mathrm{Abund})$", color=PALETTE["Partial"], edgecolor="#334155", lw=0.9)
+    b1 = ax.bar(x - width, rho_abund, width, label="Monomer Abundance $\\rho(\\mathrm{PLM}, \\mathrm{Abund})$", color=PALETTE["Abundance"], edgecolor="#334155", lw=0.7)
+    b2 = ax.bar(x, rho_bind, width, label="Complex Binding $\\rho(\\mathrm{PLM}, \\mathrm{Bind})$", color=PALETTE["Binding"], edgecolor="#334155", lw=0.7)
+    b3 = ax.bar(x + width, rho_part, width, label="Partial Binding $\\rho(\\mathrm{PLM}, \\mathrm{Bind} \\mid \\mathrm{Abund})$", color=PALETTE["Partial"], edgecolor="#334155", lw=0.7)
 
     for bars in [b1, b2, b3]:
         for bar in bars:
             h = bar.get_height()
             offset = 0.02 if h >= 0 else -0.04
             va = "bottom" if h >= 0 else "top"
-            ax.text(bar.get_x() + bar.get_width() / 2, h + offset, f"{h:+.2f}", ha="center", va=va, fontsize=8.5, fontweight="bold")
+            ax.text(bar.get_x() + bar.get_width() / 2, h + offset, f"{h:+.2f}", ha="center", va=va, fontsize=8.0, fontweight="bold")
 
     ax.set_xticks(x)
-    ax.set_xticklabels([r[1] for r in regimes], fontsize=9.5, fontweight="bold")
-    ax.set_ylabel("Spearman Rank Correlation ($\\rho$)", fontsize=10.5, fontweight="bold")
-    ax.axhline(0, color="#475569", linestyle="-", lw=1.0)
-    ax.set_ylim(-0.68, 0.70)
+    ax.set_xticklabels([r[1] for r in regimes], fontsize=9.0, fontweight="bold")
+    ax.set_ylabel("Spearman Rank Correlation ($\\rho$)", fontsize=9.5, fontweight="bold")
+    ax.axhline(0, color="#475569", linestyle="-", lw=0.8)
+    ax.set_ylim(-0.68, 0.68)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.grid(True, axis="y")
-    ax.legend(loc="upper right", framealpha=0.95, fontsize=8.5, edgecolor="#cbd5e1")
+    ax.legend(loc="upper right", framealpha=0.95, fontsize=8.0, edgecolor="#cbd5e1")
 
+    # Elegant callout cards matching diagram.py card style
     ax.annotate("Homomer: Anti-correlation\n$\\rho = -0.57$, $\\rho_{\\mathrm{partial}} = -0.51$",
                 xy=(0, -0.57), xytext=(0.04, -0.42),
-                arrowprops=dict(arrowstyle="->", lw=1.2, color="#6d28d9"),
-                fontsize=8.0, fontweight="bold", color="#6d28d9",
-                bbox=dict(boxstyle="round,pad=0.25", fc="#f5f3ff", ec="#c4b5fd", lw=0.8))
+                arrowprops=dict(arrowstyle="->", lw=1.0, color="#7c5cc7"),
+                fontsize=7.8, fontweight="bold", color="#432d7a",
+                bbox=dict(boxstyle="round,pad=0.25", fc="#f3eefb", ec="#ddd0f0", lw=0.7))
 
     ax.annotate("Heterodimer: Binding mediated\nby folding ($\\rho_{\\mathrm{partial}} = +0.05$)",
-                xy=(1 + width, 0.05), xytext=(1.15, 0.35),
-                arrowprops=dict(arrowstyle="->", lw=1.2, color="#047857"),
-                fontsize=8.0, fontweight="bold", color="#047857",
-                bbox=dict(boxstyle="round,pad=0.25", fc="#f0fdf4", ec="#86efac", lw=0.8))
+                xy=(1 + width, 0.05), xytext=(1.15, 0.32),
+                arrowprops=dict(arrowstyle="->", lw=1.0, color="#2d6a4f"),
+                fontsize=7.8, fontweight="bold", color="#155c37",
+                bbox=dict(boxstyle="round,pad=0.25", fc="#eaf6ef", ec="#c8e6d3", lw=0.7))
 
     plt.tight_layout()
     out_path = DOCS_FIGS_DIR / "05_evolutionary_regimes.png"
@@ -880,7 +926,7 @@ def plot_figure_5_evolutionary_regimes(evo_data):
 # -----------------------------------------------------------------------------
 def plot_figure_6_binder_filter(binder_data):
     """Figure 6: False-negative rate and interface depletion curves across filter thresholds."""
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.8), dpi=300)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10.5, 4.5), dpi=300, facecolor="#ffffff")
 
     models = ["esm2-650m", "esm2-3b", "esmc-600m", "esmc-6b"]
     model_labels = {
@@ -899,48 +945,49 @@ def plot_figure_6_binder_filter(binder_data):
     thresholds = [10, 20, 30, 50]
 
     # Panel A: Interface False-Negative Rate (FNR)
-    ax1.text(-0.12, 1.05, "a", transform=ax1.transAxes, fontsize=13, fontweight="bold", va="top")
+    ax1.text(-0.12, 1.05, "a", transform=ax1.transAxes, fontsize=12, fontweight="bold", va="top")
     for model in models:
         sim = binder_data["filter_simulations"][model]["thresholds_simulation"]
         fnr = [s["interface_false_negative_rate"] * 100 for s in sim]
-        ax1.plot(thresholds, fnr, marker="o", lw=2.0, markersize=6, label=model_labels[model], color=model_colors[model])
+        ax1.plot(thresholds, fnr, marker="o", lw=1.8, markersize=5.5, label=model_labels[model], color=model_colors[model])
 
-    ax1.axvline(20, color="#dc2626", linestyle="--", lw=1.2, alpha=0.8)
+    ax1.axvline(20, color="#a83232", linestyle="--", lw=1.1, alpha=0.8)
     ax1.text(21.5, 52, "Standard Filter: Top 20%\n(Discards ~73% \u2013 77%\nof Interface Hits)",
-             color="#991b1b", fontsize=8.0, fontweight="bold",
-             bbox=dict(boxstyle="round,pad=0.25", fc="#fef2f2", ec="#fca5a5", lw=0.8))
+             color="#8a1f2c", fontsize=7.8, fontweight="bold",
+             bbox=dict(boxstyle="round,pad=0.25", fc="#fbeef0", ec="#f2c9ce", lw=0.7))
 
-    ax1.set_xlabel("PLM Likelihood Filter Cutoff (Top X%)", fontsize=10.0, fontweight="bold")
-    ax1.set_ylabel("Interface False-Negative Rate (%)", fontsize=10.0, fontweight="bold")
+    ax1.set_xlabel("PLM Likelihood Filter Cutoff (Top X%)", fontsize=9.5, fontweight="bold")
+    ax1.set_ylabel("Interface False-Negative Rate (%)", fontsize=9.5, fontweight="bold")
     ax1.set_ylim(45, 100)
     ax1.set_xticks(thresholds)
     ax1.spines["top"].set_visible(False)
     ax1.spines["right"].set_visible(False)
     ax1.grid(True)
-    ax1.legend(loc="lower left", fontsize=8.5, edgecolor="#cbd5e1")
+    ax1.legend(loc="lower left", fontsize=8.0, edgecolor="#cbd5e1")
 
     # Panel B: Interface Depletion Rate
-    ax2.text(-0.12, 1.05, "b", transform=ax2.transAxes, fontsize=13, fontweight="bold", va="top")
+    ax2.text(-0.12, 1.05, "b", transform=ax2.transAxes, fontsize=12, fontweight="bold", va="top")
     for model in models:
         sim = binder_data["filter_simulations"][model]["thresholds_simulation"]
         dep = [s["interface_depletion_rate"] * 100 for s in sim]
-        ax2.plot(thresholds, dep, marker="s", lw=2.0, markersize=6, label=model_labels[model], color=model_colors[model])
+        ax2.plot(thresholds, dep, marker="s", lw=1.8, markersize=5.5, label=model_labels[model], color=model_colors[model])
 
-    ax2.axvline(20, color="#dc2626", linestyle="--", lw=1.2, alpha=0.8)
-    ax2.axhline(0, color="#64748b", linestyle=":", lw=0.9)
-    ax2.set_xlabel("PLM Likelihood Filter Cutoff (Top X%)", fontsize=10.0, fontweight="bold")
-    ax2.set_ylabel("Interface Depletion Rate vs. Non-Interface (%)", fontsize=10.0, fontweight="bold")
+    ax2.axvline(20, color="#a83232", linestyle="--", lw=1.1, alpha=0.8)
+    ax2.axhline(0, color="#64748b", linestyle=":", lw=0.8)
+    ax2.set_xlabel("PLM Likelihood Filter Cutoff (Top X%)", fontsize=9.5, fontweight="bold")
+    ax2.set_ylabel("Interface Depletion Rate vs. Non-Interface (%)", fontsize=9.5, fontweight="bold")
     ax2.set_xticks(thresholds)
     ax2.spines["top"].set_visible(False)
     ax2.spines["right"].set_visible(False)
     ax2.grid(True)
-    ax2.legend(loc="upper right", fontsize=8.5, edgecolor="#cbd5e1")
+    ax2.legend(loc="upper right", fontsize=8.0, edgecolor="#cbd5e1")
 
     plt.tight_layout()
     out_path = DOCS_FIGS_DIR / "06_binder_filter_depletion.png"
     plt.savefig(out_path, dpi=300, bbox_inches="tight")
     plt.close()
     print(f"[saved] {out_path}")
+
 
 def main():
     print("=" * 78)

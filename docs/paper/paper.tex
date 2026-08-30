@@ -247,26 +247,26 @@ correlation selectively collapses by \(-57.4\%\) to \(-80.5\%\)
 \(\beta_7 \approx -0.31\text{ to }-0.35\),
 \(p_{\text{perm}} \le 1.8\times10^{-3}\)), an effect concentrated at the
 most energetically buried interface hotspots
-(\(\rho_{\text{partial}} = -0.555\)). Mathematical mediation analysis
-proves that controlling for monomer abundance reduces partial binding
-correlations to zero or negative values, demonstrating \textbf{zero
-unique mutual information} about interface energetics beyond monomer
-folding. Critically, we show this failure is architectural, not
-fundamental: conditioning zero-shot scoring on the 3D complex backbone
-(ProteinMPNN) eliminates the collapse entirely (\(\beta_7 = +0.058\),
-non-significant), a causal ablation confirms the physical presence of
-partner coordinates is the rescuing factor, and EvolutionaryScale's
-multimodal ESM3 shows no collapse in pure sequence mode. A dual-scoring
-strategy combining structure-conditioned interface energetics with a
-single-chain stability prior recovers most affinity-improving interface
-mutations while preserving expressibility. Finally, standard top-20\%
-PLM likelihood filters discard \(85.8\%\text{ to }96.1\%\) of true
-affinity-improving interface mutations in silico, and we document
-verified evidence that this exact heuristic remains in active 2024--2026
-use across foundation-model benchmarking, antibody engineering, and a
-12,000-design community binder trial. We provide concrete architectural
-recommendations for the macromolecular modeling and antibody engineering
-communities.
+(\(\rho_{\text{partial}} = -0.229\)). Mathematical mediation analysis
+proves that controlling for monomer abundance eliminates unique binding
+signal at interfaces (collapsing to \(\rho_{\text{partial}} = +0.009\)
+on ESMC-6B), demonstrating that apparent benchmark performance is an
+artifact of monomer folding. Critically, we show this failure is
+architectural, not fundamental: conditioning zero-shot scoring on the 3D
+complex backbone (ProteinMPNN) eliminates the collapse entirely
+(\(\beta_7 = +0.058\), non-significant), a causal ablation confirms the
+physical presence of partner coordinates is the rescuing factor, and
+EvolutionaryScale's multimodal ESM3 shows no collapse in pure sequence
+mode. A dual-scoring strategy combining structure-conditioned interface
+energetics with a single-chain stability prior recovers most
+affinity-improving interface mutations while preserving expressibility.
+Finally, standard top-20\% PLM likelihood filters discard
+\(73.3\%\text{ to }77.1\%\) of true affinity-improving interface
+mutations in silico, and we document verified evidence that this exact
+heuristic remains in active 2024--2026 use across foundation-model
+benchmarking, antibody engineering, and a 12,000-design community binder
+trial. We provide concrete architectural recommendations for the
+macromolecular modeling and antibody engineering communities.
 \end{abstract}
 
 

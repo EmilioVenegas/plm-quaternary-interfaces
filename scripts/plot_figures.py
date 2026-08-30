@@ -496,7 +496,7 @@ def plot_figure_1_schematic():
     ax.add_patch(FancyArrowPatch((n1_x + n1_w - 0.35, n1_y - n1_h - 0.02), (n3_x + n3_w / 2, n3_y + 0.02),
                                  arrowstyle="-|>", mutation_scale=11, color=B_ROSE,
                                  linestyle="--", lw=1.8, zorder=2))
-    ax.text(10.28, y_top_b - 1.02, "Direct path:\n" + r"$\rho_{\mathrm{partial}} = -0.367$",
+    ax.text(10.28, y_top_b - 1.02, "Direct path:\n" + r"$\rho_{\mathrm{partial}} = +0.009$",
             fontsize=5.6, fontweight="bold", color=B_ROSE_TEXT, ha="center", family="Liberation Sans",
             bbox=dict(boxstyle="round,pad=0.2", facecolor=C_PAPER, edgecolor=B_ROSE_BORDER, lw=0.6))
 
@@ -504,7 +504,7 @@ def plot_figure_1_schematic():
                                 boxstyle="round,pad=0,rounding_size=0.04",
                                 facecolor=B_AMBER_BG, edgecolor=B_AMBER_BORDER, lw=0.8, zorder=2))
     ax.text(7.35 + w_panel_b / 2, y_top_b - h_panel_b + 0.32,
-            r"$\rho(\mathrm{PLM},\,\mathrm{Binding} \mid \mathrm{Abundance}) \leq 0 \Rightarrow \mathrm{zero\ unique\ mutual\ information}$",
+            r"$\rho(\mathrm{PLM},\,\mathrm{Binding} \mid \mathrm{Abundance}) \to 0 \Rightarrow \mathrm{zero\ unique\ mutual\ information}$",
             fontsize=6.5, fontweight="bold", color=B_AMBER_TEXT, ha="center", va="center")
 
     # ---------------- Panel C ----------------
@@ -522,9 +522,9 @@ def plot_figure_1_schematic():
             fontsize=7.2, fontweight="bold", color=C_INK, family="Liberation Sans")
 
     comp_data = [
-        ("Core residues", "+0.413", "+0.380", "Fold prediction"),
-        ("Surface residues", "+0.389", "+0.345", "Fold prediction"),
-        ("Interface residues", "+0.402", "+0.075", "SELECTIVE COLLAPSE"),
+        ("Core residues", "+0.170", "+0.227", "Fold prediction"),
+        ("Surface residues", "+0.169", "+0.060", "Fold prediction"),
+        ("Interface residues", "+0.384", "+0.075", "SELECTIVE COLLAPSE"),
     ]
 
     table_y = y_top_c - 0.50

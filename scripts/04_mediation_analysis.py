@@ -11,12 +11,15 @@ beyond what is already mediated by monomer expression/folding.
 import argparse
 import json
 from pathlib import Path
-
+import sys
 import numpy as np
 import pandas as pd
 from scipy import stats
 
 REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO / "src"))
+
+from plmppi.stats import add_per_system_zscores, partial_spearman
 
 # Evolutionary classification of the primary paired PPI systems
 EVOLUTIONARY_CLASSES = {
@@ -27,41 +30,25 @@ EVOLUTIONARY_CLASSES = {
     "p53": {"pdb": "1OLG", "type": "homooligomer", "description": "Human p53 homotetramerization domain"},
 }
 
-
-def partial_spearman(x, y, z):
-    """Partial rank correlation rho(x, y | z) via Pearson correlation on rank residuals."""
-    rx = stats.rankdata(x)
-    ry = stats.rankdata(y)
-    rz = stats.rankdata(z)
-    
-    # Regress rz out of rx and ry
-    slope_x, intercept_x, _, _, _ = stats.linregress(rz, rx)
-    resid_x = rx - (slope_x * rz + intercept_x)
-    
-    slope_y, intercept_y, _, _, _ = stats.linregress(rz, ry)
-    resid_y = ry - (slope_y * rz + intercept_y)
-    
-    return float(stats.pearsonr(resid_x, resid_y)[0])
-
-
-def analyze_arm(df, arm):
+def analyze_arm(df_raw, arm):
     col = f"zeroshot_{arm}"
-    if col not in df.columns:
+    if col not in df_raw.columns:
         return None
-    
+
+    df = add_per_system_zscores(df_raw, arm=arm)
     results = {"arm": arm, "compartments": {}, "evolutionary_classes": {}}
-    
-    # 1. Per-compartment mediation analysis
+
+    # 1. Per-compartment mediation analysis (using per-system standardized z-scores)
     for comp in ["Core", "Surface", "Interface"]:
-        sub = df[df.compartment == comp].dropna(subset=[col, "dms_score_abundance", "dms_score_binding"])
+        sub = df[df.compartment == comp].dropna(subset=["plm_z", "dms_ab_z", "dms_bi_z"])
         if len(sub) < 10:
             continue
-        
-        rho_abund = float(stats.spearmanr(sub[col], sub.dms_score_abundance)[0])
-        rho_bind = float(stats.spearmanr(sub[col], sub.dms_score_binding)[0])
-        rho_abund_bind = float(stats.spearmanr(sub.dms_score_abundance, sub.dms_score_binding)[0])
-        rho_partial = partial_spearman(sub[col], sub.dms_score_binding, sub.dms_score_abundance)
-        
+
+        rho_abund = float(stats.spearmanr(sub["plm_z"], sub["dms_ab_z"])[0])
+        rho_bind = float(stats.spearmanr(sub["plm_z"], sub["dms_bi_z"])[0])
+        rho_abund_bind = float(stats.spearmanr(sub["dms_ab_z"], sub["dms_bi_z"])[0])
+        rho_partial = float(partial_spearman(sub["plm_z"], sub["dms_bi_z"], sub["dms_ab_z"]))
+
         results["compartments"][comp] = {
             "n": int(len(sub)),
             "rho_plm_abundance": round(rho_abund, 4),
@@ -70,20 +57,20 @@ def analyze_arm(df, arm):
             "rho_partial_plm_binding_given_abundance": round(rho_partial, 4),
             "pct_binding_signal_mediated_by_abundance": round((1.0 - (rho_partial / rho_bind if rho_bind != 0 else 1.0)) * 100, 1),
         }
-    
+
     # 2. Per-system evolutionary stratification at interface residues
     for sys_name, meta in EVOLUTIONARY_CLASSES.items():
-        sub = df[(df.system.str.replace("_", " ").str.lower() == sys_name.lower()) & (df.compartment == "Interface")].dropna(subset=[col, "dms_score_abundance", "dms_score_binding"])
+        sub = df[(df.system.str.replace("_", " ").str.lower() == sys_name.lower()) & (df.compartment == "Interface")].dropna(subset=["plm_z", "dms_ab_z", "dms_bi_z"])
         if len(sub) < 5:
             # try fuzzy matching
-            sub = df[df.system.str.contains(sys_name.split()[0], case=False, na=False) & (df.compartment == "Interface")].dropna(subset=[col, "dms_score_abundance", "dms_score_binding"])
+            sub = df[df.system.str.contains(sys_name.split()[0], case=False, na=False) & (df.compartment == "Interface")].dropna(subset=["plm_z", "dms_ab_z", "dms_bi_z"])
         if len(sub) < 5:
             continue
-        
-        rho_abund = float(stats.spearmanr(sub[col], sub.dms_score_abundance)[0])
-        rho_bind = float(stats.spearmanr(sub[col], sub.dms_score_binding)[0])
-        rho_partial = partial_spearman(sub[col], sub.dms_score_binding, sub.dms_score_abundance)
-        
+
+        rho_abund = float(stats.spearmanr(sub["plm_z"], sub["dms_ab_z"])[0])
+        rho_bind = float(stats.spearmanr(sub["plm_z"], sub["dms_bi_z"])[0])
+        rho_partial = float(partial_spearman(sub["plm_z"], sub["dms_bi_z"], sub["dms_ab_z"]))
+
         results["evolutionary_classes"][sys_name] = {
             "type": meta["type"],
             "pdb": meta["pdb"],
@@ -92,7 +79,7 @@ def analyze_arm(df, arm):
             "rho_binding": round(rho_bind, 4),
             "rho_partial_binding_given_abundance": round(rho_partial, 4),
         }
-        
+
     return results
 
 
@@ -104,8 +91,20 @@ def main():
     
     scores_path = REPO / args.scores
     df = pd.read_csv(scores_path)
-    print(f"Loaded {len(df)} scored paired variants from {scores_path}")
-    
+
+    # Also merge additional score files if they exist in results/
+    for extra_file in ["esm1v_scores.csv", "esm3_scores.csv", "proteinmpnn_scores.csv"]:
+        extra_path = REPO / "results" / extra_file
+        if extra_path.exists() and extra_path != scores_path:
+            try:
+                extra_df = pd.read_csv(extra_path)
+                extra_cols = [c for c in extra_df.columns if c.startswith("zeroshot_") and c not in df.columns]
+                for ec in extra_cols:
+                    df[ec] = extra_df[ec]
+            except Exception as e:
+                print(f"[warning] could not merge {extra_file}: {e}")
+
+    print(f"Loaded {len(df)} scored paired variants from {scores_path} (plus extra score tables)")
     arms = [c.replace("zeroshot_", "") for c in df.columns if c.startswith("zeroshot_")]
     all_results = {}
     

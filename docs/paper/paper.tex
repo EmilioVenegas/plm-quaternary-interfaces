@@ -291,7 +291,18 @@ architectures trained solely on single-chain sequences implicitly
 capture the biophysics of intermolecular quaternary contacts,
 non-covalent binding energetics, and interface packing
 (\citeproc{ref-notin2023proteingym}{Notin et al. 2023};
-\citeproc{ref-sledzieski2021dscript}{Sledzieski et al. 2021}).
+\citeproc{ref-sledzieski2021dscript}{Sledzieski et al. 2021}). This
+assumption is not confined to the founding benchmark literature: as of
+August 2026, current foundation-model releases
+(\citeproc{ref-su2024saprot}{Su et al. 2024};
+\citeproc{ref-truong2023poet}{Truong Jr and Bepler 2023};
+\citeproc{ref-sgarbossa2025protmamba}{Sgarbossa et al. 2025}),
+therapeutic antibody engineering pipelines
+(\citeproc{ref-hie2024efficient}{{Hie et al.} 2024};
+\citeproc{ref-chen2023pepmlm}{Chen et al. 2023}), and community-scale
+\emph{de novo} binder trials (\citeproc{ref-bitstobinders2026}{BioML
+Society 2026}) continue to report or rely on uncorrected single-chain
+PLM binding scores (Section~\ref{sec-filter-trap-active}).
 
 \begin{figure}
 
@@ -1068,6 +1079,68 @@ rate reaches \textbf{\(+57.8\%\)} relative to non-interface mutations,
 demonstrating that zero-shot PLMs actively purge affinity-enhancing
 mutations from candidate libraries.
 
+\subsubsection{The Flawed Heuristic Remains Active in 2024--2026
+Practice}\label{sec-filter-trap-active}
+
+This is not a historical artifact of the 2021--2023 literature:
+single-chain zero-shot PLM likelihood continues to be deployed as a
+binding-affinity proxy and a binder-design filter across
+foundation-model benchmarking, therapeutic antibody engineering, and
+\emph{de novo} protein design as of this writing (August 2026).
+
+\textbf{Foundation model benchmarking.} Every major protein language
+model released in 2024--2026 headlines its performance on the ProteinGym
+``Binding'' DMS subset as evidence of learning intermolecular
+interaction physics. SaProt (\citeproc{ref-su2024saprot}{Su et al.
+2024}) (ICLR 2024) attributes its top-ranked ProteinGym binding
+correlation to resolving ``3D geometric constraints governing binding
+affinity'' from a Foldseek-tokenized \emph{monomer} structure alone,
+without the partner chain present. PoET
+(\citeproc{ref-truong2023poet}{Truong Jr and Bepler 2023}) (NeurIPS
+2023) and ProtMamba (\citeproc{ref-sgarbossa2025protmamba}{Sgarbossa et
+al. 2025}) (\emph{Bioinformatics} 2025) likewise report category-level
+Spearman correlations on the ProteinGym binding subset
+(\(\rho \approx 0.45\text{--}0.52\)) as direct evidence of ``capturing
+binding compatibility'' from single-chain evolutionary sequence
+distributions.
+
+\textbf{Therapeutic antibody engineering.} Hie et al.
+(\citeproc{ref-hie2024efficient}{{Hie et al.} 2024}) (\emph{Nature
+Biotechnology} 2024) formalized the \emph{efficient evolution} protocol
+now widely adopted in industry and academia: ranking antibody CDR
+mutants purely by general-purpose single-chain PLM log-likelihood,
+\textbf{without antigen sequence or structure}, under the explicit
+assumption that higher evolutionary likelihood predicts higher
+neutralizing affinity. PepMLM (\citeproc{ref-chen2023pepmlm}{Chen et al.
+2023}) designs linear peptide binders by fine-tuning ESM-2 with a
+masked-span objective and selects candidates by single-chain
+pseudo-perplexity, again without 3D interface coordinates. Two
+independent 2025 studies directly corroborate our mechanism: AbBiBench
+(\citeproc{ref-zhao2025abbibench}{Zhao et al. 2025}) benchmarked 15
+architectures against 184,500 antibody-antigen affinity measurements and
+found that sequence-only PLMs assign high likelihood to non-binding
+variants that merely preserve monomer stability; Johnson et al.
+(\citeproc{ref-johnson2025nucleotide}{{Johnson et al.} 2025})
+(\emph{PLOS Computational Biology} 2025) showed that antibody language
+models are dominated by germline-conservation bias, systematically
+assigning \emph{lower} likelihood to the somatic hypermutations that
+drive real affinity maturation.
+
+\textbf{De novo binder design.} Standard structure-based binder
+pipelines (RFdiffusion \(\to\) ProteinMPNN \(\to\) single-chain
+PLM/ESMFold triage \(\to\) AlphaFold-Multimer docking) apply exactly the
+monomer-context filter we show is causally blind to interface energetics
+(Section~\ref{sec-discussion}): candidate sequences are scored by ESM-2
+pseudo-perplexity or monomer pLDDT \emph{before} the target is
+reintroduced. The 2026 ``Bits to Binders'' community trial
+(\citeproc{ref-bitstobinders2026}{BioML Society 2026}), which
+experimentally validated 12,000 independently designed CD20 binders from
+28 teams, found that single-chain likelihood and monomer structural
+confidence metrics showed \textbf{near-zero to negative correlation}
+with true CAR-T binding efficacy, empirically reproducing at industrial
+scale the false-negative mechanism we isolate mathematically in this
+study.
+
 \subsubsection{1D Multi-Chain Concatenation Fails to Rescue
 Signal}\label{d-multi-chain-concatenation-fails-to-rescue-signal}
 
@@ -1468,11 +1541,23 @@ Modeling and Design.''} \emph{Journal of Chemical Theory and
 Computation} 13 (6): 3031--48.
 \url{https://doi.org/10.1021/acs.jctc.7b00125}.
 
+\bibitem[\citeproctext]{ref-bitstobinders2026}
+BioML Society. 2026. {``Validation and Analysis of 12,000 AI-Driven
+CAR-t Designs in the Bits to Binders Competition.''} \emph{bioRxiv
+Preprint}, ahead of print.
+\url{https://doi.org/10.64898/2026.03.03.709355}.
+
 \bibitem[\citeproctext]{ref-cameron2008bootstrap}
 Cameron, A. Colin, Jonah B. Gelbach, and Douglas L. Miller. 2008.
 {``Bootstrap-Based Improvements for Inference with Clustered Errors.''}
 \emph{The Review of Economics and Statistics} 90 (3): 414--27.
 \url{https://doi.org/10.1162/rest.90.3.414}.
+
+\bibitem[\citeproctext]{ref-chen2023pepmlm}
+Chen, Tianlai, Sarah Pertsemlidis, Venkata Srikar Kavirayuni, et al.
+2023. {``{PepMLM}: Target Sequence-Conditioned Generation of Peptide
+Binders via Masked Language Modeling.''} \emph{arXiv Preprint
+arXiv:2310.03842}.
 
 \bibitem[\citeproctext]{ref-dauparas2022robust}
 Dauparas, Justas, Ivan Anishchenko, Nathaniel Bennett, et al. 2022.
@@ -1504,6 +1589,12 @@ Hayes, Thomas, Roshan Rao, Halil Akin, et al. 2025. {``Simulating 500
 Million Years of Evolution with a Language Model.''} \emph{Science} 387
 (6736): 850--58. \url{https://doi.org/10.1126/science.ads0018}.
 
+\bibitem[\citeproctext]{ref-hie2024efficient}
+{Hie, Brian L., Salvatore Candido, Zeming Lin, et al.} 2024.
+{``Efficient Evolution of Human Antibodies from General Protein Language
+Models.''} \emph{Nature Biotechnology} 42 (2): 275--83.
+\url{https://doi.org/10.1038/s41587-023-01763-2}.
+
 \bibitem[\citeproctext]{ref-hie2022evolutionary}
 Hie, Brian L., Kevin K. Yang, and Peter S. Kim. 2022. {``Evolutionary
 Velocity with Protein Language Models Predicts Evolutionary Dynamics of
@@ -1516,6 +1607,13 @@ Fernández-Recio, and Iain H. Moal. 2019. {``{SKEMPI} 2.0: An Updated
 Benchmark of Changes in Protein--Protein Binding Energy, Kinetics and
 Thermodynamics Upon Mutation.''} \emph{Bioinformatics} 35 (3): 462--69.
 \url{https://doi.org/10.1093/bioinformatics/bty635}.
+
+\bibitem[\citeproctext]{ref-johnson2025nucleotide}
+{Johnson, Mackenzie M., Hugh K. Haddox, Frederick A. Matsen IV, et al.}
+2025. {``Nucleotide Context Models Outperform Protein Language Models
+for Predicting Antibody Affinity Maturation.''} \emph{PLOS Computational
+Biology}, ahead of print.
+\url{https://doi.org/10.1371/journal.pcbi.1013758}.
 
 \bibitem[\citeproctext]{ref-liang1986longitudinal}
 Liang, Kung-Yee, and Scott L. Zeger. 1986. {``Longitudinal Data Analysis
@@ -1575,6 +1673,12 @@ Million Protein Sequences.''} \emph{Proceedings of the National Academy
 of Sciences} 118 (15): e2016239118.
 \url{https://doi.org/10.1073/pnas.2016239118}.
 
+\bibitem[\citeproctext]{ref-sgarbossa2025protmamba}
+Sgarbossa, Damiano, Cyril Malbranke, and Anne-Florence Bitbol. 2025.
+{``{ProtMamba}: A Homology-Aware but Alignment-Free Protein State Space
+Model.''} \emph{Bioinformatics} 41 (6).
+\url{https://doi.org/10.1093/bioinformatics/btaf348}.
+
 \bibitem[\citeproctext]{ref-sledzieski2021dscript}
 Sledzieski, Samuel, Rohit Singh, Lenore Cowen, and Bonnie Berger. 2021.
 {``{D-SCRIPT} Translates Genome to Phenome with Sequence-Based,
@@ -1587,6 +1691,18 @@ Starr, Tyler N., Allison J. Greaney, Sarah K. Hilton, et al. 2020.
 {``Deep Mutational Scanning of {SARS-CoV-2} Receptor Binding Domain
 Reveals Constraints on Folding and {ACE2} Binding.''} \emph{Cell} 182
 (5): 1295--1310.e20. \url{https://doi.org/10.1016/j.cell.2020.08.012}.
+
+\bibitem[\citeproctext]{ref-su2024saprot}
+Su, Jin, Chenchen Han, Yuyang Zhou, Junjie Shan, Xibin Zhou, and Fajie
+Yuan. 2024. {``{SaProt}: Protein Language Modeling with Structure-Aware
+Vocabulary.''} \emph{Proceedings of the Twelfth International Conference
+on Learning Representations (ICLR)}.
+\url{https://doi.org/10.1101/2023.10.01.560349}.
+
+\bibitem[\citeproctext]{ref-truong2023poet}
+Truong Jr, Timothy, and Tristan Bepler. 2023. {``{PoET}: A Generative
+Model of Protein Families as Sequences-of-Sequences.''} \emph{Advances
+in Neural Information Processing Systems} 36.
 
 \bibitem[\citeproctext]{ref-webb2023reworking}
 Webb, Matthew D. 2023. {``Reworking Wild Bootstrap-Based Inference for
@@ -1611,6 +1727,11 @@ Zahradník, Jiví, Shir Marciano, Michael Shemesh, et al. 2021.
 {``{SARS-CoV-2} Variant Prediction and Antiviral Drug Design Are Enabled
 by {RBD} in Vitro Evolution.''} \emph{Nature Microbiology} 6 (9):
 1188--98. \url{https://doi.org/10.1038/s41564-021-00954-4}.
+
+\bibitem[\citeproctext]{ref-zhao2025abbibench}
+Zhao, Xinyan, Yi-Ching Tang, Akshita Singh, et al. 2025. {``{AbBiBench}:
+Antibody Binding Benchmark for Antibody Binding Affinity Maturation and
+Design.''} \emph{arXiv Preprint arXiv:2506.04235}.
 
 \end{CSLReferences}
 

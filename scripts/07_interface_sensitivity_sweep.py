@@ -35,6 +35,7 @@ import pandas as pd
 from scipy import stats
 
 from plmppi.stats import (
+    add_per_system_zscores,
     fit_clustered_ols,
     partial_spearman,
     prepare_analysis_frame,
@@ -100,8 +101,9 @@ def compute_arm_metrics(df_classified: pd.DataFrame, arm: str) -> dict[str, Any]
     if zs_col not in df_classified.columns:
         raise KeyError(f"Column {zs_col} not found in dataframe")
 
-    sub_int = df_classified[df_classified["compartment"] == "Interface"].dropna(
-        subset=[zs_col, "dms_score_abundance", "dms_score_binding"]
+    df_std = add_per_system_zscores(df_classified, arm=arm)
+    sub_int = df_std[df_std["compartment"] == "Interface"].dropna(
+        subset=["plm_z", "dms_ab_z", "dms_bi_z"]
     )
     n_int = int(len(sub_int))
 
@@ -119,12 +121,11 @@ def compute_arm_metrics(df_classified: pd.DataFrame, arm: str) -> dict[str, Any]
             "p_three_way": float("nan"),
         }
 
-    rho_ab, p_ab = stats.spearmanr(sub_int[zs_col], sub_int["dms_score_abundance"])
-    rho_bi, p_bi = stats.spearmanr(sub_int[zs_col], sub_int["dms_score_binding"])
+    rho_ab, p_ab = stats.spearmanr(sub_int["plm_z"], sub_int["dms_ab_z"])
+    rho_bi, p_bi = stats.spearmanr(sub_int["plm_z"], sub_int["dms_bi_z"])
     rho_part = partial_spearman(
-        sub_int[zs_col], sub_int["dms_score_binding"], sub_int["dms_score_abundance"]
+        sub_int["plm_z"], sub_int["dms_bi_z"], sub_int["dms_ab_z"]
     )
-
     # Fit clustered three-way interaction OLS
     frame = prepare_analysis_frame(df_classified, arm=arm)
     plm = frame["plm_z"].to_numpy()

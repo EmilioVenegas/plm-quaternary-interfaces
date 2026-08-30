@@ -20,6 +20,26 @@ def standardize_series(s: pd.Series) -> pd.Series:
         return s - float(valid.mean())
     return (s - float(valid.mean())) / float(valid.std())
 
+def add_per_system_zscores(df: pd.DataFrame, arm: str) -> pd.DataFrame:
+    """Adds per-system standardized z-score columns for PLM and DMS metrics.
+
+    Standardization is performed across all variants for each system to avoid cross-system
+    location/scale pooling artifacts (Simpson's paradox).
+    Adds columns:
+        - plm_z: standardized zeroshot_{arm}
+        - dms_ab_z: standardized dms_score_abundance
+        - dms_bi_z: standardized dms_score_binding
+    """
+    zs_col = f"zeroshot_{arm}"
+    if zs_col not in df.columns:
+        raise KeyError(f"Score column {zs_col} not found in dataframe")
+
+    out = df.copy()
+    out["plm_z"] = out.groupby("system")[zs_col].transform(standardize_series)
+    out["dms_ab_z"] = out.groupby("system")["dms_score_abundance"].transform(standardize_series)
+    out["dms_bi_z"] = out.groupby("system")["dms_score_binding"].transform(standardize_series)
+    return out
+
 def prepare_analysis_frame(df: pd.DataFrame, arm: str) -> pd.DataFrame:
     """Prepares the stacked analysis frame with standardized scores and interaction features.
 
@@ -639,14 +659,14 @@ def stratify_by_evolutionary_class(
     if zs_col not in df_scores.columns:
         raise KeyError(f"Score column {zs_col} not found in dataframe")
 
-    df = df_scores.copy()
+    df = add_per_system_zscores(df_scores, arm=arm)
     df["evolutionary_class"] = df["system"].map(SYSTEM_TO_CLASS)
 
     classes_output: dict[str, Any] = {}
 
     for class_id, meta in EVOLUTIONARY_REGIMES.items():
         df_class = df[df["evolutionary_class"] == class_id].dropna(
-            subset=[zs_col, "dms_score_abundance", "dms_score_binding"]
+            subset=["plm_z", "dms_ab_z", "dms_bi_z"]
         )
 
         compartment_stats: dict[str, Any] = {}
@@ -659,15 +679,14 @@ def stratify_by_evolutionary_class(
             if len(sub) < 5:
                 continue
 
-            rho_ab, p_ab = stats.spearmanr(sub[zs_col], sub["dms_score_abundance"])
-            rho_bi, p_bi = stats.spearmanr(sub[zs_col], sub["dms_score_binding"])
+            rho_ab, p_ab = stats.spearmanr(sub["plm_z"], sub["dms_ab_z"])
+            rho_bi, p_bi = stats.spearmanr(sub["plm_z"], sub["dms_bi_z"])
             rho_ab_bi, p_ab_bi = stats.spearmanr(
-                sub["dms_score_abundance"], sub["dms_score_binding"]
+                sub["dms_ab_z"], sub["dms_bi_z"]
             )
             rho_part = partial_spearman(
-                sub[zs_col], sub["dms_score_binding"], sub["dms_score_abundance"]
+                sub["plm_z"], sub["dms_bi_z"], sub["dms_ab_z"]
             )
-
             pct_mediated = (
                 float((1.0 - (rho_part / rho_bi if rho_bi != 0 else 1.0)) * 100.0)
                 if not np.isnan(rho_part)
@@ -824,12 +843,13 @@ def simulate_plm_filter_trap(
 
     threshold_results = []
     for q in thresholds:
-        cutoff = float(df[zs_col].quantile(1.0 - q))
+        sys_cutoffs = df.groupby("system")[zs_col].transform(lambda s: s.quantile(1.0 - q))
+        is_selected = df[zs_col] >= sys_cutoffs
 
-        p_sel_int = float((int_beneficial[zs_col] >= cutoff).mean()) if len(int_beneficial) > 0 else 0.0
-        p_sel_non_int = float((non_int_beneficial[zs_col] >= cutoff).mean()) if len(non_int_beneficial) > 0 else 0.0
-        p_sel_core = float((core_beneficial[zs_col] >= cutoff).mean()) if len(core_beneficial) > 0 else 0.0
-        p_sel_surf = float((surf_beneficial[zs_col] >= cutoff).mean()) if len(surf_beneficial) > 0 else 0.0
+        p_sel_int = float(is_selected.loc[int_beneficial.index].mean()) if len(int_beneficial) > 0 else 0.0
+        p_sel_non_int = float(is_selected.loc[non_int_beneficial.index].mean()) if len(non_int_beneficial) > 0 else 0.0
+        p_sel_core = float(is_selected.loc[core_beneficial.index].mean()) if len(core_beneficial) > 0 else 0.0
+        p_sel_surf = float(is_selected.loc[surf_beneficial.index].mean()) if len(surf_beneficial) > 0 else 0.0
 
         depletion_rate = float(1.0 - (p_sel_int / p_sel_non_int)) if p_sel_non_int > 0 else 0.0
         fn_rate_int = float(1.0 - p_sel_int)
@@ -837,7 +857,7 @@ def simulate_plm_filter_trap(
 
         threshold_results.append({
             "filter_top_pct": int(q * 100),
-            "quantile_threshold": float(round(cutoff, 4)),
+            "quantile_threshold": float(round(float(df[zs_col].quantile(1.0 - q)), 4)),
             "n_beneficial_interface": int(len(int_beneficial)),
             "n_beneficial_non_interface": int(len(non_int_beneficial)),
             "p_selected_interface": float(round(p_sel_int, 4)),
@@ -931,8 +951,9 @@ def stratify_by_hotspot(
     if zs_col not in df_scores.columns:
         raise KeyError(f"Score column {zs_col} not found in dataframe")
 
-    df_int = df_scores[df_scores["compartment"] == "Interface"].dropna(
-        subset=[zs_col, "dms_score_abundance", "dms_score_binding", dsasa_col, "min_dist"]
+    df_std = add_per_system_zscores(df_scores, arm=arm)
+    df_int = df_std[df_std["compartment"] == "Interface"].dropna(
+        subset=["plm_z", "dms_ab_z", "dms_bi_z", dsasa_col, "min_dist"]
     ).copy()
     df_int["hotspot_group"] = assign_hotspot_rim(df_int, dsasa_col=dsasa_col)
 
@@ -942,11 +963,10 @@ def stratify_by_hotspot(
         if len(sub) < 5:
             continue
 
-        rho_ab, p_ab = stats.spearmanr(sub[zs_col], sub["dms_score_abundance"])
-        rho_bi, p_bi = stats.spearmanr(sub[zs_col], sub["dms_score_binding"])
-        rho_ab_bi, p_ab_bi = stats.spearmanr(sub["dms_score_abundance"], sub["dms_score_binding"])
-        rho_part = partial_spearman(sub[zs_col], sub["dms_score_binding"], sub["dms_score_abundance"])
-
+        rho_ab, p_ab = stats.spearmanr(sub["plm_z"], sub["dms_ab_z"])
+        rho_bi, p_bi = stats.spearmanr(sub["plm_z"], sub["dms_bi_z"])
+        rho_ab_bi, p_ab_bi = stats.spearmanr(sub["dms_ab_z"], sub["dms_bi_z"])
+        rho_part = partial_spearman(sub["plm_z"], sub["dms_bi_z"], sub["dms_ab_z"])
         pct_mediated = (
             float((1.0 - (rho_part / rho_bi if rho_bi != 0 else 1.0)) * 100.0)
             if not np.isnan(rho_part)
@@ -1059,15 +1079,17 @@ def evaluate_dual_scoring_frontier(
         sel_all_hits = (selected["dms_score_binding"] >= 0.0).sum()
         total_hit_retention_pct = float(sel_all_hits / max(1, total_beneficial_binding) * 100.0)
 
-        df_int = df_eval[df_eval["compartment"] == "Interface"]
-        rho_int_ab, _ = stats.spearmanr(df_int["score_dual"], df_int["dms_score_abundance"])
-        rho_int_bi, _ = stats.spearmanr(df_int["score_dual"], df_int["dms_score_binding"])
+        df_int = df_eval[df_eval["compartment"] == "Interface"].copy()
+        df_int["ab_z"] = df_int.groupby("system")["dms_score_abundance"].transform(_zscore)
+        df_int["bi_z"] = df_int.groupby("system")["dms_score_binding"].transform(_zscore)
+        sub_int = df_int.dropna(subset=["score_dual", "ab_z", "bi_z"])
+        rho_int_ab, _ = stats.spearmanr(sub_int["score_dual"], sub_int["ab_z"])
+        rho_int_bi, _ = stats.spearmanr(sub_int["score_dual"], sub_int["bi_z"])
         prho_int = partial_spearman(
-            df_int["score_dual"].to_numpy(),
-            df_int["dms_score_binding"].to_numpy(),
-            df_int["dms_score_abundance"].to_numpy(),
+            sub_int["score_dual"].to_numpy(),
+            sub_int["bi_z"].to_numpy(),
+            sub_int["ab_z"].to_numpy(),
         )
-
         sweep_results.append({
             "alpha": float(alpha),
             "label": label,

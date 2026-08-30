@@ -724,7 +724,7 @@ def plot_figure_3_mediation_forest(mediation_data):
         patches.Patch(color=PALETTE['Interface'], label='Quaternary Interface'),
     ]
     ax.legend(handles=custom_lines, loc="lower right", framealpha=0.95, facecolor="white", edgecolor="#cccccc")
-    ax.set_xlim(-0.48, 0.22)
+    ax.set_xlim(-0.15, 0.48)
     ax.grid(True, axis="x")
 
     plt.tight_layout()
@@ -873,8 +873,8 @@ def plot_figure_5_evolutionary_regimes(evo_data):
                 fontsize=8.5, fontweight="bold", color="#521b80",
                 bbox=dict(boxstyle="round,pad=0.3", fc="#f7f2fc", ec="#9467bd", lw=1))
 
-    ax.annotate("Heterodimer: Apparent binding\nis mediated by monomer folding\n($\\rho_{\\text{partial}} \\to +0.10$)",
-                xy=(1 + width, 0.10), xytext=(1.15, 0.35),
+    ax.annotate("Heterodimer: Apparent binding\nis mediated by monomer folding\n($\\rho_{\\text{partial}} \\to +0.05$)",
+                xy=(1 + width, 0.05), xytext=(1.15, 0.35),
                 arrowprops=dict(arrowstyle="->", lw=1.5, color="#1b6e1b"),
                 fontsize=8.5, fontweight="bold", color="#1b6e1b",
                 bbox=dict(boxstyle="round,pad=0.3", fc="#f2f9f2", ec="#2ca02c", lw=1))
@@ -917,7 +917,7 @@ def plot_figure_6_binder_filter(binder_data):
 
     # Highlight standard Top 20% filter
     ax1.axvline(20, color="#d62728", linestyle="--", lw=1.5, alpha=0.7)
-    ax1.text(21, 55, "Standard Filter: Top 20%\n(Discards 85.8% - 96.1%\nof True Interface Hits)", 
+    ax1.text(21, 55, "Standard Filter: Top 20%\n(Discards ~73% - 77%\nof True Interface Hits)", 
              color="#a31415", fontsize=9, fontweight="bold",
              bbox=dict(boxstyle="round,pad=0.3", fc="#fdf2f2", ec="#d62728", lw=1))
 

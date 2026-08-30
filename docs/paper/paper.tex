@@ -558,9 +558,9 @@ Section~\ref{sec-methods}):
   >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}
   >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}@{}}
 \caption{Three-way interaction regression and non-parametric permutation
-tests across 4 single-chain foundation model scales and 3D
-structure-conditioned ProteinMPNN (\(N = 21,286\) stacked observations,
-5 system clusters). Single-chain PLMs exhibit severe selective collapse
+tests across 5 foundation model scales and 3D structure-conditioned
+ProteinMPNN (\(N = 21,286\) stacked observations, 5 system clusters).
+Single-chain ESM2/ESMC models exhibit severe selective collapse
 (\(\beta_7 \approx -0.334\text{ to }-0.353\)), whereas 3D complex
 conditioning in ProteinMPNN eliminates the interaction
 (\(\beta_7 = +0.0580\),
@@ -624,6 +624,9 @@ Verdict (\(\alpha = 10^{-5}\))
 \(p = 0.201\) & \(p < 1.0 \times 10^{-5}\) & \(+0.384\) &
 \(\mathbf{+0.075}\) & \textbf{\(-80.5\%\)} & \textbf{\(H_1\)
 Supported} \\
+\textbf{ESM3-1.4B} & 1.4B (1D Sequence) & \textbf{\(+0.0702\)} &
+\(p = 0.547\) & \(p = 0.036\) & \(+0.223\) & \(\mathbf{+0.343}\) &
+\textbf{\(+53.8\%\)} & Non-significant (\(\beta_7 > 0\)) \\
 \textbf{ProteinMPNN} & 1.6M (\textbf{3D Complex}) & \textbf{\(+0.0580\)}
 & \(p = 0.581\) & \(p = 0.103\) & \(+0.276\) & \(\mathbf{+0.240}\) &
 \textbf{\(-13.0\%\)} & \textbf{No Collapse (3D Rescued)} \\
@@ -721,11 +724,10 @@ completely mediated by monomer stability, we computed the
   >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1786}}
   >{\centering\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1786}}@{}}
 \caption{Full causal mediation and partial Spearman rank correlation
-analysis across all four foundation model arms and structural
-compartments (\(N = 10,643\) paired variants). Unadjusted raw
-correlations across the entire unstacked dataset confirm that partial
-binding correlations at interfaces are strictly
-negative.}\label{tbl-mediation-table}\tabularnewline
+analysis across all foundation model arms and structural compartments
+(\(N = 10,643\) paired variants). Single-chain ESM2 and ESMC models show
+strictly negative partial correlations at interfaces
+(\(\rho_{\text{partial}} = -0.175\text{ to }-0.367\)).}\label{tbl-mediation-table}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Model Arm
@@ -780,6 +782,11 @@ Sample Size (\(N\))
 & Monomer Surface & 3,976 & \(-0.117\) & \(-0.159\) & \(-0.111\) \\
 & \textbf{Quaternary Interface} & \textbf{2,262} & \textbf{\(+0.245\)} &
 \textbf{\(-0.241\)} & \(\mathbf{-0.367}\) \\
+\textbf{ESM3-1.4B} & Monomer Core & 4,405 & \(-0.196\) & \(-0.195\) &
+\(-0.106\) \\
+& Monomer Surface & 3,976 & \(+0.016\) & \(-0.034\) & \(-0.054\) \\
+& \textbf{Quaternary Interface} & \textbf{2,262} & \textbf{\(+0.428\)} &
+\textbf{\(+0.274\)} & \textbf{\(+0.140\)} \\
 \end{longtable}
 
 \begin{figure}
@@ -1387,13 +1394,25 @@ contrast). 3. \textbf{Rim (Bottom Tertile,
 \(\Delta\text{SASA} \le 24.3\text{ \AA}^2, N = 760\)):} Peripherally
 buried residues at the boundary of the interface.
 
-\subsection{\texorpdfstring{A three-way interaction model
+A three-way interaction model
 (\(z(\text{DMS}) \sim \text{PLM} \times \text{Binding} \times \text{Hotspot}\))
 was estimated on the Hotspot \(\cup\) Rim subset (\(N = 1,518\)) to
 formally evaluate whether the three-way interaction coefficient
 \(\beta_{(\text{PLM} \times \text{Binding} \times \text{Hotspot})}\) was
-significantly
-negative.}{A three-way interaction model (z(\textbackslash text\{DMS\}) \textbackslash sim \textbackslash text\{PLM\} \textbackslash times \textbackslash text\{Binding\} \textbackslash times \textbackslash text\{Hotspot\}) was estimated on the Hotspot \textbackslash cup Rim subset (N = 1,518) to formally evaluate whether the three-way interaction coefficient \textbackslash beta\_\{(\textbackslash text\{PLM\} \textbackslash times \textbackslash text\{Binding\} \textbackslash times \textbackslash text\{Hotspot\})\} was significantly negative.}}\label{a-three-way-interaction-model-ztextdms-sim-textplm-times-textbinding-times-texthotspot-was-estimated-on-the-hotspot-cup-rim-subset-n-1518-to-formally-evaluate-whether-the-three-way-interaction-coefficient-beta_textplm-times-textbinding-times-texthotspot-was-significantly-negative.}
+significantly negative.
+
+\subsection{Multimodal Sequence Scoring
+(ESM3-1.4B)}\label{multimodal-sequence-scoring-esm3-1.4b}
+
+\subsection{\texorpdfstring{We evaluated EvolutionaryScale's multimodal
+generative model ESM3-sm-open-v1 (1.4B parameters)
+(\citeproc{ref-hayes2024simulating}{Hayes et al. 2025}) in zero-shot
+masked marginal sequence mode across all \(N = 10,643\) variants. For
+each position, the token was masked in the sequence track while leaving
+geometric/structure tracks unconditioned, and log-softmax probabilities
+over the 20 canonical amino acids were extracted via PyTorch with
+bfloat16 mixed precision on
+GPU.}{We evaluated EvolutionaryScale's multimodal generative model ESM3-sm-open-v1 (1.4B parameters) (Hayes et al. 2025) in zero-shot masked marginal sequence mode across all N = 10,643 variants. For each position, the token was masked in the sequence track while leaving geometric/structure tracks unconditioned, and log-softmax probabilities over the 20 canonical amino acids were extracted via PyTorch with bfloat16 mixed precision on GPU.}}\label{we-evaluated-evolutionaryscales-multimodal-generative-model-esm3-sm-open-v1-1.4b-parameters-hayes2024simulating-in-zero-shot-masked-marginal-sequence-mode-across-all-n-10643-variants.-for-each-position-the-token-was-masked-in-the-sequence-track-while-leaving-geometricstructure-tracks-unconditioned-and-log-softmax-probabilities-over-the-20-canonical-amino-acids-were-extracted-via-pytorch-with-bfloat16-mixed-precision-on-gpu.}
 
 \section{Data and Code Availability}\label{sec-availability}
 

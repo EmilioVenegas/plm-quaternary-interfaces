@@ -122,6 +122,7 @@ $$z(\text{DMS}) = \beta_0 + \beta_1 z(\text{PLM}) + \beta_2 \mathbb{I}_{\text{Bi
 
 | Architecture | Parameters / Context | $\beta_{(\text{PLM} \times \text{Binding} \times \text{Interface})}$ | Clustered Robust $p$ | Permutation $p$-value ($B=10^4$) | Interface Abund ($\rho$) | Interface Bind ($\rho$) | $\Delta\rho_{\text{interface}}$ Drop | Verdict ($\alpha = 10^{-5}$) |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **ESM-1v** | 650M (1D Sequence) | **$-0.3080$** | $p = 0.286$ | $p = 1.8 \times 10^{-3}$ | $+0.372$ | $+0.150$ | **$-59.7\%$** | Directional Negative |
 | **ESM2-650M** | 650M (1D Sequence) | **$-0.3343$** | $p = 0.258$ | $p = 3.0 \times 10^{-4}$ | $+0.380$ | $+0.162$ | **$-57.4\%$** | Directional Negative |
 | **ESM2-3B** | 2.84B (1D Sequence) | **$-0.3403$** | $p = 0.208$ | $p < 1.0 \times 10^{-5}$ | $+0.381$ | $+0.119$ | **$-68.8\%$** | **$H_1$ Supported** |
 | **ESMC-600M** | 600M (1D Sequence) | **$-0.3530$** | $p = 0.209$ | $p < 1.0 \times 10^{-5}$ | $+0.413$ | $+0.167$ | **$-59.6\%$** | **$H_1$ Supported** |
@@ -129,7 +130,7 @@ $$z(\text{DMS}) = \beta_0 + \beta_1 z(\text{PLM}) + \beta_2 \mathbb{I}_{\text{Bi
 | **ESM3-1.4B** | 1.4B (1D Sequence) | **$+0.0702$** | $p = 0.547$ | $p = 0.036$ | $+0.223$ | $\mathbf{+0.343}$ | **$+53.8\%$** | Non-significant ($\beta_7 > 0$) |
 | **ProteinMPNN** | 1.6M (**3D Complex**) | **$+0.0580$** | $p = 0.581$ | $p = 0.103$ | $+0.276$ | $\mathbf{+0.240}$ | **$-13.0\%$** | **No Collapse (3D Rescued)** |
 
-: Three-way interaction regression and non-parametric permutation tests across 5 foundation model scales and 3D structure-conditioned ProteinMPNN ($N = 21,286$ stacked observations, 5 system clusters). Single-chain ESM2/ESMC models exhibit severe selective collapse ($\beta_7 \approx -0.334\text{ to }-0.353$), whereas 3D complex conditioning in ProteinMPNN eliminates the interaction ($\beta_7 = +0.0580$, n.s.). {#tbl-threeway-results}
+: Three-way interaction regression and non-parametric permutation tests across 6 foundation model scales and 3D structure-conditioned ProteinMPNN ($N = 21,286$ stacked observations, 5 system clusters). Single-chain ESM-1v/ESM2/ESMC models exhibit severe selective collapse ($\beta_7 \approx -0.308\text{ to }-0.353$), whereas 3D complex conditioning in ProteinMPNN eliminates the interaction ($\beta_7 = +0.0580$, n.s.). {#tbl-threeway-results}
 
 ![Double-dissociation of zero-shot PLM likelihoods against monomer abundance and complex binding ($N = 10,643$). **(Top row)** ESMC-6B zero-shot scores accurately predict monomer abundance/folding across Core ($\rho = +0.170$), Surface ($\rho = +0.169$), and Interface ($\rho = +0.384$) compartments. **(Bottom row)** Complex binding affinity correlation is maintained only where mediated by core folding, but selectively collapses at the quaternary interface ($\rho = +0.075$, $-80.5\%$ drop), proving the model fails at direct intermolecular contacts.](../figures/02_double_dissociation_scatter.png){#fig-scatter width="98%"}
 
@@ -254,6 +255,17 @@ Conditioning on 3D partner coordinates completely eliminates the selective inter
 - **Balanced Interface Sensitivity:** Interface binding correlation recovers to $\rho = \mathbf{+0.240}$ ($p = 6.2 \times 10^{-31}$) and matches interface abundance correlation ($\rho = +0.276$), eliminating the $-80.5\%$ $\Delta\rho$ collapse observed in single-chain sequence models.
 
 This positive control confirms that the failure of single-chain PLMs is an architectural limitation of 1D sequence representations lacking intermolecular spatial coordinates, which is fully rectified when 3D complex geometry is provided.
+
+**Monomer vs. Complex Structural Ablation:** To test whether ProteinMPNN's success is causally driven by the presence of partner coordinates rather than general 3D structure conditioning, we evaluated ProteinMPNN on isolated monomer backbones (detaching all partner chains from `6M0J`, `6H46`, `5OPI`, `1FCC`, `1OLG`). When partner coordinates are removed, ProteinMPNN's interface binding correlation collapses from $\rho = +0.240 \to +0.147$ (a $-38.8\%$ drop) and the three-way interaction flips negative ($\beta_7 = -0.0560$), confirming that the physical presence of partner coordinates is the causal driver of interface energetics.
+
+### Dual-Scoring Mitigation Strategy and Pareto Frontier
+To resolve the PLM Filter Trap for practical binder engineering, we evaluated a composite dual-objective scoring function combining structure-conditioned interface energetics with a single-chain monomer stability prior:
+$$\text{Score}_{\text{dual}}(\alpha) = z(\Delta\log P_{\text{ProteinMPNN}}(\text{Complex})) + \alpha \cdot z(\Delta\log P_{\text{ESM2}}(\text{Monomer}))$$
+Sweeping $\alpha \in [0.0, 5.0]$ across all $N = 10,643$ variants maps an empirical Pareto frontier:
+- Pure single-chain PLM filtering ($\alpha \to \infty$) purges $85.8\%\text{ to }96.1\%$ of beneficial interface hits.
+- Dual-scoring at $\alpha = 0.2\text{--}1.0$ maintains high monomer folding expressibility ($43.9\%\text{--}44.8\%$) while retaining 254 to 261 true affinity-enhancing interface hits (improving composite design utility by $+23.2\%$ over pure PLM filtering).
+
+This demonstrates that single-chain PLMs should be deployed as additive monomer stability penalties ($\Delta\Delta G_{\text{fold}}$) alongside 3D complex interface predictors ($\Delta\Delta G_{\text{bind}}$), rather than as upstream exclusionary filters.
 
 ### Interface Blindness is Concentrated at Energetic Hotspots
 To evaluate whether single-chain PLM interface failure is uniform across the interface footprint or localized at core contact residues, we stratified the $N = 2,262$ interface variants by buried surface area ($\Delta\text{SASA}$ tertiles): **Hotspot** ($\Delta\text{SASA} \ge 52.4\text{ \AA}^2, N = 758$), **Mid** ($N = 744$), and **Rim** ($\Delta\text{SASA} \le 24.3\text{ \AA}^2, N = 760$).

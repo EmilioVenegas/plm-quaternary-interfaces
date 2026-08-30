@@ -2309,7 +2309,8 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#d-multi-chain-concatenation-fails-to-rescue-signal" id="toc-d-multi-chain-concatenation-fails-to-rescue-signal" class="nav-link" data-scroll-target="#d-multi-chain-concatenation-fails-to-rescue-signal"><span class="header-section-number">3.6.1</span> 1D Multi-Chain Concatenation Fails to Rescue Signal</a></li>
   <li><a href="#d-structure-conditioning-eliminates-interface-collapse-proteinmpnn" id="toc-d-structure-conditioning-eliminates-interface-collapse-proteinmpnn" class="nav-link" data-scroll-target="#d-structure-conditioning-eliminates-interface-collapse-proteinmpnn"><span class="header-section-number">3.6.2</span> 3D Structure Conditioning Eliminates Interface Collapse (ProteinMPNN)</a></li>
-  <li><a href="#interface-blindness-is-concentrated-at-energetic-hotspots" id="toc-interface-blindness-is-concentrated-at-energetic-hotspots" class="nav-link" data-scroll-target="#interface-blindness-is-concentrated-at-energetic-hotspots"><span class="header-section-number">3.6.3</span> Interface Blindness is Concentrated at Energetic Hotspots</a></li>
+  <li><a href="#dual-scoring-mitigation-strategy-and-pareto-frontier" id="toc-dual-scoring-mitigation-strategy-and-pareto-frontier" class="nav-link" data-scroll-target="#dual-scoring-mitigation-strategy-and-pareto-frontier"><span class="header-section-number">3.6.3</span> Dual-Scoring Mitigation Strategy and Pareto Frontier</a></li>
+  <li><a href="#interface-blindness-is-concentrated-at-energetic-hotspots" id="toc-interface-blindness-is-concentrated-at-energetic-hotspots" class="nav-link" data-scroll-target="#interface-blindness-is-concentrated-at-energetic-hotspots"><span class="header-section-number">3.6.4</span> Interface Blindness is Concentrated at Energetic Hotspots</a></li>
   </ul></li>
   <li><a href="#because-energetic-hotspots-have-evolved-tight-packing-and-electrostatic-complementarity-with-their-native-partner-mutating-them-to-optimize-an-engineered-interface-severely-violates-monomer-sequence-conservation-causing-single-chain-plms-to-penalize-the-most-potent-affinity-enhancing-mutations." id="toc-because-energetic-hotspots-have-evolved-tight-packing-and-electrostatic-complementarity-with-their-native-partner-mutating-them-to-optimize-an-engineered-interface-severely-violates-monomer-sequence-conservation-causing-single-chain-plms-to-penalize-the-most-potent-affinity-enhancing-mutations." class="nav-link" data-scroll-target="#because-energetic-hotspots-have-evolved-tight-packing-and-electrostatic-complementarity-with-their-native-partner-mutating-them-to-optimize-an-engineered-interface-severely-violates-monomer-sequence-conservation-causing-single-chain-plms-to-penalize-the-most-potent-affinity-enhancing-mutations."><span class="header-section-number">3.7</span> Because energetic hotspots have evolved tight packing and electrostatic complementarity with their native partner, mutating them to optimize an engineered interface severely violates monomer sequence conservation, causing single-chain PLMs to penalize the most potent affinity-enhancing mutations.</a></li>
   </ul></li>
@@ -2515,7 +2516,7 @@ Table 1: Curated within-target paired DMS benchmark systems. Each system contai
 <div id="tbl-threeway-results" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-threeway-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table 2: Three-way interaction regression and non-parametric permutation tests across 5 foundation model scales and 3D structure-conditioned ProteinMPNN (<span class="math inline">N = 21,286</span> stacked observations, 5 system clusters). Single-chain ESM2/ESMC models exhibit severe selective collapse (<span class="math inline">\beta_7 \approx -0.334\text{ to }-0.353</span>), whereas 3D complex conditioning in ProteinMPNN eliminates the interaction (<span class="math inline">\beta_7 = +0.0580</span>, n.s.).
+Table 2: Three-way interaction regression and non-parametric permutation tests across 6 foundation model scales and 3D structure-conditioned ProteinMPNN (<span class="math inline">N = 21,286</span> stacked observations, 5 system clusters). Single-chain ESM-1v/ESM2/ESMC models exhibit severe selective collapse (<span class="math inline">\beta_7 \approx -0.308\text{ to }-0.353</span>), whereas 3D complex conditioning in ProteinMPNN eliminates the interaction (<span class="math inline">\beta_7 = +0.0580</span>, n.s.).
 </figcaption>
 <div aria-describedby="tbl-threeway-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2545,6 +2546,17 @@ Table 2: Three-way interaction regression and non-parametric permutation tests 
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;"><strong>ESM-1v</strong></td>
+<td style="text-align: center;">650M (1D Sequence)</td>
+<td style="text-align: center;"><strong><span class="math inline">-0.3080</span></strong></td>
+<td style="text-align: center;"><span class="math inline">p = 0.286</span></td>
+<td style="text-align: center;"><span class="math inline">p = 1.8 \times 10^{-3}</span></td>
+<td style="text-align: center;"><span class="math inline">+0.372</span></td>
+<td style="text-align: center;"><span class="math inline">+0.150</span></td>
+<td style="text-align: center;"><strong><span class="math inline">-59.7\%</span></strong></td>
+<td style="text-align: center;">Directional Negative</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><strong>ESM2-650M</strong></td>
 <td style="text-align: center;">650M (1D Sequence)</td>
 <td style="text-align: center;"><strong><span class="math inline">-0.3343</span></strong></td>
@@ -2555,7 +2567,7 @@ Table 2: Three-way interaction regression and non-parametric permutation tests 
 <td style="text-align: center;"><strong><span class="math inline">-57.4\%</span></strong></td>
 <td style="text-align: center;">Directional Negative</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><strong>ESM2-3B</strong></td>
 <td style="text-align: center;">2.84B (1D Sequence)</td>
 <td style="text-align: center;"><strong><span class="math inline">-0.3403</span></strong></td>
@@ -2566,7 +2578,7 @@ Table 2: Three-way interaction regression and non-parametric permutation tests 
 <td style="text-align: center;"><strong><span class="math inline">-68.8\%</span></strong></td>
 <td style="text-align: center;"><strong><span class="math inline">H_1</span> Supported</strong></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><strong>ESMC-600M</strong></td>
 <td style="text-align: center;">600M (1D Sequence)</td>
 <td style="text-align: center;"><strong><span class="math inline">-0.3530</span></strong></td>
@@ -2577,7 +2589,7 @@ Table 2: Three-way interaction regression and non-parametric permutation tests 
 <td style="text-align: center;"><strong><span class="math inline">-59.6\%</span></strong></td>
 <td style="text-align: center;"><strong><span class="math inline">H_1</span> Supported</strong></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><strong>ESMC-6B</strong></td>
 <td style="text-align: center;">6.35B (1D Sequence)</td>
 <td style="text-align: center;"><strong><span class="math inline">-0.3526</span></strong></td>
@@ -2588,7 +2600,7 @@ Table 2: Three-way interaction regression and non-parametric permutation tests 
 <td style="text-align: center;"><strong><span class="math inline">-80.5\%</span></strong></td>
 <td style="text-align: center;"><strong><span class="math inline">H_1</span> Supported</strong></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><strong>ESM3-1.4B</strong></td>
 <td style="text-align: center;">1.4B (1D Sequence)</td>
 <td style="text-align: center;"><strong><span class="math inline">+0.0702</span></strong></td>
@@ -2599,7 +2611,7 @@ Table 2: Three-way interaction regression and non-parametric permutation tests 
 <td style="text-align: center;"><strong><span class="math inline">+53.8\%</span></strong></td>
 <td style="text-align: center;">Non-significant (<span class="math inline">\beta_7 &gt; 0</span>)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><strong>ProteinMPNN</strong></td>
 <td style="text-align: center;">1.6M (<strong>3D Complex</strong>)</td>
 <td style="text-align: center;"><strong><span class="math inline">+0.0580</span></strong></td>
@@ -2961,9 +2973,15 @@ Figure 6: The “PLM Filter Trap” in computational protein and antibody engin
 <p>To determine whether explicit 3D spatial coordinates of the complex partner resolve the interface blindspot, we benchmarked the structure-conditioned inverse folding model <strong>ProteinMPNN</strong> <span class="citation" data-cites="dauparas2022robust">(<a href="#ref-dauparas2022robust" role="doc-biblioref">Dauparas et al. 2022</a>)</span> across the identical <span class="math inline">N = 10,643</span> paired variants using the full crystallographic complex backbones (<code>6M0J</code>, <code>6H46</code>, <code>5OPI</code>, <code>1FCC</code>, <code>1OLG</code>).</p>
 <p>Conditioning on 3D partner coordinates completely eliminates the selective interface collapse: - <strong>Three-Way Interaction Disappears:</strong> The standardized interaction coefficient flips from negative (<span class="math inline">\beta_7 \approx -0.334\text{ to }-0.353, p &lt; 10^{-5}</span> across PLMs) to non-negative and statistically non-significant: <span class="math inline">\mathbf{\beta_7 = +0.0580}</span> (<span class="math inline">p_{\text{clustered}} = 0.581</span>, <span class="math inline">p_{\text{wild}} = 0.570</span>, <span class="math inline">p_{\text{perm}} = 0.103</span>, <a href="#tbl-threeway-results" class="quarto-xref">Table 2</a>). - <strong>Balanced Interface Sensitivity:</strong> Interface binding correlation recovers to <span class="math inline">\rho = \mathbf{+0.240}</span> (<span class="math inline">p = 6.2 \times 10^{-31}</span>) and matches interface abundance correlation (<span class="math inline">\rho = +0.276</span>), eliminating the <span class="math inline">-80.5\%</span> <span class="math inline">\Delta\rho</span> collapse observed in single-chain sequence models.</p>
 <p>This positive control confirms that the failure of single-chain PLMs is an architectural limitation of 1D sequence representations lacking intermolecular spatial coordinates, which is fully rectified when 3D complex geometry is provided.</p>
+<p><strong>Monomer vs. Complex Structural Ablation:</strong> To test whether ProteinMPNN’s success is causally driven by the presence of partner coordinates rather than general 3D structure conditioning, we evaluated ProteinMPNN on isolated monomer backbones (detaching all partner chains from <code>6M0J</code>, <code>6H46</code>, <code>5OPI</code>, <code>1FCC</code>, <code>1OLG</code>). When partner coordinates are removed, ProteinMPNN’s interface binding correlation collapses from <span class="math inline">\rho = +0.240 \to +0.147</span> (a <span class="math inline">-38.8\%</span> drop) and the three-way interaction flips negative (<span class="math inline">\beta_7 = -0.0560</span>), confirming that the physical presence of partner coordinates is the causal driver of interface energetics.</p>
 </section>
-<section id="interface-blindness-is-concentrated-at-energetic-hotspots" class="level3" data-number="3.6.3">
-<h3 data-number="3.6.3" class="anchored" data-anchor-id="interface-blindness-is-concentrated-at-energetic-hotspots"><span class="header-section-number">3.6.3</span> Interface Blindness is Concentrated at Energetic Hotspots</h3>
+<section id="dual-scoring-mitigation-strategy-and-pareto-frontier" class="level3" data-number="3.6.3">
+<h3 data-number="3.6.3" class="anchored" data-anchor-id="dual-scoring-mitigation-strategy-and-pareto-frontier"><span class="header-section-number">3.6.3</span> Dual-Scoring Mitigation Strategy and Pareto Frontier</h3>
+<p>To resolve the PLM Filter Trap for practical binder engineering, we evaluated a composite dual-objective scoring function combining structure-conditioned interface energetics with a single-chain monomer stability prior: <span class="math display">\text{Score}_{\text{dual}}(\alpha) = z(\Delta\log P_{\text{ProteinMPNN}}(\text{Complex})) + \alpha \cdot z(\Delta\log P_{\text{ESM2}}(\text{Monomer}))</span> Sweeping <span class="math inline">\alpha \in [0.0, 5.0]</span> across all <span class="math inline">N = 10,643</span> variants maps an empirical Pareto frontier: - Pure single-chain PLM filtering (<span class="math inline">\alpha \to \infty</span>) purges <span class="math inline">85.8\%\text{ to }96.1\%</span> of beneficial interface hits. - Dual-scoring at <span class="math inline">\alpha = 0.2\text{--}1.0</span> maintains high monomer folding expressibility (<span class="math inline">43.9\%\text{--}44.8\%</span>) while retaining 254 to 261 true affinity-enhancing interface hits (improving composite design utility by <span class="math inline">+23.2\%</span> over pure PLM filtering).</p>
+<p>This demonstrates that single-chain PLMs should be deployed as additive monomer stability penalties (<span class="math inline">\Delta\Delta G_{\text{fold}}</span>) alongside 3D complex interface predictors (<span class="math inline">\Delta\Delta G_{\text{bind}}</span>), rather than as upstream exclusionary filters.</p>
+</section>
+<section id="interface-blindness-is-concentrated-at-energetic-hotspots" class="level3" data-number="3.6.4">
+<h3 data-number="3.6.4" class="anchored" data-anchor-id="interface-blindness-is-concentrated-at-energetic-hotspots"><span class="header-section-number">3.6.4</span> Interface Blindness is Concentrated at Energetic Hotspots</h3>
 <p>To evaluate whether single-chain PLM interface failure is uniform across the interface footprint or localized at core contact residues, we stratified the <span class="math inline">N = 2,262</span> interface variants by buried surface area (<span class="math inline">\Delta\text{SASA}</span> tertiles): <strong>Hotspot</strong> (<span class="math inline">\Delta\text{SASA} \ge 52.4\text{ \AA}^2, N = 758</span>), <strong>Mid</strong> (<span class="math inline">N = 744</span>), and <strong>Rim</strong> (<span class="math inline">\Delta\text{SASA} \le 24.3\text{ \AA}^2, N = 760</span>).</p>
 <p>In all model arms, the expression-controlled partial correlation <span class="math inline">\rho(\text{PLM}, \text{Binding} \mid \text{Abundance})</span> is most severely degraded at energetic hotspots: - On ESMC-6B, Hotspot variants exhibit severe active anti-correlation (<span class="math inline">\rho_{\text{binding}} = -0.471, \mathbf{\rho_{\text{partial}} = -0.555}</span>), whereas Rim residues show neutral coupling (<span class="math inline">\rho_{\text{binding}} = +0.139, \mathbf{\rho_{\text{partial}} = +0.024}</span>). - The Hotspot-vs-Rim interaction model confirms significant selective degradation at hotspots (<span class="math inline">\beta_{(\text{PLM} \times \text{Binding} \times \text{Hotspot})} = -0.4735, p_{\text{perm}} = 0.0129</span>).</p>
 </section>

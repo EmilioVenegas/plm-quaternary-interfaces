@@ -558,10 +558,10 @@ Section~\ref{sec-methods}):
   >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}
   >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}@{}}
 \caption{Three-way interaction regression and non-parametric permutation
-tests across 5 foundation model scales and 3D structure-conditioned
+tests across 6 foundation model scales and 3D structure-conditioned
 ProteinMPNN (\(N = 21,286\) stacked observations, 5 system clusters).
-Single-chain ESM2/ESMC models exhibit severe selective collapse
-(\(\beta_7 \approx -0.334\text{ to }-0.353\)), whereas 3D complex
+Single-chain ESM-1v/ESM2/ESMC models exhibit severe selective collapse
+(\(\beta_7 \approx -0.308\text{ to }-0.353\)), whereas 3D complex
 conditioning in ProteinMPNN eliminates the interaction
 (\(\beta_7 = +0.0580\),
 n.s.).}\label{tbl-threeway-results}\tabularnewline
@@ -611,6 +611,9 @@ Verdict (\(\alpha = 10^{-5}\))
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
+\textbf{ESM-1v} & 650M (1D Sequence) & \textbf{\(-0.3080\)} &
+\(p = 0.286\) & \(p = 1.8 \times 10^{-3}\) & \(+0.372\) & \(+0.150\) &
+\textbf{\(-59.7\%\)} & Directional Negative \\
 \textbf{ESM2-650M} & 650M (1D Sequence) & \textbf{\(-0.3343\)} &
 \(p = 0.258\) & \(p = 3.0 \times 10^{-4}\) & \(+0.380\) & \(+0.162\) &
 \textbf{\(-57.4\%\)} & Directional Negative \\
@@ -1108,6 +1111,39 @@ This positive control confirms that the failure of single-chain PLMs is
 an architectural limitation of 1D sequence representations lacking
 intermolecular spatial coordinates, which is fully rectified when 3D
 complex geometry is provided.
+
+\textbf{Monomer vs.~Complex Structural Ablation:} To test whether
+ProteinMPNN's success is causally driven by the presence of partner
+coordinates rather than general 3D structure conditioning, we evaluated
+ProteinMPNN on isolated monomer backbones (detaching all partner chains
+from \texttt{6M0J}, \texttt{6H46}, \texttt{5OPI}, \texttt{1FCC},
+\texttt{1OLG}). When partner coordinates are removed, ProteinMPNN's
+interface binding correlation collapses from
+\(\rho = +0.240 \to +0.147\) (a \(-38.8\%\) drop) and the three-way
+interaction flips negative (\(\beta_7 = -0.0560\)), confirming that the
+physical presence of partner coordinates is the causal driver of
+interface energetics.
+
+\subsubsection{Dual-Scoring Mitigation Strategy and Pareto
+Frontier}\label{dual-scoring-mitigation-strategy-and-pareto-frontier}
+
+To resolve the PLM Filter Trap for practical binder engineering, we
+evaluated a composite dual-objective scoring function combining
+structure-conditioned interface energetics with a single-chain monomer
+stability prior:
+\[\text{Score}_{\text{dual}}(\alpha) = z(\Delta\log P_{\text{ProteinMPNN}}(\text{Complex})) + \alpha \cdot z(\Delta\log P_{\text{ESM2}}(\text{Monomer}))\]
+Sweeping \(\alpha \in [0.0, 5.0]\) across all \(N = 10,643\) variants
+maps an empirical Pareto frontier: - Pure single-chain PLM filtering
+(\(\alpha \to \infty\)) purges \(85.8\%\text{ to }96.1\%\) of beneficial
+interface hits. - Dual-scoring at \(\alpha = 0.2\text{--}1.0\) maintains
+high monomer folding expressibility (\(43.9\%\text{--}44.8\%\)) while
+retaining 254 to 261 true affinity-enhancing interface hits (improving
+composite design utility by \(+23.2\%\) over pure PLM filtering).
+
+This demonstrates that single-chain PLMs should be deployed as additive
+monomer stability penalties (\(\Delta\Delta G_{\text{fold}}\)) alongside
+3D complex interface predictors (\(\Delta\Delta G_{\text{bind}}\)),
+rather than as upstream exclusionary filters.
 
 \subsubsection{Interface Blindness is Concentrated at Energetic
 Hotspots}\label{interface-blindness-is-concentrated-at-energetic-hotspots}

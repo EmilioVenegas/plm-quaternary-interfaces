@@ -1,5 +1,4 @@
 {
-  "timestamp_utc": "2026-08-30T05:19:34.427960+00:00",
   "n_total_variants": 10643,
   "n_beneficial_interface_variants": 1148,
   "filter_top_pct": 20,
@@ -14,9 +13,9 @@
       "monomer_expressibility_pct": 43.89,
       "total_binding_hits_retained": 1069,
       "total_binding_hit_retention_pct": 29.23,
-      "interface_rho_abundance": 0.2253,
-      "interface_rho_binding": 0.0917,
-      "interface_partial_rho": 0.0104,
+      "interface_rho_abundance": 0.3143,
+      "interface_rho_binding": 0.2305,
+      "interface_partial_rho": 0.1679,
       "utility_score": 9.67
     },
     {
@@ -29,9 +28,9 @@
       "monomer_expressibility_pct": 44.4,
       "total_binding_hits_retained": 1077,
       "total_binding_hit_retention_pct": 29.45,
-      "interface_rho_abundance": 0.2549,
-      "interface_rho_binding": 0.0794,
-      "interface_partial_rho": -0.0152,
+      "interface_rho_abundance": 0.3465,
+      "interface_rho_binding": 0.2242,
+      "interface_partial_rho": 0.1545,
       "utility_score": 9.83
     },
     {
@@ -44,9 +43,9 @@
       "monomer_expressibility_pct": 44.78,
       "total_binding_hits_retained": 1078,
       "total_binding_hit_retention_pct": 29.48,
-      "interface_rho_abundance": 0.2709,
-      "interface_rho_binding": 0.0686,
-      "interface_partial_rho": -0.0338,
+      "interface_rho_abundance": 0.3639,
+      "interface_rho_binding": 0.2224,
+      "interface_partial_rho": 0.1489,
       "utility_score": 9.91
     },
     {
@@ -59,9 +58,9 @@
       "monomer_expressibility_pct": 44.59,
       "total_binding_hits_retained": 1071,
       "total_binding_hit_retention_pct": 29.29,
-      "interface_rho_abundance": 0.2842,
-      "interface_rho_binding": 0.0618,
-      "interface_partial_rho": -0.047,
+      "interface_rho_abundance": 0.3777,
+      "interface_rho_binding": 0.2219,
+      "interface_partial_rho": 0.1455,
       "utility_score": 9.79
     },
     {
@@ -74,9 +73,9 @@
       "monomer_expressibility_pct": 44.59,
       "total_binding_hits_retained": 1077,
       "total_binding_hit_retention_pct": 29.45,
-      "interface_rho_abundance": 0.2948,
-      "interface_rho_binding": 0.0574,
-      "interface_partial_rho": -0.0565,
+      "interface_rho_abundance": 0.3879,
+      "interface_rho_binding": 0.2216,
+      "interface_partial_rho": 0.1431,
       "utility_score": 9.79
     },
     {
@@ -89,9 +88,9 @@
       "monomer_expressibility_pct": 44.73,
       "total_binding_hits_retained": 1079,
       "total_binding_hit_retention_pct": 29.51,
-      "interface_rho_abundance": 0.3044,
-      "interface_rho_binding": 0.0549,
-      "interface_partial_rho": -0.0634,
+      "interface_rho_abundance": 0.3964,
+      "interface_rho_binding": 0.2209,
+      "interface_partial_rho": 0.1406,
       "utility_score": 9.78
     },
     {
@@ -104,9 +103,9 @@
       "monomer_expressibility_pct": 44.68,
       "total_binding_hits_retained": 1078,
       "total_binding_hit_retention_pct": 29.48,
-      "interface_rho_abundance": 0.321,
-      "interface_rho_binding": 0.0528,
-      "interface_partial_rho": -0.0731,
+      "interface_rho_abundance": 0.4092,
+      "interface_rho_binding": 0.2185,
+      "interface_partial_rho": 0.1353,
       "utility_score": 9.92
     },
     {
@@ -119,9 +118,9 @@
       "monomer_expressibility_pct": 43.93,
       "total_binding_hits_retained": 1080,
       "total_binding_hit_retention_pct": 29.53,
-      "interface_rho_abundance": 0.3386,
-      "interface_rho_binding": 0.0526,
-      "interface_partial_rho": -0.081,
+      "interface_rho_abundance": 0.4197,
+      "interface_rho_binding": 0.2142,
+      "interface_partial_rho": 0.1283,
       "utility_score": 9.99
     },
     {
@@ -134,9 +133,9 @@
       "monomer_expressibility_pct": 42.85,
       "total_binding_hits_retained": 1048,
       "total_binding_hit_retention_pct": 28.66,
-      "interface_rho_abundance": 0.3538,
-      "interface_rho_binding": 0.053,
-      "interface_partial_rho": -0.0876,
+      "interface_rho_abundance": 0.4253,
+      "interface_rho_binding": 0.2067,
+      "interface_partial_rho": 0.1185,
       "utility_score": 9.86
     },
     {
@@ -149,9 +148,9 @@
       "monomer_expressibility_pct": 41.63,
       "total_binding_hits_retained": 1026,
       "total_binding_hit_retention_pct": 28.06,
-      "interface_rho_abundance": 0.3606,
-      "interface_rho_binding": 0.0528,
-      "interface_partial_rho": -0.0908,
+      "interface_rho_abundance": 0.4252,
+      "interface_rho_binding": 0.1996,
+      "interface_partial_rho": 0.1105,
       "utility_score": 9.65
     },
     {
@@ -164,9 +163,9 @@
       "monomer_expressibility_pct": 38.24,
       "total_binding_hits_retained": 970,
       "total_binding_hit_retention_pct": 26.52,
-      "interface_rho_abundance": 0.3639,
-      "interface_rho_binding": 0.0488,
-      "interface_partial_rho": -0.0969,
+      "interface_rho_abundance": 0.4117,
+      "interface_rho_binding": 0.1747,
+      "interface_partial_rho": 0.0853,
       "utility_score": 8.73
     },
     {
@@ -179,9 +178,9 @@
       "monomer_expressibility_pct": 35.65,
       "total_binding_hits_retained": 915,
       "total_binding_hit_retention_pct": 25.02,
-      "interface_rho_abundance": 0.3554,
-      "interface_rho_binding": 0.0419,
-      "interface_partial_rho": -0.1009,
+      "interface_rho_abundance": 0.3888,
+      "interface_rho_binding": 0.1452,
+      "interface_partial_rho": 0.0575,
       "utility_score": 8.11
     }
   ],

@@ -4,27 +4,27 @@
     "compartments": {
       "Core": {
         "n": 4405,
-        "rho_plm_abundance": -0.2359,
-        "rho_plm_binding": -0.1836,
-        "rho_abundance_binding": 0.5511,
-        "rho_partial_plm_binding_given_abundance": -0.0661,
-        "pct_binding_signal_mediated_by_abundance": 64.0
+        "rho_plm_abundance": 0.185,
+        "rho_plm_binding": 0.2953,
+        "rho_abundance_binding": 0.6092,
+        "rho_partial_plm_binding_given_abundance": 0.2343,
+        "pct_binding_signal_mediated_by_abundance": 20.6
       },
       "Surface": {
         "n": 3976,
-        "rho_plm_abundance": 0.0287,
-        "rho_plm_binding": 0.0055,
-        "rho_abundance_binding": 0.592,
-        "rho_partial_plm_binding_given_abundance": -0.0143,
-        "pct_binding_signal_mediated_by_abundance": 361.7
+        "rho_plm_abundance": 0.1523,
+        "rho_plm_binding": 0.1116,
+        "rho_abundance_binding": 0.4618,
+        "rho_partial_plm_binding_given_abundance": 0.0471,
+        "pct_binding_signal_mediated_by_abundance": 57.8
       },
       "Interface": {
         "n": 2262,
-        "rho_plm_abundance": 0.4026,
-        "rho_plm_binding": -0.0176,
-        "rho_abundance_binding": 0.3651,
-        "rho_partial_plm_binding_given_abundance": -0.1931,
-        "pct_binding_signal_mediated_by_abundance": -1000.1
+        "rho_plm_abundance": 0.3796,
+        "rho_plm_binding": 0.1621,
+        "rho_abundance_binding": 0.1751,
+        "rho_partial_plm_binding_given_abundance": 0.105,
+        "pct_binding_signal_mediated_by_abundance": 35.2
       }
     },
     "evolutionary_classes": {
@@ -50,7 +50,7 @@
         "n_interface": 954,
         "rho_abundance": 0.5313,
         "rho_binding": 0.3347,
-        "rho_partial_binding_given_abundance": 0.0886
+        "rho_partial_binding_given_abundance": 0.0885
       },
       "GB1": {
         "type": "natural_heterodimer",
@@ -75,27 +75,27 @@
     "compartments": {
       "Core": {
         "n": 4405,
-        "rho_plm_abundance": -0.2512,
-        "rho_plm_binding": -0.211,
-        "rho_abundance_binding": 0.5511,
-        "rho_partial_plm_binding_given_abundance": -0.0899,
-        "pct_binding_signal_mediated_by_abundance": 57.4
+        "rho_plm_abundance": 0.184,
+        "rho_plm_binding": 0.269,
+        "rho_abundance_binding": 0.6092,
+        "rho_partial_plm_binding_given_abundance": 0.2013,
+        "pct_binding_signal_mediated_by_abundance": 25.2
       },
       "Surface": {
         "n": 3976,
-        "rho_plm_abundance": -0.0073,
-        "rho_plm_binding": -0.0455,
-        "rho_abundance_binding": 0.592,
-        "rho_partial_plm_binding_given_abundance": -0.0511,
-        "pct_binding_signal_mediated_by_abundance": -12.3
+        "rho_plm_abundance": 0.1524,
+        "rho_plm_binding": 0.1028,
+        "rho_abundance_binding": 0.4618,
+        "rho_partial_plm_binding_given_abundance": 0.037,
+        "pct_binding_signal_mediated_by_abundance": 64.0
       },
       "Interface": {
         "n": 2262,
-        "rho_plm_abundance": 0.4232,
-        "rho_plm_binding": 0.007,
-        "rho_abundance_binding": 0.3651,
-        "rho_partial_plm_binding_given_abundance": -0.1749,
-        "pct_binding_signal_mediated_by_abundance": 2605.9
+        "rho_plm_abundance": 0.381,
+        "rho_plm_binding": 0.1193,
+        "rho_abundance_binding": 0.1751,
+        "rho_partial_plm_binding_given_abundance": 0.0577,
+        "pct_binding_signal_mediated_by_abundance": 51.6
       }
     },
     "evolutionary_classes": {
@@ -146,27 +146,27 @@
     "compartments": {
       "Core": {
         "n": 4405,
-        "rho_plm_abundance": -0.3417,
-        "rho_plm_binding": -0.241,
-        "rho_abundance_binding": 0.5511,
-        "rho_partial_plm_binding_given_abundance": -0.0671,
-        "pct_binding_signal_mediated_by_abundance": 72.1
+        "rho_plm_abundance": 0.1382,
+        "rho_plm_binding": 0.2694,
+        "rho_abundance_binding": 0.6092,
+        "rho_partial_plm_binding_given_abundance": 0.2358,
+        "pct_binding_signal_mediated_by_abundance": 12.5
       },
       "Surface": {
         "n": 3976,
-        "rho_plm_abundance": -0.0507,
-        "rho_plm_binding": -0.0591,
-        "rho_abundance_binding": 0.592,
-        "rho_partial_plm_binding_given_abundance": -0.0362,
-        "pct_binding_signal_mediated_by_abundance": 38.8
+        "rho_plm_abundance": 0.1393,
+        "rho_plm_binding": 0.0961,
+        "rho_abundance_binding": 0.4618,
+        "rho_partial_plm_binding_given_abundance": 0.0362,
+        "pct_binding_signal_mediated_by_abundance": 62.4
       },
       "Interface": {
         "n": 2262,
-        "rho_plm_abundance": 0.4264,
-        "rho_plm_binding": -0.0006,
-        "rho_abundance_binding": 0.3651,
-        "rho_partial_plm_binding_given_abundance": -0.1856,
-        "pct_binding_signal_mediated_by_abundance": -33443.8
+        "rho_plm_abundance": 0.4131,
+        "rho_plm_binding": 0.1674,
+        "rho_abundance_binding": 0.1751,
+        "rho_partial_plm_binding_given_abundance": 0.106,
+        "pct_binding_signal_mediated_by_abundance": 36.7
       }
     },
     "evolutionary_classes": {
@@ -217,27 +217,27 @@
     "compartments": {
       "Core": {
         "n": 4405,
-        "rho_plm_abundance": -0.3342,
-        "rho_plm_binding": -0.2668,
-        "rho_abundance_binding": 0.5511,
-        "rho_partial_plm_binding_given_abundance": -0.105,
-        "pct_binding_signal_mediated_by_abundance": 60.6
+        "rho_plm_abundance": 0.1703,
+        "rho_plm_binding": 0.2267,
+        "rho_abundance_binding": 0.6092,
+        "rho_partial_plm_binding_given_abundance": 0.1574,
+        "pct_binding_signal_mediated_by_abundance": 30.6
       },
       "Surface": {
         "n": 3976,
-        "rho_plm_abundance": -0.1172,
-        "rho_plm_binding": -0.1585,
-        "rho_abundance_binding": 0.592,
-        "rho_partial_plm_binding_given_abundance": -0.1113,
-        "pct_binding_signal_mediated_by_abundance": 29.8
+        "rho_plm_abundance": 0.1692,
+        "rho_plm_binding": 0.06,
+        "rho_abundance_binding": 0.4618,
+        "rho_partial_plm_binding_given_abundance": -0.0208,
+        "pct_binding_signal_mediated_by_abundance": 134.6
       },
       "Interface": {
         "n": 2262,
-        "rho_plm_abundance": 0.2455,
-        "rho_plm_binding": -0.2414,
-        "rho_abundance_binding": 0.3651,
-        "rho_partial_plm_binding_given_abundance": -0.3668,
-        "pct_binding_signal_mediated_by_abundance": -52.0
+        "rho_plm_abundance": 0.3842,
+        "rho_plm_binding": 0.0755,
+        "rho_abundance_binding": 0.1751,
+        "rho_partial_plm_binding_given_abundance": 0.009,
+        "pct_binding_signal_mediated_by_abundance": 88.1
       }
     },
     "evolutionary_classes": {
@@ -262,7 +262,7 @@
         "pdb": "5OPI",
         "n_interface": 954,
         "rho_abundance": 0.5786,
-        "rho_binding": 0.3184,
+        "rho_binding": 0.3183,
         "rho_partial_binding_given_abundance": 0.0344
       },
       "GB1": {
@@ -280,6 +280,219 @@
         "rho_abundance": 0.3369,
         "rho_binding": -0.5651,
         "rho_partial_binding_given_abundance": -0.511
+      }
+    }
+  },
+  "esm1v": {
+    "arm": "esm1v",
+    "compartments": {
+      "Core": {
+        "n": 4405,
+        "rho_plm_abundance": 0.1259,
+        "rho_plm_binding": 0.2231,
+        "rho_abundance_binding": 0.6092,
+        "rho_partial_plm_binding_given_abundance": 0.1861,
+        "pct_binding_signal_mediated_by_abundance": 16.6
+      },
+      "Surface": {
+        "n": 3976,
+        "rho_plm_abundance": 0.1078,
+        "rho_plm_binding": 0.1148,
+        "rho_abundance_binding": 0.4618,
+        "rho_partial_plm_binding_given_abundance": 0.0738,
+        "pct_binding_signal_mediated_by_abundance": 35.8
+      },
+      "Interface": {
+        "n": 2262,
+        "rho_plm_abundance": 0.3716,
+        "rho_plm_binding": 0.1502,
+        "rho_abundance_binding": 0.1751,
+        "rho_partial_plm_binding_given_abundance": 0.0931,
+        "pct_binding_signal_mediated_by_abundance": 38.0
+      }
+    },
+    "evolutionary_classes": {
+      "SARS-CoV-2 RBD": {
+        "type": "cross_species_viral",
+        "pdb": "6M0J",
+        "n_interface": 379,
+        "rho_abundance": 0.2114,
+        "rho_binding": 0.1234,
+        "rho_partial_binding_given_abundance": 0.1207
+      },
+      "KRAS": {
+        "type": "synthetic_binder",
+        "pdb": "6H46",
+        "n_interface": 359,
+        "rho_abundance": 0.1982,
+        "rho_binding": 0.4584,
+        "rho_partial_binding_given_abundance": 0.4253
+      },
+      "HLA-A2": {
+        "type": "natural_heterodimer",
+        "pdb": "5OPI",
+        "n_interface": 954,
+        "rho_abundance": 0.5512,
+        "rho_binding": 0.3724,
+        "rho_partial_binding_given_abundance": 0.1283
+      },
+      "GB1": {
+        "type": "natural_heterodimer",
+        "pdb": "1FCC",
+        "n_interface": 57,
+        "rho_abundance": 0.598,
+        "rho_binding": 0.6003,
+        "rho_partial_binding_given_abundance": 0.0661
+      },
+      "p53": {
+        "type": "homooligomer",
+        "pdb": "1OLG",
+        "n_interface": 513,
+        "rho_abundance": 0.4427,
+        "rho_binding": -0.4724,
+        "rho_partial_binding_given_abundance": -0.3862
+      }
+    }
+  },
+  "esm3-1.4b": {
+    "arm": "esm3-1.4b",
+    "compartments": {
+      "Core": {
+        "n": 4405,
+        "rho_plm_abundance": 0.2021,
+        "rho_plm_binding": 0.3053,
+        "rho_abundance_binding": 0.6092,
+        "rho_partial_plm_binding_given_abundance": 0.2345,
+        "pct_binding_signal_mediated_by_abundance": 23.2
+      },
+      "Surface": {
+        "n": 3976,
+        "rho_plm_abundance": 0.1893,
+        "rho_plm_binding": 0.1504,
+        "rho_abundance_binding": 0.4618,
+        "rho_partial_plm_binding_given_abundance": 0.0723,
+        "pct_binding_signal_mediated_by_abundance": 51.9
+      },
+      "Interface": {
+        "n": 2262,
+        "rho_plm_abundance": 0.2229,
+        "rho_plm_binding": 0.3435,
+        "rho_abundance_binding": 0.1751,
+        "rho_partial_plm_binding_given_abundance": 0.3172,
+        "pct_binding_signal_mediated_by_abundance": 7.7
+      }
+    },
+    "evolutionary_classes": {
+      "SARS-CoV-2 RBD": {
+        "type": "cross_species_viral",
+        "pdb": "6M0J",
+        "n_interface": 379,
+        "rho_abundance": 0.1158,
+        "rho_binding": 0.1394,
+        "rho_partial_binding_given_abundance": 0.1374
+      },
+      "KRAS": {
+        "type": "synthetic_binder",
+        "pdb": "6H46",
+        "n_interface": 359,
+        "rho_abundance": 0.2021,
+        "rho_binding": 0.5366,
+        "rho_partial_binding_given_abundance": 0.5174
+      },
+      "HLA-A2": {
+        "type": "natural_heterodimer",
+        "pdb": "5OPI",
+        "n_interface": 954,
+        "rho_abundance": 0.6126,
+        "rho_binding": 0.4349,
+        "rho_partial_binding_given_abundance": 0.1814
+      },
+      "GB1": {
+        "type": "natural_heterodimer",
+        "pdb": "1FCC",
+        "n_interface": 57,
+        "rho_abundance": 0.62,
+        "rho_binding": 0.6162,
+        "rho_partial_binding_given_abundance": -0.0244
+      },
+      "p53": {
+        "type": "homooligomer",
+        "pdb": "1OLG",
+        "n_interface": 513,
+        "rho_abundance": -0.2552,
+        "rho_binding": 0.0722,
+        "rho_partial_binding_given_abundance": -0.0127
+      }
+    }
+  },
+  "proteinmpnn": {
+    "arm": "proteinmpnn",
+    "compartments": {
+      "Core": {
+        "n": 4405,
+        "rho_plm_abundance": 0.4194,
+        "rho_plm_binding": 0.406,
+        "rho_abundance_binding": 0.6092,
+        "rho_partial_plm_binding_given_abundance": 0.209,
+        "pct_binding_signal_mediated_by_abundance": 48.5
+      },
+      "Surface": {
+        "n": 3976,
+        "rho_plm_abundance": 0.4186,
+        "rho_plm_binding": 0.3105,
+        "rho_abundance_binding": 0.4618,
+        "rho_partial_plm_binding_given_abundance": 0.1455,
+        "pct_binding_signal_mediated_by_abundance": 53.1
+      },
+      "Interface": {
+        "n": 2262,
+        "rho_plm_abundance": 0.2763,
+        "rho_plm_binding": 0.2397,
+        "rho_abundance_binding": 0.1751,
+        "rho_partial_plm_binding_given_abundance": 0.2022,
+        "pct_binding_signal_mediated_by_abundance": 15.6
+      }
+    },
+    "evolutionary_classes": {
+      "SARS-CoV-2 RBD": {
+        "type": "cross_species_viral",
+        "pdb": "6M0J",
+        "n_interface": 379,
+        "rho_abundance": 0.4747,
+        "rho_binding": 0.2747,
+        "rho_partial_binding_given_abundance": 0.2981
+      },
+      "KRAS": {
+        "type": "synthetic_binder",
+        "pdb": "6H46",
+        "n_interface": 359,
+        "rho_abundance": 0.2207,
+        "rho_binding": 0.2468,
+        "rho_partial_binding_given_abundance": 0.1567
+      },
+      "HLA-A2": {
+        "type": "natural_heterodimer",
+        "pdb": "5OPI",
+        "n_interface": 954,
+        "rho_abundance": 0.3656,
+        "rho_binding": 0.3107,
+        "rho_partial_binding_given_abundance": 0.1557
+      },
+      "GB1": {
+        "type": "natural_heterodimer",
+        "pdb": "1FCC",
+        "n_interface": 57,
+        "rho_abundance": 0.8732,
+        "rho_binding": 0.8747,
+        "rho_partial_binding_given_abundance": 0.1123
+      },
+      "p53": {
+        "type": "homooligomer",
+        "pdb": "1OLG",
+        "n_interface": 513,
+        "rho_abundance": 0.2036,
+        "rho_binding": -0.1731,
+        "rho_partial_binding_given_abundance": -0.1149
       }
     }
   }

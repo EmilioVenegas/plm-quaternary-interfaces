@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-08-29T19:39:21.416796+00:00",
+  "timestamp_utc": "2026-08-30T22:14:39.265235+00:00",
   "mutation_definitions": {
     "beneficial_binding": "delta_DMS_binding >= 0.0 (experimentally improves or maintains binding affinity)",
     "disruptive_binding": "delta_DMS_binding < -1.0 (experimentally destroys binding affinity)",
@@ -20,52 +20,52 @@
           "quantile_threshold": 0.2458,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.0915,
-          "p_selected_non_interface": 0.0841,
-          "p_selected_core": 0.0561,
-          "p_selected_surface": 0.1015,
-          "interface_depletion_rate": -0.0876,
-          "interface_false_negative_rate": 0.9085,
-          "non_interface_false_negative_rate": 0.9159
+          "p_selected_interface": 0.1359,
+          "p_selected_non_interface": 0.1315,
+          "p_selected_core": 0.1081,
+          "p_selected_surface": 0.1461,
+          "interface_depletion_rate": -0.0332,
+          "interface_false_negative_rate": 0.8641,
+          "non_interface_false_negative_rate": 0.8685
         },
         {
           "filter_top_pct": 20,
           "quantile_threshold": -0.2402,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.1211,
-          "p_selected_non_interface": 0.1499,
-          "p_selected_core": 0.0873,
-          "p_selected_surface": 0.1888,
-          "interface_depletion_rate": 0.192,
-          "interface_false_negative_rate": 0.8789,
-          "non_interface_false_negative_rate": 0.8501
+          "p_selected_interface": 0.2483,
+          "p_selected_non_interface": 0.2567,
+          "p_selected_core": 0.2204,
+          "p_selected_surface": 0.2793,
+          "interface_depletion_rate": 0.0328,
+          "interface_false_negative_rate": 0.7517,
+          "non_interface_false_negative_rate": 0.7433
         },
         {
           "filter_top_pct": 30,
           "quantile_threshold": -0.8074,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.1646,
-          "p_selected_non_interface": 0.2196,
-          "p_selected_core": 0.106,
-          "p_selected_surface": 0.2902,
-          "interface_depletion_rate": 0.2503,
-          "interface_false_negative_rate": 0.8354,
-          "non_interface_false_negative_rate": 0.7804
+          "p_selected_interface": 0.338,
+          "p_selected_non_interface": 0.377,
+          "p_selected_core": 0.3119,
+          "p_selected_surface": 0.4176,
+          "interface_depletion_rate": 0.1036,
+          "interface_false_negative_rate": 0.662,
+          "non_interface_false_negative_rate": 0.623
         },
         {
           "filter_top_pct": 50,
           "quantile_threshold": -3.625,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.4486,
-          "p_selected_non_interface": 0.4336,
-          "p_selected_core": 0.2453,
-          "p_selected_surface": 0.5507,
-          "interface_depletion_rate": -0.0345,
-          "interface_false_negative_rate": 0.5514,
-          "non_interface_false_negative_rate": 0.5664
+          "p_selected_interface": 0.5296,
+          "p_selected_non_interface": 0.5951,
+          "p_selected_core": 0.5249,
+          "p_selected_surface": 0.6387,
+          "interface_depletion_rate": 0.11,
+          "interface_false_negative_rate": 0.4704,
+          "non_interface_false_negative_rate": 0.4049
         }
       ],
       "per_system_audit_top20": {
@@ -113,7 +113,7 @@
       "total_beneficial_binding_variants": 3657,
       "total_disruptive_binding_variants": 1776,
       "total_interface_beneficial_variants": 1148,
-      "key_takeaway": "Using esm2-3b single-chain zero-shot score as a computational filter at top 20% discards 87.9% of true affinity-enhancing interface mutations with an interface depletion rate of 19.2% relative to non-interface mutations."
+      "key_takeaway": "Using esm2-3b single-chain zero-shot score as a computational filter at top 20% discards 75.2% of true affinity-enhancing interface mutations with an interface depletion rate of 3.3% relative to non-interface mutations."
     },
     "esm2-650m": {
       "arm": "esm2-650m",
@@ -123,52 +123,52 @@
           "quantile_threshold": 0.3003,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.0976,
-          "p_selected_non_interface": 0.1004,
-          "p_selected_core": 0.0457,
-          "p_selected_surface": 0.1345,
-          "interface_depletion_rate": 0.0286,
-          "interface_false_negative_rate": 0.9024,
-          "non_interface_false_negative_rate": 0.8996
+          "p_selected_interface": 0.1272,
+          "p_selected_non_interface": 0.1355,
+          "p_selected_core": 0.0873,
+          "p_selected_surface": 0.1655,
+          "interface_depletion_rate": 0.0615,
+          "interface_false_negative_rate": 0.8728,
+          "non_interface_false_negative_rate": 0.8645
         },
         {
           "filter_top_pct": 20,
           "quantile_threshold": -0.1722,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.142,
-          "p_selected_non_interface": 0.1722,
-          "p_selected_core": 0.0832,
-          "p_selected_surface": 0.2275,
-          "interface_depletion_rate": 0.1754,
-          "interface_false_negative_rate": 0.858,
-          "non_interface_false_negative_rate": 0.8278
+          "p_selected_interface": 0.2291,
+          "p_selected_non_interface": 0.2619,
+          "p_selected_core": 0.1798,
+          "p_selected_surface": 0.3129,
+          "interface_depletion_rate": 0.1251,
+          "interface_false_negative_rate": 0.7709,
+          "non_interface_false_negative_rate": 0.7381
         },
         {
           "filter_top_pct": 30,
           "quantile_threshold": -0.6327,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.1855,
-          "p_selected_non_interface": 0.2479,
-          "p_selected_core": 0.1216,
-          "p_selected_surface": 0.3264,
-          "interface_depletion_rate": 0.2516,
-          "interface_false_negative_rate": 0.8145,
-          "non_interface_false_negative_rate": 0.7521
+          "p_selected_interface": 0.3284,
+          "p_selected_non_interface": 0.3842,
+          "p_selected_core": 0.2869,
+          "p_selected_surface": 0.4447,
+          "interface_depletion_rate": 0.1453,
+          "interface_false_negative_rate": 0.6716,
+          "non_interface_false_negative_rate": 0.6158
         },
         {
           "filter_top_pct": 50,
           "quantile_threshold": -2.4102,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.4024,
-          "p_selected_non_interface": 0.4484,
-          "p_selected_core": 0.236,
-          "p_selected_surface": 0.5805,
-          "interface_depletion_rate": 0.1025,
-          "interface_false_negative_rate": 0.5976,
-          "non_interface_false_negative_rate": 0.5516
+          "p_selected_interface": 0.5322,
+          "p_selected_non_interface": 0.6054,
+          "p_selected_core": 0.5156,
+          "p_selected_surface": 0.6613,
+          "interface_depletion_rate": 0.1209,
+          "interface_false_negative_rate": 0.4678,
+          "non_interface_false_negative_rate": 0.3946
         }
       ],
       "per_system_audit_top20": {
@@ -216,7 +216,7 @@
       "total_beneficial_binding_variants": 3657,
       "total_disruptive_binding_variants": 1776,
       "total_interface_beneficial_variants": 1148,
-      "key_takeaway": "Using esm2-650m single-chain zero-shot score as a computational filter at top 20% discards 85.8% of true affinity-enhancing interface mutations with an interface depletion rate of 17.5% relative to non-interface mutations."
+      "key_takeaway": "Using esm2-650m single-chain zero-shot score as a computational filter at top 20% discards 77.1% of true affinity-enhancing interface mutations with an interface depletion rate of 12.5% relative to non-interface mutations."
     },
     "esmc-600m": {
       "arm": "esmc-600m",
@@ -226,52 +226,52 @@
           "quantile_threshold": 0.2031,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.0627,
-          "p_selected_non_interface": 0.0646,
-          "p_selected_core": 0.0301,
-          "p_selected_surface": 0.086,
-          "interface_depletion_rate": 0.0286,
-          "interface_false_negative_rate": 0.9373,
-          "non_interface_false_negative_rate": 0.9354
+          "p_selected_interface": 0.142,
+          "p_selected_non_interface": 0.1255,
+          "p_selected_core": 0.1164,
+          "p_selected_surface": 0.1312,
+          "interface_depletion_rate": -0.1309,
+          "interface_false_negative_rate": 0.858,
+          "non_interface_false_negative_rate": 0.8745
         },
         {
           "filter_top_pct": 20,
           "quantile_threshold": -0.3125,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.0862,
-          "p_selected_non_interface": 0.1271,
-          "p_selected_core": 0.0561,
-          "p_selected_surface": 0.1713,
-          "interface_depletion_rate": 0.3217,
-          "interface_false_negative_rate": 0.9138,
-          "non_interface_false_negative_rate": 0.8729
+          "p_selected_interface": 0.2666,
+          "p_selected_non_interface": 0.2527,
+          "p_selected_core": 0.2474,
+          "p_selected_surface": 0.256,
+          "interface_depletion_rate": -0.0549,
+          "interface_false_negative_rate": 0.7334,
+          "non_interface_false_negative_rate": 0.7473
         },
         {
           "filter_top_pct": 30,
           "quantile_threshold": -1.0203,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.128,
-          "p_selected_non_interface": 0.1937,
-          "p_selected_core": 0.0832,
-          "p_selected_surface": 0.2624,
-          "interface_depletion_rate": 0.3389,
-          "interface_false_negative_rate": 0.872,
-          "non_interface_false_negative_rate": 0.8063
+          "p_selected_interface": 0.3641,
+          "p_selected_non_interface": 0.3735,
+          "p_selected_core": 0.3586,
+          "p_selected_surface": 0.3827,
+          "interface_depletion_rate": 0.025,
+          "interface_false_negative_rate": 0.6359,
+          "non_interface_false_negative_rate": 0.6265
         },
         {
           "filter_top_pct": 50,
           "quantile_threshold": -4.7578,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.48,
-          "p_selected_non_interface": 0.444,
-          "p_selected_core": 0.2848,
-          "p_selected_surface": 0.543,
-          "interface_depletion_rate": -0.081,
-          "interface_false_negative_rate": 0.52,
-          "non_interface_false_negative_rate": 0.556
+          "p_selected_interface": 0.5357,
+          "p_selected_non_interface": 0.6082,
+          "p_selected_core": 0.5748,
+          "p_selected_surface": 0.629,
+          "interface_depletion_rate": 0.1192,
+          "interface_false_negative_rate": 0.4643,
+          "non_interface_false_negative_rate": 0.3918
         }
       ],
       "per_system_audit_top20": {
@@ -319,7 +319,7 @@
       "total_beneficial_binding_variants": 3657,
       "total_disruptive_binding_variants": 1776,
       "total_interface_beneficial_variants": 1148,
-      "key_takeaway": "Using esmc-600m single-chain zero-shot score as a computational filter at top 20% discards 91.4% of true affinity-enhancing interface mutations with an interface depletion rate of 32.2% relative to non-interface mutations."
+      "key_takeaway": "Using esmc-600m single-chain zero-shot score as a computational filter at top 20% discards 73.3% of true affinity-enhancing interface mutations with an interface depletion rate of -5.5% relative to non-interface mutations."
     },
     "esmc-6b": {
       "arm": "esmc-6b",
@@ -329,52 +329,52 @@
           "quantile_threshold": 0.1106,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.0279,
-          "p_selected_non_interface": 0.0418,
-          "p_selected_core": 0.0281,
-          "p_selected_surface": 0.0504,
-          "interface_depletion_rate": 0.3339,
-          "interface_false_negative_rate": 0.9721,
-          "non_interface_false_negative_rate": 0.9582
+          "p_selected_interface": 0.1185,
+          "p_selected_non_interface": 0.1307,
+          "p_selected_core": 0.132,
+          "p_selected_surface": 0.1299,
+          "interface_depletion_rate": 0.0938,
+          "interface_false_negative_rate": 0.8815,
+          "non_interface_false_negative_rate": 0.8693
         },
         {
           "filter_top_pct": 20,
           "quantile_threshold": -0.4898,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.0392,
-          "p_selected_non_interface": 0.0929,
-          "p_selected_core": 0.052,
-          "p_selected_surface": 0.1183,
-          "interface_depletion_rate": 0.5779,
-          "interface_false_negative_rate": 0.9608,
-          "non_interface_false_negative_rate": 0.9071
+          "p_selected_interface": 0.2343,
+          "p_selected_non_interface": 0.2471,
+          "p_selected_core": 0.2401,
+          "p_selected_surface": 0.2515,
+          "interface_depletion_rate": 0.0518,
+          "interface_false_negative_rate": 0.7657,
+          "non_interface_false_negative_rate": 0.7529
         },
         {
           "filter_top_pct": 30,
           "quantile_threshold": -1.4043,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.0645,
-          "p_selected_non_interface": 0.1423,
-          "p_selected_core": 0.0748,
-          "p_selected_surface": 0.1842,
-          "interface_depletion_rate": 0.547,
-          "interface_false_negative_rate": 0.9355,
-          "non_interface_false_negative_rate": 0.8577
+          "p_selected_interface": 0.3258,
+          "p_selected_non_interface": 0.3639,
+          "p_selected_core": 0.3368,
+          "p_selected_surface": 0.3807,
+          "interface_depletion_rate": 0.1047,
+          "interface_false_negative_rate": 0.6742,
+          "non_interface_false_negative_rate": 0.6361
         },
         {
           "filter_top_pct": 50,
           "quantile_threshold": -6.625,
           "n_beneficial_interface": 1148,
           "n_beneficial_non_interface": 2509,
-          "p_selected_interface": 0.3545,
-          "p_selected_non_interface": 0.4631,
-          "p_selected_core": 0.3264,
-          "p_selected_surface": 0.5482,
-          "interface_depletion_rate": 0.2345,
-          "interface_false_negative_rate": 0.6455,
-          "non_interface_false_negative_rate": 0.5369
+          "p_selected_interface": 0.5244,
+          "p_selected_non_interface": 0.5935,
+          "p_selected_core": 0.5561,
+          "p_selected_surface": 0.6167,
+          "interface_depletion_rate": 0.1164,
+          "interface_false_negative_rate": 0.4756,
+          "non_interface_false_negative_rate": 0.4065
         }
       ],
       "per_system_audit_top20": {
@@ -422,7 +422,7 @@
       "total_beneficial_binding_variants": 3657,
       "total_disruptive_binding_variants": 1776,
       "total_interface_beneficial_variants": 1148,
-      "key_takeaway": "Using esmc-6b single-chain zero-shot score as a computational filter at top 20% discards 96.1% of true affinity-enhancing interface mutations with an interface depletion rate of 57.8% relative to non-interface mutations."
+      "key_takeaway": "Using esmc-6b single-chain zero-shot score as a computational filter at top 20% discards 76.6% of true affinity-enhancing interface mutations with an interface depletion rate of 5.2% relative to non-interface mutations."
     }
   },
   "multichain_rescue_baseline": {

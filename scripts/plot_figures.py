@@ -61,19 +61,23 @@ DOCS_FIGS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Color palettes
 PALETTE = {
-    "Core": "#3b528b",       # deep slate blue
-    "Surface": "#5ec962",    # soft emerald green
-    "Interface": "#d62728",  # vibrant crimson red
-    "Abundance": "#1f77b4",  # primary blue
-    "Binding": "#e377c2",    # magenta / pink
-    "Partial": "#ff7f0e",    # amber orange
-    "ESM2-650M": "#4e79a7",
-    "ESM2-3B": "#59a14f",
-    "ESMC-600M": "#edc948",
-    "ESMC-6B": "#e15759",
-    "Homooligomer": "#9467bd",
-    "Natural_Heterodimer": "#2ca02c",
-    "Synthetic_CrossSpecies": "#ff7f0e",
+    # Structural Compartments
+    "Core": "#334155",       # Slate 700
+    "Surface": "#16a34a",    # Emerald 600
+    "Interface": "#dc2626",  # Crimson 600
+    # Assay / Readout Types
+    "Abundance": "#2563eb",  # Blue 600
+    "Binding": "#db2777",    # Rose / Pink 600
+    "Partial": "#d97706",    # Amber 600
+    # Model Architectures (harmonious progression)
+    "ESMC-600M": "#0284c7",  # Sky 600
+    "ESM2-650M": "#2563eb",  # Blue 600
+    "ESM2-3B": "#4f46e5",    # Indigo 600
+    "ESMC-6B": "#7c3aed",    # Violet 600
+    # Evolutionary PPI Regimes
+    "Homooligomer": "#7c3aed",       # Violet 600
+    "Natural_Heterodimer": "#059669", # Emerald 600
+    "Synthetic_CrossSpecies": "#d97706", # Amber 600
 }
 
 
@@ -575,40 +579,41 @@ def plot_figure_1_schematic():
 # -----------------------------------------------------------------------------
 def plot_figure_2_double_dissociation(df_scores):
     """Figure 2: Multi-panel scatter plot comparing PLM vs DMS Abundance & Binding across compartments."""
-    fig, axes = plt.subplots(2, 3, figsize=(14, 8.5), dpi=300, sharex=True, sharey=True)
+    fig, axes = plt.subplots(2, 3, figsize=(13, 7.8), dpi=300, sharex=True, sharey=True)
 
     compartments = ["Core", "Surface", "Interface"]
     comp_colors = {"Core": PALETTE["Core"], "Surface": PALETTE["Surface"], "Interface": PALETTE["Interface"]}
+    comp_ns = {"Core": "N = 4,405", "Surface": "N = 3,976", "Interface": "N = 2,262"}
 
-    # We plot ESMC-6B scores (normalized/z-scored within system for fair visual comparison across all 5 systems)
+    # Standardize DMS and PLM scores within system for fair visual comparison across systems
     df = df_scores.copy()
-    
-    # Standardize DMS and PLM scores within system for visualization
     for sys_id in df["system"].unique():
         idx = df["system"] == sys_id
         df.loc[idx, "dms_abund_z"] = stats.zscore(df.loc[idx, "dms_score_abundance"].dropna())
         df.loc[idx, "dms_bind_z"] = stats.zscore(df.loc[idx, "dms_score_binding"].dropna())
         df.loc[idx, "plm_z"] = stats.zscore(df.loc[idx, "zeroshot_esmc-6b"].dropna())
 
+    panel_labels = [["a", "b", "c"], ["d", "e", "f"]]
+
     # Top row: PLM vs Abundance (Monomer Stability)
     for col_idx, comp in enumerate(compartments):
         ax = axes[0, col_idx]
         sub = df[df["compartment"] == comp].dropna(subset=["plm_z", "dms_abund_z"])
         rho, _ = stats.spearmanr(sub["plm_z"], sub["dms_abund_z"])
-        
-        # Hexbin / scatter
-        ax.scatter(sub["plm_z"], sub["dms_abund_z"], color=comp_colors[comp], alpha=0.25, s=14, edgecolors="none")
-        
-        # Regression trend line
+
+        ax.scatter(sub["plm_z"], sub["dms_abund_z"], color=comp_colors[comp], alpha=0.22, s=12, edgecolors="none")
         m, b = np.polyfit(sub["plm_z"], sub["dms_abund_z"], 1)
         x_line = np.linspace(-3.5, 3.5, 100)
-        ax.plot(x_line, m * x_line + b, color="#111111", lw=2, linestyle="-")
+        ax.plot(x_line, m * x_line + b, color="#1e293b", lw=1.8, linestyle="-")
 
-        ax.set_title(f"{comp} Compartment ($N={len(sub):,}$)\nPLM vs. Monomer Abundance", fontsize=11, fontweight="bold")
+        ax.text(-0.10, 1.06, panel_labels[0][col_idx], transform=ax.transAxes, fontsize=12, fontweight="bold", va="top")
+        ax.set_title(f"{comp} ({comp_ns[comp]})\nMonomer Abundance", fontsize=10, fontweight="bold", pad=6)
         ax.text(0.05, 0.90, f"Spearman $\\rho = {rho:+.3f}$", transform=ax.transAxes,
-                fontsize=10.5, fontweight="bold", color="#111111",
-                bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="#999999", alpha=0.9))
-        ax.set_ylabel("Monomer Abundance ($z$-score)" if col_idx == 0 else "")
+                fontsize=9.5, fontweight="bold", color="#1e293b",
+                bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="#cbd5e1", lw=0.8, alpha=0.95))
+        ax.set_ylabel("Monomer Abundance ($z$-score)" if col_idx == 0 else "", fontsize=10)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
         ax.grid(True)
 
     # Bottom row: PLM vs Binding Affinity
@@ -616,31 +621,28 @@ def plot_figure_2_double_dissociation(df_scores):
         ax = axes[1, col_idx]
         sub = df[df["compartment"] == comp].dropna(subset=["plm_z", "dms_bind_z"])
         rho, _ = stats.spearmanr(sub["plm_z"], sub["dms_bind_z"])
-        
-        ax.scatter(sub["plm_z"], sub["dms_bind_z"], color=comp_colors[comp], alpha=0.25, s=14, edgecolors="none")
-        
+
+        ax.scatter(sub["plm_z"], sub["dms_bind_z"], color=comp_colors[comp], alpha=0.22, s=12, edgecolors="none")
         m, b = np.polyfit(sub["plm_z"], sub["dms_bind_z"], 1)
         x_line = np.linspace(-3.5, 3.5, 100)
-        ax.plot(x_line, m * x_line + b, color="#111111" if comp != "Interface" else "#d62728", 
-                lw=2, linestyle="-" if comp != "Interface" else "--")
+        ax.plot(x_line, m * x_line + b, color="#dc2626" if comp == "Interface" else "#1e293b",
+                lw=1.8, linestyle="--" if comp == "Interface" else "-")
 
-        title_text = f"{comp} Compartment ($N={len(sub):,}$)\nPLM vs. Complex Binding"
-        if comp == "Interface":
-            title_text += " [SELECTIVE COLLAPSE]"
-        ax.set_title(title_text, fontsize=11, fontweight="bold", color="#111111" if comp != "Interface" else "#a31415")
-        
+        ax.text(-0.10, 1.06, panel_labels[1][col_idx], transform=ax.transAxes, fontsize=12, fontweight="bold", va="top")
+        ax.set_title(f"{comp} ({comp_ns[comp]})\nComplex Binding", fontsize=10, fontweight="bold",
+                     color="#dc2626" if comp == "Interface" else "#1e293b", pad=6)
         ax.text(0.05, 0.90, f"Spearman $\\rho = {rho:+.3f}$", transform=ax.transAxes,
-                fontsize=10.5, fontweight="bold", color="#a31415" if comp == "Interface" else "#111111",
-                bbox=dict(boxstyle="round,pad=0.3", fc="#fdf2f2" if comp == "Interface" else "white", 
-                          ec="#d62728" if comp == "Interface" else "#999999", alpha=0.9))
-        ax.set_xlabel("ESMC-6B Zero-Shot Score ($z$-score)")
-        ax.set_ylabel("Complex Binding ($z$-score)" if col_idx == 0 else "")
+                fontsize=9.5, fontweight="bold", color="#dc2626" if comp == "Interface" else "#1e293b",
+                bbox=dict(boxstyle="round,pad=0.25", fc="#fef2f2" if comp == "Interface" else "white",
+                          ec="#fca5a5" if comp == "Interface" else "#cbd5e1", lw=0.8, alpha=0.95))
+        ax.set_xlabel("ESMC-6B Zero-Shot Score ($z$-score)", fontsize=10)
+        ax.set_ylabel("Complex Binding ($z$-score)" if col_idx == 0 else "", fontsize=10)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
         ax.grid(True)
 
     axes[0, 0].set_xlim(-3.8, 3.8)
     axes[0, 0].set_ylim(-3.8, 3.8)
-    fig.suptitle("Double-Dissociation: Zero-Shot PLM Predictions vs. Monomer Abundance and Binding (N = 10,643)",
-                 fontsize=13, fontweight="bold", y=0.99)
     plt.tight_layout()
     out_path = DOCS_FIGS_DIR / "02_double_dissociation_scatter.png"
     plt.savefig(out_path, dpi=300, bbox_inches="tight")
@@ -653,7 +655,7 @@ def plot_figure_2_double_dissociation(df_scores):
 # -----------------------------------------------------------------------------
 def plot_figure_3_mediation_forest(mediation_data):
     """Figure 3: Forest plot of marginal vs partial rank correlations across models and compartments."""
-    fig, ax = plt.subplots(figsize=(10, 6.5), dpi=300)
+    fig, ax = plt.subplots(figsize=(9.5, 6.0), dpi=300)
 
     models = ["esm2-650m", "esm2-3b", "esmc-600m", "esmc-6b"]
     model_labels = {
@@ -662,17 +664,14 @@ def plot_figure_3_mediation_forest(mediation_data):
         "esmc-600m": "ESMC-600M",
         "esmc-6b": "ESMC-6B",
     }
-    
     compartments = ["Core", "Surface", "Interface"]
-    
-    # Structure y positions
+
     y_positions = []
     labels = []
-    
     marginal_rhos = []
     partial_rhos = []
     colors = []
-    
+
     current_y = 0
     for model in reversed(models):
         m_data = mediation_data[model]["compartments"]
@@ -681,49 +680,44 @@ def plot_figure_3_mediation_forest(mediation_data):
             marginal_rhos.append(c_info["rho_plm_binding"])
             partial_rhos.append(c_info["rho_partial_plm_binding_given_abundance"])
             colors.append(PALETTE[comp])
-            labels.append(f"{model_labels[model]}  |  {comp} ($N={c_info['n']:,}$)")
+            labels.append(f"{model_labels[model]}  \u2502  {comp} ($N={c_info['n']:,}$)")
             y_positions.append(current_y)
             current_y += 1
-        current_y += 0.8  # gap between models
+        current_y += 0.7  # gap between models
 
     y_pos = np.array(y_positions)
-    
-    # Zero line
-    ax.axvline(0, color="#444444", linestyle="--", lw=1.2, alpha=0.85)
+    ax.axvline(0, color="#64748b", linestyle="--", lw=1.0, alpha=0.8)
 
-    # Plot arrows / links from marginal to partial correlation
     for i in range(len(y_pos)):
         y = y_pos[i]
         m_rho = marginal_rhos[i]
         p_rho = partial_rhos[i]
-        
-        # Link line
-        ax.plot([m_rho, p_rho], [y, y], color="#888888", lw=1.5, zorder=2)
-        # Marginal point (Open circle)
-        ax.scatter(m_rho, y, color="white", edgecolors=colors[i], s=70, lw=2, zorder=3, label="Marginal $\\rho(\\text{PLM}, \\text{Binding})$" if i == 0 else "")
-        # Partial point (Filled square)
-        ax.scatter(p_rho, y, color=colors[i], marker="s", s=65, zorder=4, label="Partial $\\rho(\\text{PLM}, \\text{Binding} \\mid \\text{Abundance})$" if i == 0 else "")
-        
-        # Text annotation for interface rows
+
+        ax.plot([m_rho, p_rho], [y, y], color="#94a3b8", lw=1.4, zorder=2)
+        ax.scatter(m_rho, y, color="white", edgecolors=colors[i], s=60, lw=1.8, zorder=3,
+                   label="Marginal $\\rho(\\mathrm{PLM}, \\mathrm{Binding})$" if i == 0 else "")
+        ax.scatter(p_rho, y, color=colors[i], marker="s", s=55, zorder=4,
+                   label="Partial $\\rho(\\mathrm{PLM}, \\mathrm{Binding} \\mid \\mathrm{Abundance})$" if i == 0 else "")
+
         if "Interface" in labels[i]:
             drop_str = f"$\\Delta = {p_rho - m_rho:+.2f}$"
-            ax.text(min(m_rho, p_rho) - 0.02, y, drop_str, va="center", ha="right", fontsize=8.5, fontweight="bold", color="#d62728")
+            ax.text(min(m_rho, p_rho) - 0.02, y, drop_str, va="center", ha="right", fontsize=8.0,
+                    fontweight="bold", color="#dc2626")
 
     ax.set_yticks(y_pos)
-    ax.set_yticklabels(labels, fontsize=9.5)
-    ax.set_xlabel("Spearman Rank Correlation ($\\rho$)", fontsize=11, fontweight="bold")
-    ax.set_title("Mediation Analysis: Controlling for Monomer Abundance Collapses Interface Predictive Power",
-                 fontsize=12, fontweight="bold", pad=12)
-    
-    # Custom legend
+    ax.set_yticklabels(labels, fontsize=9.0)
+    ax.set_xlabel("Spearman Rank Correlation ($\\rho$)", fontsize=10.5, fontweight="bold")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
     custom_lines = [
-        plt.Line2D([0], [0], marker='o', color='white', markeredgecolor='#333333', markeredgewidth=2, markersize=8, label='Marginal: $\\rho(\\text{PLM}, \\text{Binding})$'),
-        plt.Line2D([0], [0], marker='s', color='#333333', markersize=8, label='Partial: $\\rho(\\text{PLM}, \\text{Binding} \\mid \\text{Abundance})$'),
-        patches.Patch(color=PALETTE['Core'], label='Core Compartment'),
-        patches.Patch(color=PALETTE['Surface'], label='Surface Compartment'),
-        patches.Patch(color=PALETTE['Interface'], label='Quaternary Interface'),
+        plt.Line2D([0], [0], marker="o", color="white", markeredgecolor="#334155", markeredgewidth=1.8, markersize=7, label="Marginal: $\\rho(\\mathrm{PLM}, \\mathrm{Binding})$"),
+        plt.Line2D([0], [0], marker="s", color="#334155", markersize=7, label="Partial: $\\rho(\\mathrm{PLM}, \\mathrm{Binding} \\mid \\mathrm{Abundance})$"),
+        patches.Patch(color=PALETTE["Core"], label="Core"),
+        patches.Patch(color=PALETTE["Surface"], label="Surface"),
+        patches.Patch(color=PALETTE["Interface"], label="Quaternary Interface"),
     ]
-    ax.legend(handles=custom_lines, loc="lower right", framealpha=0.95, facecolor="white", edgecolor="#cccccc")
+    ax.legend(handles=custom_lines, loc="lower right", framealpha=0.95, facecolor="white", edgecolor="#cbd5e1", fontsize=8.5)
     ax.set_xlim(-0.15, 0.48)
     ax.grid(True, axis="x")
 
@@ -739,20 +733,16 @@ def plot_figure_3_mediation_forest(mediation_data):
 # -----------------------------------------------------------------------------
 def plot_figure_4_scaling_collapse(test_data, mediation_data):
     """Figure 4: Tracking interface correlation collapse and widening gap across parameter scales."""
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5.2), dpi=300)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.8), dpi=300)
 
-    # Models ordered by parameter count: ESMC-600M (600M), ESM2-650M (650M), ESM2-3B (2.84B), ESMC-6B (6.35B)
     scale_models = [
-        {"id": "esmc-600m", "name": "ESMC\n600M", "params": 0.60, "family": "ESMC", "color": PALETTE["ESMC-600M"]},
-        {"id": "esm2-650m", "name": "ESM2\n650M", "params": 0.65, "family": "ESM2", "color": PALETTE["ESM2-650M"]},
-        {"id": "esm2-3b",   "name": "ESM2\n2.84B", "params": 2.84, "family": "ESM2", "color": PALETTE["ESM2-3B"]},
-        {"id": "esmc-6b",   "name": "ESMC\n6.35B", "params": 6.35, "family": "ESMC", "color": PALETTE["ESMC-6B"]},
+        {"id": "esmc-600m", "name": "ESMC\n600M", "params": 0.60, "family": "ESMC"},
+        {"id": "esm2-650m", "name": "ESM2\n650M", "params": 0.65, "family": "ESM2"},
+        {"id": "esm2-3b",   "name": "ESM2\n2.84B", "params": 2.84, "family": "ESM2"},
+        {"id": "esmc-6b",   "name": "ESMC\n6.35B", "params": 6.35, "family": "ESMC"},
     ]
 
     names = [m["name"] for m in scale_models]
-    params = [m["params"] for m in scale_models]
-    
-    # Retrieve interface abundance and binding correlations from test_*.json
     rho_abund = []
     rho_bind = []
     drop_pct = []
@@ -765,47 +755,50 @@ def plot_figure_4_scaling_collapse(test_data, mediation_data):
         rho_abund.append(ra)
         rho_bind.append(rb)
         drop_pct.append((rb - ra) / ra * 100)
-        
+
         rp = mediation_data[m["id"]]["compartments"]["Interface"]["rho_partial_plm_binding_given_abundance"]
         rho_partial.append(rp)
 
     x = np.arange(len(scale_models))
 
     # Panel A: Absolute Correlations
-    ax1.plot(x, rho_abund, marker="o", lw=2.5, markersize=8, color=PALETTE["Abundance"], label="Interface Monomer Abundance ($\\rho$)")
-    ax1.plot(x, rho_bind, marker="s", lw=2.5, markersize=8, color=PALETTE["Binding"], label="Interface Complex Binding ($\\rho$)")
-    ax1.plot(x, rho_partial, marker="^", lw=2.2, linestyle="--", markersize=8, color=PALETTE["Partial"], label="Partial Interface $\\rho(\\text{PLM}, \\text{Bind} \\mid \\text{Abund})$")
+    ax1.text(-0.12, 1.05, "a", transform=ax1.transAxes, fontsize=13, fontweight="bold", va="top")
+    ax1.plot(x, rho_abund, marker="o", lw=2.2, markersize=7, color=PALETTE["Abundance"], label="Interface Monomer Abundance ($\\rho$)")
+    ax1.plot(x, rho_bind, marker="s", lw=2.2, markersize=7, color=PALETTE["Binding"], label="Interface Complex Binding ($\\rho$)")
+    ax1.plot(x, rho_partial, marker="^", lw=2.0, linestyle="--", markersize=7, color=PALETTE["Partial"], label="Partial Interface $\\rho(\\mathrm{PLM}, \\mathrm{Bind} \\mid \\mathrm{Abund})$")
 
     for i in range(len(x)):
-        ax1.text(x[i], rho_abund[i] + 0.025, f"{rho_abund[i]:.3f}", ha="center", fontsize=9, fontweight="bold", color=PALETTE["Abundance"])
-        ax1.text(x[i], rho_bind[i] - 0.035, f"{rho_bind[i]:.3f}", ha="center", fontsize=9, fontweight="bold", color=PALETTE["Binding"])
-        ax1.text(x[i], rho_partial[i] - 0.035, f"{rho_partial[i]:.3f}", ha="center", fontsize=9, fontweight="bold", color=PALETTE["Partial"])
+        ax1.text(x[i], rho_abund[i] + 0.025, f"{rho_abund[i]:.3f}", ha="center", fontsize=8.5, fontweight="bold", color=PALETTE["Abundance"])
+        ax1.text(x[i], rho_bind[i] - 0.035, f"{rho_bind[i]:.3f}", ha="center", fontsize=8.5, fontweight="bold", color=PALETTE["Binding"])
+        ax1.text(x[i], rho_partial[i] - 0.035, f"{rho_partial[i]:.3f}", ha="center", fontsize=8.5, fontweight="bold", color=PALETTE["Partial"])
 
     ax1.set_xticks(x)
-    ax1.set_xticklabels(names, fontsize=10)
-    ax1.set_ylabel("Spearman Rank Correlation ($\\rho$)", fontsize=11, fontweight="bold")
-    ax1.set_title("A   Interface Correlations across Parameter Scale", loc="left", fontweight="bold")
-    ax1.set_ylim(-0.45, 0.50)
-    ax1.axhline(0, color="#666666", linestyle=":", lw=1)
+    ax1.set_xticklabels(names, fontsize=9.5)
+    ax1.set_ylabel("Spearman Rank Correlation ($\\rho$)", fontsize=10.5, fontweight="bold")
+    ax1.set_ylim(-0.15, 0.50)
+    ax1.axhline(0, color="#64748b", linestyle=":", lw=0.9)
+    ax1.spines["top"].set_visible(False)
+    ax1.spines["right"].set_visible(False)
     ax1.grid(True)
-    ax1.legend(loc="lower left", fontsize=9, framealpha=0.95)
+    ax1.legend(loc="lower left", fontsize=8.5, framealpha=0.95, edgecolor="#cbd5e1")
 
     # Panel B: Drop Percentage / Widening Defect
-    bars = ax2.bar(x, drop_pct, color=["#edc948", "#4e79a7", "#59a14f", "#e15759"], width=0.55, edgecolor="#333333", lw=1.2)
+    ax2.text(-0.12, 1.05, "b", transform=ax2.transAxes, fontsize=13, fontweight="bold", va="top")
+    model_bar_colors = [PALETTE["ESMC-600M"], PALETTE["ESM2-650M"], PALETTE["ESM2-3B"], PALETTE["ESMC-6B"]]
+    bars = ax2.bar(x, drop_pct, color=model_bar_colors, width=0.52, edgecolor="#334155", lw=1.0)
     for bar, dp in zip(bars, drop_pct):
         y_val = bar.get_height()
-        ax2.text(bar.get_x() + bar.get_width()/2, y_val - 4.5, f"{dp:.1f}%", ha="center", va="top",
-                 fontsize=10, fontweight="bold", color="white" if abs(y_val) > 40 else "#222222")
+        ax2.text(bar.get_x() + bar.get_width() / 2, y_val - 4.5, f"{dp:.1f}%", ha="center", va="top",
+                 fontsize=9.0, fontweight="bold", color="white" if abs(y_val) > 40 else "#1e293b")
 
     ax2.set_xticks(x)
-    ax2.set_xticklabels(names, fontsize=10)
-    ax2.set_ylabel("Relative Correlation Collapse ($\\Delta\\rho / \\rho_{\\text{abund}}$ %)", fontsize=11, fontweight="bold")
-    ax2.set_title("B   Selective Interface Collapse Worsens with Scale", loc="left", fontweight="bold")
+    ax2.set_xticklabels(names, fontsize=9.5)
+    ax2.set_ylabel("Relative Interface Collapse ($\\Delta\\rho / \\rho_{\\mathrm{abund}}$ %)", fontsize=10.5, fontweight="bold")
     ax2.set_ylim(-95, 0)
+    ax2.spines["top"].set_visible(False)
+    ax2.spines["right"].set_visible(False)
     ax2.grid(True, axis="y")
 
-    fig.suptitle("Scaling Aggravates the Confound: Scaling Parameters Does Not Repair Interface Blindspots",
-                 fontsize=12.5, fontweight="bold", y=0.98)
     plt.tight_layout()
     out_path = DOCS_FIGS_DIR / "04_model_scaling_collapse.png"
     plt.savefig(out_path, dpi=300, bbox_inches="tight")
@@ -818,20 +811,19 @@ def plot_figure_4_scaling_collapse(test_data, mediation_data):
 # -----------------------------------------------------------------------------
 def plot_figure_5_evolutionary_regimes(evo_data):
     """Figure 5: Comparing Homooligomer anti-correlation vs Natural Heterodimer vs Synthetic Binders."""
-    fig, ax = plt.subplots(figsize=(11, 5.8), dpi=300)
+    fig, ax = plt.subplots(figsize=(10, 5.2), dpi=300)
 
-    # Focus on ESMC-6B arm across the 3 regimes at Interface residues
     arm = "esmc-6b"
     classes = evo_data["arms"][arm]["classes"]
 
     regimes = [
-        ("Homooligomer", "Class 1: Homooligomer\n(p53 / 1OLG, $N=513$)", PALETTE["Homooligomer"]),
+        ("Homooligomer", "Class 1: Homooligomer\n(p53, $N=513$)", PALETTE["Homooligomer"]),
         ("Natural_Heterodimer", "Class 2: Natural Heterodimer\n(HLA-A2, GB1, $N=1,011$)", PALETTE["Natural_Heterodimer"]),
         ("Synthetic_CrossSpecies", "Class 3: Synthetic / De Novo\n(KRAS, Spike RBD, $N=738$)", PALETTE["Synthetic_CrossSpecies"]),
     ]
 
     x = np.arange(len(regimes))
-    width = 0.26
+    width = 0.24
 
     rho_abund = []
     rho_bind = []
@@ -843,41 +835,38 @@ def plot_figure_5_evolutionary_regimes(evo_data):
         rho_bind.append(int_c["rho_plm_binding"])
         rho_part.append(int_c["rho_partial_plm_binding_given_abundance"])
 
-    b1 = ax.bar(x - width, rho_abund, width, label="Monomer Abundance $\\rho(\\text{PLM}, \\text{Abund})$", color=PALETTE["Abundance"], edgecolor="#333333", lw=1)
-    b2 = ax.bar(x, rho_bind, width, label="Complex Binding $\\rho(\\text{PLM}, \\text{Bind})$", color=PALETTE["Binding"], edgecolor="#333333", lw=1)
-    b3 = ax.bar(x + width, rho_part, width, label="Partial Binding $\\rho(\\text{PLM}, \\text{Bind} \\mid \\text{Abund})$", color=PALETTE["Partial"], edgecolor="#333333", lw=1)
+    b1 = ax.bar(x - width, rho_abund, width, label="Monomer Abundance $\\rho(\\mathrm{PLM}, \\mathrm{Abund})$", color=PALETTE["Abundance"], edgecolor="#334155", lw=0.9)
+    b2 = ax.bar(x, rho_bind, width, label="Complex Binding $\\rho(\\mathrm{PLM}, \\mathrm{Bind})$", color=PALETTE["Binding"], edgecolor="#334155", lw=0.9)
+    b3 = ax.bar(x + width, rho_part, width, label="Partial Binding $\\rho(\\mathrm{PLM}, \\mathrm{Bind} \\mid \\mathrm{Abund})$", color=PALETTE["Partial"], edgecolor="#334155", lw=0.9)
 
-    # Value labels
     for bars in [b1, b2, b3]:
         for bar in bars:
             h = bar.get_height()
             offset = 0.02 if h >= 0 else -0.04
             va = "bottom" if h >= 0 else "top"
-            ax.text(bar.get_x() + bar.get_width()/2, h + offset, f"{h:+.2f}", ha="center", va=va, fontsize=9, fontweight="bold")
+            ax.text(bar.get_x() + bar.get_width() / 2, h + offset, f"{h:+.2f}", ha="center", va=va, fontsize=8.5, fontweight="bold")
 
     ax.set_xticks(x)
-    ax.set_xticklabels([r[1] for r in regimes], fontsize=10.5, fontweight="bold")
-    ax.set_ylabel("Spearman Rank Correlation ($\\rho$)", fontsize=11, fontweight="bold")
-    ax.set_title("Evolutionary PPI Stratification (ESMC-6B, Interface Residues N = 2,262):\n"
-                 "Self-Co-occurrence in Homooligomers Fails to Rescue Zero-Shot Interface Energetics",
-                 fontsize=12, fontweight="bold", pad=14)
-    ax.axhline(0, color="#444444", linestyle="-", lw=1.2)
+    ax.set_xticklabels([r[1] for r in regimes], fontsize=9.5, fontweight="bold")
+    ax.set_ylabel("Spearman Rank Correlation ($\\rho$)", fontsize=10.5, fontweight="bold")
+    ax.axhline(0, color="#475569", linestyle="-", lw=1.0)
     ax.set_ylim(-0.68, 0.70)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
     ax.grid(True, axis="y")
-    ax.legend(loc="upper right", framealpha=0.95, fontsize=9.5)
+    ax.legend(loc="upper right", framealpha=0.95, fontsize=8.5, edgecolor="#cbd5e1")
 
-    # Explanatory annotations
-    ax.annotate("Homomer: Severe anti-correlation\n$\\rho = -0.57$, $\\rho_{\\text{partial}} = -0.51$\nSequence self-co-occurrence fails",
-                xy=(0, -0.57), xytext=(0.05, -0.45),
-                arrowprops=dict(arrowstyle="->", lw=1.5, color="#521b80"),
-                fontsize=8.5, fontweight="bold", color="#521b80",
-                bbox=dict(boxstyle="round,pad=0.3", fc="#f7f2fc", ec="#9467bd", lw=1))
+    ax.annotate("Homomer: Anti-correlation\n$\\rho = -0.57$, $\\rho_{\\mathrm{partial}} = -0.51$",
+                xy=(0, -0.57), xytext=(0.04, -0.42),
+                arrowprops=dict(arrowstyle="->", lw=1.2, color="#6d28d9"),
+                fontsize=8.0, fontweight="bold", color="#6d28d9",
+                bbox=dict(boxstyle="round,pad=0.25", fc="#f5f3ff", ec="#c4b5fd", lw=0.8))
 
-    ax.annotate("Heterodimer: Apparent binding\nis mediated by monomer folding\n($\\rho_{\\text{partial}} \\to +0.05$)",
+    ax.annotate("Heterodimer: Binding mediated\nby folding ($\\rho_{\\mathrm{partial}} = +0.05$)",
                 xy=(1 + width, 0.05), xytext=(1.15, 0.35),
-                arrowprops=dict(arrowstyle="->", lw=1.5, color="#1b6e1b"),
-                fontsize=8.5, fontweight="bold", color="#1b6e1b",
-                bbox=dict(boxstyle="round,pad=0.3", fc="#f2f9f2", ec="#2ca02c", lw=1))
+                arrowprops=dict(arrowstyle="->", lw=1.2, color="#047857"),
+                fontsize=8.0, fontweight="bold", color="#047857",
+                bbox=dict(boxstyle="round,pad=0.25", fc="#f0fdf4", ec="#86efac", lw=0.8))
 
     plt.tight_layout()
     out_path = DOCS_FIGS_DIR / "05_evolutionary_regimes.png"
@@ -891,7 +880,7 @@ def plot_figure_5_evolutionary_regimes(evo_data):
 # -----------------------------------------------------------------------------
 def plot_figure_6_binder_filter(binder_data):
     """Figure 6: False-negative rate and interface depletion curves across filter thresholds."""
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5.2), dpi=300)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.8), dpi=300)
 
     models = ["esm2-650m", "esm2-3b", "esmc-600m", "esmc-6b"]
     model_labels = {
@@ -910,48 +899,48 @@ def plot_figure_6_binder_filter(binder_data):
     thresholds = [10, 20, 30, 50]
 
     # Panel A: Interface False-Negative Rate (FNR)
+    ax1.text(-0.12, 1.05, "a", transform=ax1.transAxes, fontsize=13, fontweight="bold", va="top")
     for model in models:
         sim = binder_data["filter_simulations"][model]["thresholds_simulation"]
         fnr = [s["interface_false_negative_rate"] * 100 for s in sim]
-        ax1.plot(thresholds, fnr, marker="o", lw=2.2, label=model_labels[model], color=model_colors[model])
+        ax1.plot(thresholds, fnr, marker="o", lw=2.0, markersize=6, label=model_labels[model], color=model_colors[model])
 
-    # Highlight standard Top 20% filter
-    ax1.axvline(20, color="#d62728", linestyle="--", lw=1.5, alpha=0.7)
-    ax1.text(21, 55, "Standard Filter: Top 20%\n(Discards ~73% - 77%\nof True Interface Hits)", 
-             color="#a31415", fontsize=9, fontweight="bold",
-             bbox=dict(boxstyle="round,pad=0.3", fc="#fdf2f2", ec="#d62728", lw=1))
+    ax1.axvline(20, color="#dc2626", linestyle="--", lw=1.2, alpha=0.8)
+    ax1.text(21.5, 52, "Standard Filter: Top 20%\n(Discards ~73% \u2013 77%\nof Interface Hits)",
+             color="#991b1b", fontsize=8.0, fontweight="bold",
+             bbox=dict(boxstyle="round,pad=0.25", fc="#fef2f2", ec="#fca5a5", lw=0.8))
 
-    ax1.set_xlabel("Zero-Shot PLM Likelihood Filter Cutoff (Top X%)", fontsize=10.5, fontweight="bold")
-    ax1.set_ylabel("Interface False-Negative Rate (%)", fontsize=10.5, fontweight="bold")
-    ax1.set_title("A   True Interface Hits Discarded by Single-Chain Filter", loc="left", fontweight="bold")
+    ax1.set_xlabel("PLM Likelihood Filter Cutoff (Top X%)", fontsize=10.0, fontweight="bold")
+    ax1.set_ylabel("Interface False-Negative Rate (%)", fontsize=10.0, fontweight="bold")
     ax1.set_ylim(45, 100)
     ax1.set_xticks(thresholds)
+    ax1.spines["top"].set_visible(False)
+    ax1.spines["right"].set_visible(False)
     ax1.grid(True)
-    ax1.legend(loc="lower left", fontsize=9.5)
+    ax1.legend(loc="lower left", fontsize=8.5, edgecolor="#cbd5e1")
 
     # Panel B: Interface Depletion Rate
+    ax2.text(-0.12, 1.05, "b", transform=ax2.transAxes, fontsize=13, fontweight="bold", va="top")
     for model in models:
         sim = binder_data["filter_simulations"][model]["thresholds_simulation"]
         dep = [s["interface_depletion_rate"] * 100 for s in sim]
-        ax2.plot(thresholds, dep, marker="s", lw=2.2, label=model_labels[model], color=model_colors[model])
+        ax2.plot(thresholds, dep, marker="s", lw=2.0, markersize=6, label=model_labels[model], color=model_colors[model])
 
-    ax2.axvline(20, color="#d62728", linestyle="--", lw=1.5, alpha=0.7)
-    ax2.axhline(0, color="#666666", linestyle=":", lw=1)
-    ax2.set_xlabel("Zero-Shot PLM Likelihood Filter Cutoff (Top X%)", fontsize=10.5, fontweight="bold")
-    ax2.set_ylabel("Interface Depletion Rate vs. Non-Interface (%)", fontsize=10.5, fontweight="bold")
-    ax2.set_title("B   Depletion of Interface Mutations in Filtered Pool", loc="left", fontweight="bold")
+    ax2.axvline(20, color="#dc2626", linestyle="--", lw=1.2, alpha=0.8)
+    ax2.axhline(0, color="#64748b", linestyle=":", lw=0.9)
+    ax2.set_xlabel("PLM Likelihood Filter Cutoff (Top X%)", fontsize=10.0, fontweight="bold")
+    ax2.set_ylabel("Interface Depletion Rate vs. Non-Interface (%)", fontsize=10.0, fontweight="bold")
     ax2.set_xticks(thresholds)
+    ax2.spines["top"].set_visible(False)
+    ax2.spines["right"].set_visible(False)
     ax2.grid(True)
-    ax2.legend(loc="upper right", fontsize=9.5)
+    ax2.legend(loc="upper right", fontsize=8.5, edgecolor="#cbd5e1")
 
-    fig.suptitle("The 'PLM Filter Trap': Filtering Binder Candidates by Zero-Shot Likelihood Purges Affinity Improvements",
-                 fontsize=12.5, fontweight="bold", y=0.98)
     plt.tight_layout()
     out_path = DOCS_FIGS_DIR / "06_binder_filter_depletion.png"
     plt.savefig(out_path, dpi=300, bbox_inches="tight")
     plt.close()
     print(f"[saved] {out_path}")
-
 
 def main():
     print("=" * 78)

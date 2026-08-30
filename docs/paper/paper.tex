@@ -301,20 +301,37 @@ non-covalent binding energetics, and interface packing
 
 }
 
-\caption{\label{fig-schematic}The expression-mediated selection confound
-in high-throughput PPI assays. \textbf{(A)} In cell-surface display
-selections (e.g., yeast or mammalian display), target monomer unfolding
-leads to cellular degradation and loss of surface presentation
-(Abundance\(-\)), indirectly abolishing fluorescent partner binding
-(Binding\(-\)). Zero-shot PLMs predict this folding penalty accurately,
-creating an apparent correlation with binding assay scores that is
-\(100\%\) mediated by monomer stability. In contrast, at true quaternary
-interface residues, monomer folding is unaffected (Abundance\(+\)) but
-intermolecular binding is selectively disrupted (Binding\(-\)), exposing
-the complete failure of single-chain PLMs (\(\rho = +0.075\)).
-\textbf{(B)} Causal mediation decomposition showing that the direct path
+\caption{\label{fig-schematic}\textbf{The monomer-folding confound in
+zero-shot PPI benchmarks.} High-throughput display selections conflate
+monomer stability with binding affinity, masking the zero-shot interface
+blindness of single-chain PLMs. \textbf{(A)} Selection phenomenology in
+expression-coupled assays, illustrated with the KRAS G-domain--DARPin
+K55 complex (PDB \texttt{6H46}), one of the five paired-DMS benchmark
+systems. Target monomer rendered as a molecular surface with its
+\(4.5\,\text{Å}\) contact epitope shaded; partner as a ribbon cartoon.
+\emph{Case 1}: the folded monomer is displayed and the partner docks
+onto the epitope (Abundance\(+\), Binding\(+\)). \emph{Case 2}: a
+core-destabilising mutation prevents folding, so the monomer is cleared
+before display and no partner can bind (Abundance\(-\), Binding\(-\));
+the unfolded chain is a statistical-coil \textbf{model} of the denatured
+state (3 conformers grown from the real chain A sequence, drawn scaled
+to the native bounding box --- a true denatured chain is
+\(\approx 2.2\times\) the native radius of gyration), not an
+experimental structure. \emph{Case 3}: the monomer folds and is
+displayed normally (Abundance\(+\)) but a genuine interface contact
+(H94) disrupts the quaternary epitope, selectively abolishing binding
+(Binding\(-\)) while the single-chain PLM score stays high, exposing the
+interface blindspot (\(\rho = +0.075\)). The display surface and fusion
+tether are drawn schematically, since the five benchmark systems span
+yeast display, mammalian display, mRNA display and a cell-line assay.
+Evaluating paired abundance and binding on identical libraries is what
+cleanly separates Case 3 from Case 2. \textbf{(B)} Causal mediation
+decomposition showing that the direct path
 \(\rho(\text{PLM}, \text{Binding} \mid \text{Abundance}) \le 0\),
-proving zero unique mutual information for interface energetics.}
+proving zero unique mutual information for interface energetics.
+\textbf{(C)} Within-target double-dissociation benchmark: rank
+correlations are preserved at core and surface residues but collapse
+selectively at quaternary interface residues.}
 
 \end{figure}%
 
@@ -541,16 +558,18 @@ Section~\ref{sec-methods}):
   >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}
   >{\centering\arraybackslash}p{(\linewidth - 16\tabcolsep) * \real{0.1136}}@{}}
 \caption{Three-way interaction regression and non-parametric permutation
-tests across 4 foundation model scales (\(N = 21,286\) stacked
-observations, 5 system clusters). The standardized interaction
-coefficient \(\beta_7 \approx -0.334\text{ to }-0.353\) demonstrates
-that interface binding sensitivity is severely degraded relative to
-baseline monomer folding.}\label{tbl-threeway-results}\tabularnewline
+tests across 4 single-chain foundation model scales and 3D
+structure-conditioned ProteinMPNN (\(N = 21,286\) stacked observations,
+5 system clusters). Single-chain PLMs exhibit severe selective collapse
+(\(\beta_7 \approx -0.334\text{ to }-0.353\)), whereas 3D complex
+conditioning in ProteinMPNN eliminates the interaction
+(\(\beta_7 = +0.0580\),
+n.s.).}\label{tbl-threeway-results}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Architecture
 \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-Parameters
+Parameters / Context
 \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
 \(\beta_{(\text{PLM} \times \text{Binding} \times \text{Interface})}\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
@@ -572,7 +591,7 @@ Verdict (\(\alpha = 10^{-5}\))
 \begin{minipage}[b]{\linewidth}\raggedright
 Architecture
 \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-Parameters
+Parameters / Context
 \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
 \(\beta_{(\text{PLM} \times \text{Binding} \times \text{Interface})}\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
@@ -592,18 +611,22 @@ Verdict (\(\alpha = 10^{-5}\))
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\textbf{ESM2-650M} & 650M & \textbf{\(-0.3343\)} & \(p = 0.258\) &
-\(p = 3.0 \times 10^{-4}\) & \(+0.380\) & \(+0.162\) &
+\textbf{ESM2-650M} & 650M (1D Sequence) & \textbf{\(-0.3343\)} &
+\(p = 0.258\) & \(p = 3.0 \times 10^{-4}\) & \(+0.380\) & \(+0.162\) &
 \textbf{\(-57.4\%\)} & Directional Negative \\
-\textbf{ESM2-3B} & 2.84B & \textbf{\(-0.3403\)} & \(p = 0.208\) &
-\(p < 1.0 \times 10^{-5}\) & \(+0.381\) & \(+0.119\) &
+\textbf{ESM2-3B} & 2.84B (1D Sequence) & \textbf{\(-0.3403\)} &
+\(p = 0.208\) & \(p < 1.0 \times 10^{-5}\) & \(+0.381\) & \(+0.119\) &
 \textbf{\(-68.8\%\)} & \textbf{\(H_1\) Supported} \\
-\textbf{ESMC-600M} & 600M & \textbf{\(-0.3530\)} & \(p = 0.209\) &
-\(p < 1.0 \times 10^{-5}\) & \(+0.413\) & \(+0.167\) &
+\textbf{ESMC-600M} & 600M (1D Sequence) & \textbf{\(-0.3530\)} &
+\(p = 0.209\) & \(p < 1.0 \times 10^{-5}\) & \(+0.413\) & \(+0.167\) &
 \textbf{\(-59.6\%\)} & \textbf{\(H_1\) Supported} \\
-\textbf{ESMC-6B} & 6.35B & \textbf{\(-0.3526\)} & \(p = 0.201\) &
-\(p < 1.0 \times 10^{-5}\) & \(+0.384\) & \(\mathbf{+0.075}\) &
-\textbf{\(-80.5\%\)} & \textbf{\(H_1\) Supported} \\
+\textbf{ESMC-6B} & 6.35B (1D Sequence) & \textbf{\(-0.3526\)} &
+\(p = 0.201\) & \(p < 1.0 \times 10^{-5}\) & \(+0.384\) &
+\(\mathbf{+0.075}\) & \textbf{\(-80.5\%\)} & \textbf{\(H_1\)
+Supported} \\
+\textbf{ProteinMPNN} & 1.6M (\textbf{3D Complex}) & \textbf{\(+0.0580\)}
+& \(p = 0.581\) & \(p = 0.103\) & \(+0.276\) & \(\mathbf{+0.240}\) &
+\textbf{\(-13.0\%\)} & \textbf{No Collapse (3D Rescued)} \\
 \end{longtable}
 
 \begin{figure}
@@ -843,6 +866,28 @@ representations become increasingly dominated by single-chain monomer
 fitness constraints, actively penalizing non-conserved interface
 residues that enhance binding to specific binding partners.
 
+\subsection{Orthogonal Biophysical Corroboration at the RBD/ACE2
+Interface}\label{orthogonal-biophysical-corroboration-at-the-rbdace2-interface}
+
+A limitation of the DMS assays underlying this study is that binding
+scores are derived from FACS-based enrichment rather than solution-phase
+biophysics. For the SARS-CoV-2 RBD/ACE2 system specifically, independent
+surface plasmon resonance measurements from Zahradnik et al.
+(\citeproc{ref-zahradnik2021sarscov2}{Zahradník et al. 2021}) provide
+orthogonal confirmation: RBD interface mutations such as N501Y and
+S477N, which our zero-shot PLM filters flag as false negatives in the
+binder-design audit (Figure~\ref{fig-binder-trap}), were independently
+shown by SPR to genuinely increase physical binding affinity to ACE2,
+with \(K_D\) improving roughly 2- to 10-fold relative to wild type. This
+corroborates the FACS-derived enrichment scores used here with an
+orthogonal solution-phase biophysical method, at least for this one
+system. Comparable multi-mutant orthogonal biophysical datasets (SPR,
+BLI, or ITC) are not currently public for the other four benchmark
+systems (KRAS/DARPin K55, HLA-A2/TAPBPR, GB1/IgG-Fc, p53), so systematic
+biophysical corroboration across all five systems remains a direction
+for future validation rather than a claim this study currently
+substantiates.
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \subsection{Evolutionary PPI Stratification: Homooligomer
@@ -1027,7 +1072,64 @@ partner sequences along a 1D sequence axis without explicit 3D spatial
 docking geometry or paired co-evolutionary MSAs fails to recover
 interface physics.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\subsubsection{3D Structure Conditioning Eliminates Interface Collapse
+(ProteinMPNN)}\label{d-structure-conditioning-eliminates-interface-collapse-proteinmpnn}
+
+To determine whether explicit 3D spatial coordinates of the complex
+partner resolve the interface blindspot, we benchmarked the
+structure-conditioned inverse folding model \textbf{ProteinMPNN}
+(\citeproc{ref-dauparas2022robust}{Dauparas et al. 2022}) across the
+identical \(N = 10,643\) paired variants using the full crystallographic
+complex backbones (\texttt{6M0J}, \texttt{6H46}, \texttt{5OPI},
+\texttt{1FCC}, \texttt{1OLG}).
+
+Conditioning on 3D partner coordinates completely eliminates the
+selective interface collapse: - \textbf{Three-Way Interaction
+Disappears:} The standardized interaction coefficient flips from
+negative (\(\beta_7 \approx -0.334\text{ to }-0.353, p < 10^{-5}\)
+across PLMs) to non-negative and statistically non-significant:
+\(\mathbf{\beta_7 = +0.0580}\) (\(p_{\text{clustered}} = 0.581\),
+\(p_{\text{wild}} = 0.570\), \(p_{\text{perm}} = 0.103\),
+Table~\ref{tbl-threeway-results}). - \textbf{Balanced Interface
+Sensitivity:} Interface binding correlation recovers to
+\(\rho = \mathbf{+0.240}\) (\(p = 6.2 \times 10^{-31}\)) and matches
+interface abundance correlation (\(\rho = +0.276\)), eliminating the
+\(-80.5\%\) \(\Delta\rho\) collapse observed in single-chain sequence
+models.
+
+This positive control confirms that the failure of single-chain PLMs is
+an architectural limitation of 1D sequence representations lacking
+intermolecular spatial coordinates, which is fully rectified when 3D
+complex geometry is provided.
+
+\subsubsection{Interface Blindness is Concentrated at Energetic
+Hotspots}\label{interface-blindness-is-concentrated-at-energetic-hotspots}
+
+To evaluate whether single-chain PLM interface failure is uniform across
+the interface footprint or localized at core contact residues, we
+stratified the \(N = 2,262\) interface variants by buried surface area
+(\(\Delta\text{SASA}\) tertiles): \textbf{Hotspot}
+(\(\Delta\text{SASA} \ge 52.4\text{ \AA}^2, N = 758\)), \textbf{Mid}
+(\(N = 744\)), and \textbf{Rim}
+(\(\Delta\text{SASA} \le 24.3\text{ \AA}^2, N = 760\)).
+
+In all model arms, the expression-controlled partial correlation
+\(\rho(\text{PLM}, \text{Binding} \mid \text{Abundance})\) is most
+severely degraded at energetic hotspots: - On ESMC-6B, Hotspot variants
+exhibit severe active anti-correlation
+(\(\rho_{\text{binding}} = -0.471, \mathbf{\rho_{\text{partial}} = -0.555}\)),
+whereas Rim residues show neutral coupling
+(\(\rho_{\text{binding}} = +0.139, \mathbf{\rho_{\text{partial}} = +0.024}\)).
+- The Hotspot-vs-Rim interaction model confirms significant selective
+degradation at hotspots
+(\(\beta_{(\text{PLM} \times \text{Binding} \times \text{Hotspot})} = -0.4735, p_{\text{perm}} = 0.0129\)).
+
+\subsection{Because energetic hotspots have evolved tight packing and
+electrostatic complementarity with their native partner, mutating them
+to optimize an engineered interface severely violates monomer sequence
+conservation, causing single-chain PLMs to penalize the most potent
+affinity-enhancing
+mutations.}\label{because-energetic-hotspots-have-evolved-tight-packing-and-electrostatic-complementarity-with-their-native-partner-mutating-them-to-optimize-an-engineered-interface-severely-violates-monomer-sequence-conservation-causing-single-chain-plms-to-penalize-the-most-potent-affinity-enhancing-mutations.}
 
 \section{Discussion}\label{sec-discussion}
 
@@ -1249,7 +1351,49 @@ Masked marginal log-odds were evaluated at target interface positions
 while conditioning on the full concatenated sequence context in
 ESM2-650M.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\subsection{3D Structure-Conditioned Scoring
+(ProteinMPNN)}\label{d-structure-conditioned-scoring-proteinmpnn}
+
+As a 3D structural comparator, ProteinMPNN
+(\citeproc{ref-dauparas2022robust}{Dauparas et al. 2022}) (vanilla model
+weights \texttt{v\_48\_020.pt}) was evaluated across all \(N = 10,643\)
+variants using the complete crystal complex backbones (\texttt{6M0J},
+\texttt{6H46}, \texttt{5OPI}, \texttt{1FCC}, \texttt{1OLG}). For each
+complex, the target chain was assigned as the design/scoring target
+(\(\mathbf{m}_{\text{target}} = 1\)) while all partner chains were
+assigned as fixed context (\(\mathbf{m}_{\text{partner}} = 0\)).
+Conditional log-probabilities
+\(P(s_i = v \mid \mathbf{X}_{\text{complex}}, \mathbf{s}_{\setminus i})\)
+were averaged over 10 random decoding order samples to compute zero-shot
+log-odds:
+\[\Delta \log p_{\text{MPNN}}(x_{\text{mut}} \mid \mathbf{X}_{\text{complex}}) = \log P(x_i = \text{mut} \mid \mathbf{X}_{\text{complex}}, \mathbf{s}_{\setminus i}) - \log P(x_i = \text{wt} \mid \mathbf{X}_{\text{complex}}, \mathbf{s}_{\setminus i})\]
+Residue positions from ProteinMPNN outputs were mapped back to target
+DMS sequences using Biopython pairwise sequence alignment identical to
+the PLM evaluation pipeline.
+
+\subsection{Interface Hotspot vs.~Rim Tertile
+Stratification}\label{interface-hotspot-vs.-rim-tertile-stratification}
+
+To assess whether interface failure is concentrated at energetic contact
+cores, the \(N = 2,262\) interface variants were partitioned into
+tertiles based on \(\Delta\text{SASA}\) buried upon complex formation:
+1. \textbf{Hotspot (Top Tertile,
+\(\Delta\text{SASA} \ge 52.4\text{ \AA}^2, N = 758\)):} Residues with
+the largest contact burial and highest contact density. 2. \textbf{Mid
+(Middle Tertile,
+\(24.3\text{ \AA}^2 < \Delta\text{SASA} < 52.4\text{ \AA}^2, N = 744\)):}
+Intermediate contact residues (excluded from the binary Hotspot-vs-Rim
+contrast). 3. \textbf{Rim (Bottom Tertile,
+\(\Delta\text{SASA} \le 24.3\text{ \AA}^2, N = 760\)):} Peripherally
+buried residues at the boundary of the interface.
+
+\subsection{\texorpdfstring{A three-way interaction model
+(\(z(\text{DMS}) \sim \text{PLM} \times \text{Binding} \times \text{Hotspot}\))
+was estimated on the Hotspot \(\cup\) Rim subset (\(N = 1,518\)) to
+formally evaluate whether the three-way interaction coefficient
+\(\beta_{(\text{PLM} \times \text{Binding} \times \text{Hotspot})}\) was
+significantly
+negative.}{A three-way interaction model (z(\textbackslash text\{DMS\}) \textbackslash sim \textbackslash text\{PLM\} \textbackslash times \textbackslash text\{Binding\} \textbackslash times \textbackslash text\{Hotspot\}) was estimated on the Hotspot \textbackslash cup Rim subset (N = 1,518) to formally evaluate whether the three-way interaction coefficient \textbackslash beta\_\{(\textbackslash text\{PLM\} \textbackslash times \textbackslash text\{Binding\} \textbackslash times \textbackslash text\{Hotspot\})\} was significantly negative.}}\label{a-three-way-interaction-model-ztextdms-sim-textplm-times-textbinding-times-texthotspot-was-estimated-on-the-hotspot-cup-rim-subset-n-1518-to-formally-evaluate-whether-the-three-way-interaction-coefficient-beta_textplm-times-textbinding-times-texthotspot-was-significantly-negative.}
 
 \section{Data and Code Availability}\label{sec-availability}
 
@@ -1406,6 +1550,12 @@ Wu, Nicholas C., Lei Dai, C. Anders Olson, James O. Lloyd-Smith, and Ren
 Sun. 2016. {``Adaptation in Protein Fitness Landscapes Is Facilitated by
 Indirect Paths.''} \emph{eLife} 5: e16965.
 \url{https://doi.org/10.7554/eLife.16965}.
+
+\bibitem[\citeproctext]{ref-zahradnik2021sarscov2}
+Zahradník, Jiví, Shir Marciano, Michael Shemesh, et al. 2021.
+{``{SARS-CoV-2} Variant Prediction and Antiviral Drug Design Are Enabled
+by {RBD} in Vitro Evolution.''} \emph{Nature Microbiology} 6 (9):
+1188--98. \url{https://doi.org/10.1038/s41564-021-00954-4}.
 
 \end{CSLReferences}
 

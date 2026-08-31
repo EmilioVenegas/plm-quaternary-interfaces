@@ -1,11 +1,9 @@
 """Dataset loading and paired assay curation for the PLM PPI study."""
 
-from __future__ import annotations
-
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from enum import Enum
 from pathlib import Path
 from typing import Any
-
 import pandas as pd
 
 from plmppi.interfaces import get_system_compartments
@@ -28,6 +26,38 @@ class PPISystem:
     dms_binding: str
     description: str
 
+
+class InclusionStatus(str, Enum):
+    """Audited inclusion status of a benchmark PPI system."""
+
+    INCLUDED = "included"
+    CONDITIONAL = "conditional"
+    EXCLUDED = "excluded"
+
+
+class AssayMeasurementType(str, Enum):
+    """High-throughput selection assay readout categorization."""
+
+    DIRECT_SURFACE_EXPRESSION = "direct_surface_expression"
+    CELLULAR_ABUNDANCE_PROXY = "cellular_abundance_proxy"
+    DIRECT_BINDING_AFFINITY = "direct_binding_affinity"
+    FUNCTIONAL_VIABILITY_PROXY = "functional_viability_proxy"
+    CROSS_STUDY_BINDING_REPLICATE = "cross_study_binding_replicate"
+
+
+@dataclass(frozen=True)
+class SystemProvenance:
+    """Audited provenance, experimental design, and classification of a PPI system."""
+
+    system: PPISystem
+    status: InclusionStatus
+    abundance_type: AssayMeasurementType
+    binding_type: AssayMeasurementType
+    is_matched_library: bool
+    is_direct_expression_binding: bool
+    rationale: str
+    partner_names: tuple[str, ...] = ()
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 PRIMARY_SYSTEMS: tuple[PPISystem, ...] = (
     PPISystem(
@@ -81,6 +111,148 @@ PRIMARY_SYSTEMS: tuple[PPISystem, ...] = (
         description="p53 tumor suppressor homotetramer oligomerization domain",
     ),
 )
+
+
+PROVENANCE_REGISTRY: dict[str, SystemProvenance] = {
+    "SARS-CoV-2_RBD": SystemProvenance(
+        system=PRIMARY_SYSTEMS[0],
+        status=InclusionStatus.INCLUDED,
+        abundance_type=AssayMeasurementType.DIRECT_SURFACE_EXPRESSION,
+        binding_type=AssayMeasurementType.DIRECT_BINDING_AFFINITY,
+        is_matched_library=True,
+        is_direct_expression_binding=True,
+        rationale=(
+            "Direct FACS-measured yeast surface expression (anti-Myc) and ACE2-binding affinity "
+            "titration on the exact same mutant library, expression host, and FACS platform (Starr et al. 2020)."
+        ),
+        partner_names=("human ACE2",),
+    ),
+    "KRAS": SystemProvenance(
+        system=PRIMARY_SYSTEMS[1],
+        status=InclusionStatus.CONDITIONAL,
+        abundance_type=AssayMeasurementType.CELLULAR_ABUNDANCE_PROXY,
+        binding_type=AssayMeasurementType.DIRECT_BINDING_AFFINITY,
+        is_matched_library=True,
+        is_direct_expression_binding=True,
+        rationale=(
+            "Matched DHFR-PCA abundance reporter and DARPin K55 binding screen in yeast from the same study "
+            "(Weng et al. 2022). Phenotype is cell-growth-mediated selection requiring primary-source verification."
+        ),
+        partner_names=("DARPin K55",),
+    ),
+    "HLA-A2": SystemProvenance(
+        system=PRIMARY_SYSTEMS[2],
+        status=InclusionStatus.INCLUDED,
+        abundance_type=AssayMeasurementType.DIRECT_SURFACE_EXPRESSION,
+        binding_type=AssayMeasurementType.DIRECT_BINDING_AFFINITY,
+        is_matched_library=True,
+        is_direct_expression_binding=True,
+        rationale=(
+            "Direct dual-channel FACS yeast surface display measuring HLA-A*02:01 expression and TAPBPR "
+            "chaperone binding enrichment across the identical saturation library (McShan et al. 2019)."
+        ),
+        partner_names=("TAPBPR", "beta-2M"),
+    ),
+    "GB1": SystemProvenance(
+        system=PRIMARY_SYSTEMS[3],
+        status=InclusionStatus.EXCLUDED,
+        abundance_type=AssayMeasurementType.CROSS_STUDY_BINDING_REPLICATE,
+        binding_type=AssayMeasurementType.DIRECT_BINDING_AFFINITY,
+        is_matched_library=False,
+        is_direct_expression_binding=False,
+        rationale=(
+            "Cross-study merge combining an mRNA display IgG-Fc binding selection (Wu et al. 2016) "
+            "with a separate full-domain IgG-Fc binding screen (Olson et al. 2014) on distinct constructs. "
+            "Contains no monomer abundance or folding measurement."
+        ),
+        partner_names=("IgG Fc",),
+    ),
+    "p53": SystemProvenance(
+        system=PRIMARY_SYSTEMS[4],
+        status=InclusionStatus.EXCLUDED,
+        abundance_type=AssayMeasurementType.FUNCTIONAL_VIABILITY_PROXY,
+        binding_type=AssayMeasurementType.FUNCTIONAL_VIABILITY_PROXY,
+        is_matched_library=True,
+        is_direct_expression_binding=False,
+        rationale=(
+            "Cancer cell viability screen under Nutlin-3 in p53-null vs p53-WT A549 cells (Giacomelli et al. 2018). "
+            "Measures downstream dominant-negative transactivation rather than direct in vitro quaternary binding or monomer folding."
+        ),
+        partner_names=("p53 tetramer",),
+    ),
+}
+
+
+def get_system_registry() -> dict[str, SystemProvenance]:
+    """Returns the full provenance registry keyed by system_id."""
+    return dict(PROVENANCE_REGISTRY)
+
+
+def get_matched_cohort(
+    include_conditional: bool = False,
+    registry: dict[str, SystemProvenance] | None = None,
+) -> tuple[SystemProvenance, ...]:
+    """Returns only systems passing matched expression/binding provenance validation."""
+    reg = registry if registry is not None else PROVENANCE_REGISTRY
+    allowed = {InclusionStatus.INCLUDED}
+    if include_conditional:
+        allowed.add(InclusionStatus.CONDITIONAL)
+    return tuple(p for p in reg.values() if p.status in allowed)
+
+
+def get_legacy_cohort(
+    registry: dict[str, SystemProvenance] | None = None,
+) -> tuple[SystemProvenance, ...]:
+    """Returns all 5 historical systems for legacy replication, marked with provenance flags."""
+    reg = registry if registry is not None else PROVENANCE_REGISTRY
+    return tuple(reg.values())
+
+
+def audit_provenance_summary(
+    registry: dict[str, SystemProvenance] | None = None,
+) -> pd.DataFrame:
+    """Emits an auditable DataFrame of systems, statuses, assay types, and exclusion rationales."""
+    reg = registry if registry is not None else PROVENANCE_REGISTRY
+    rows = []
+    for record in reg.values():
+        rows.append(
+            {
+                "system_id": record.system.system_id,
+                "target_name": record.system.target_name,
+                "pdb_id": record.system.pdb_id,
+                "inclusion_status": record.status.value,
+                "abundance_dms_id": record.system.dms_abundance,
+                "binding_dms_id": record.system.dms_binding,
+                "abundance_assay_type": record.abundance_type.value,
+                "binding_assay_type": record.binding_type.value,
+                "matched_library": record.is_matched_library,
+                "direct_match": record.is_direct_expression_binding,
+                "rationale": record.rationale,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def validate_registry_invariants(
+    registry: dict[str, SystemProvenance] | None = None,
+) -> list[str]:
+    """Performs integrity checks and returns any constraint violation messages (empty if valid)."""
+    reg = registry if registry is not None else PROVENANCE_REGISTRY
+    errors = []
+    for sys_id, record in reg.items():
+        if sys_id != record.system.system_id:
+            errors.append(f"Key mismatch: {sys_id} vs {record.system.system_id}")
+        if not record.rationale or len(record.rationale.strip()) < 10:
+            errors.append(f"Missing rationale for {sys_id}")
+        if record.status == InclusionStatus.INCLUDED:
+            if not record.is_matched_library:
+                errors.append(f"INCLUDED system {sys_id} must have is_matched_library=True")
+            if not record.is_direct_expression_binding:
+                errors.append(f"INCLUDED system {sys_id} must have is_direct_expression_binding=True")
+        if record.status == InclusionStatus.EXCLUDED:
+            if record.is_direct_expression_binding and record.is_matched_library:
+                errors.append(f"EXCLUDED system {sys_id} has both matched flags True without conditional tag")
+    return errors
 
 
 def load_reference(ref_path: Path = PROTEINGYM_REF_PATH) -> pd.DataFrame:

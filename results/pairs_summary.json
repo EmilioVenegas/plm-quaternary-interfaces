@@ -50,5 +50,90 @@
         "Surface": 285
       }
     }
+  },
+  "provenance_audit": [
+    {
+      "system_id": "SARS-CoV-2_RBD",
+      "target_name": "Spike RBD",
+      "pdb_id": "6M0J",
+      "inclusion_status": "included",
+      "abundance_dms_id": "SPIKE_SARS2_Starr_2020_expression",
+      "binding_dms_id": "SPIKE_SARS2_Starr_2020_binding",
+      "abundance_assay_type": "direct_surface_expression",
+      "binding_assay_type": "direct_binding_affinity",
+      "matched_library": true,
+      "direct_match": true,
+      "rationale": "Direct FACS-measured yeast surface expression (anti-Myc) and ACE2-binding affinity titration on the exact same mutant library, expression host, and FACS platform (Starr et al. 2020)."
+    },
+    {
+      "system_id": "KRAS",
+      "target_name": "KRAS G-domain",
+      "pdb_id": "6H46",
+      "inclusion_status": "conditional",
+      "abundance_dms_id": "RASK_HUMAN_Weng_2022_abundance",
+      "binding_dms_id": "RASK_HUMAN_Weng_2022_binding-DARPin_K55",
+      "abundance_assay_type": "cellular_abundance_proxy",
+      "binding_assay_type": "direct_binding_affinity",
+      "matched_library": true,
+      "direct_match": true,
+      "rationale": "Matched DHFR-PCA abundance reporter and DARPin K55 binding screen in yeast from the same study (Weng et al. 2022). Phenotype is cell-growth-mediated selection requiring primary-source verification."
+    },
+    {
+      "system_id": "HLA-A2",
+      "target_name": "HLA-A*02:01",
+      "pdb_id": "5OPI",
+      "inclusion_status": "included",
+      "abundance_dms_id": "Q53Z42_HUMAN_McShan_2019_expression",
+      "binding_dms_id": "Q53Z42_HUMAN_McShan_2019_binding-TAPBPR",
+      "abundance_assay_type": "direct_surface_expression",
+      "binding_assay_type": "direct_binding_affinity",
+      "matched_library": true,
+      "direct_match": true,
+      "rationale": "Direct dual-channel FACS yeast surface display measuring HLA-A*02:01 expression and TAPBPR chaperone binding enrichment across the identical saturation library (McShan et al. 2019)."
+    },
+    {
+      "system_id": "GB1",
+      "target_name": "Protein G B1 domain",
+      "pdb_id": "1FCC",
+      "inclusion_status": "excluded",
+      "abundance_dms_id": "SPG1_STRSG_Wu_2016",
+      "binding_dms_id": "SPG1_STRSG_Olson_2014",
+      "abundance_assay_type": "cross_study_binding_replicate",
+      "binding_assay_type": "direct_binding_affinity",
+      "matched_library": false,
+      "direct_match": false,
+      "rationale": "Cross-study merge combining an mRNA display IgG-Fc binding selection (Wu et al. 2016) with a separate full-domain IgG-Fc binding screen (Olson et al. 2014) on distinct constructs. Contains no monomer abundance or folding measurement."
+    },
+    {
+      "system_id": "p53",
+      "target_name": "p53 tetramerization domain",
+      "pdb_id": "1OLG",
+      "inclusion_status": "excluded",
+      "abundance_dms_id": "P53_HUMAN_Giacomelli_2018_Null_Nutlin",
+      "binding_dms_id": "P53_HUMAN_Giacomelli_2018_WT_Nutlin",
+      "abundance_assay_type": "functional_viability_proxy",
+      "binding_assay_type": "functional_viability_proxy",
+      "matched_library": true,
+      "direct_match": false,
+      "rationale": "Cancer cell viability screen under Nutlin-3 in p53-null vs p53-WT A549 cells (Giacomelli et al. 2018). Measures downstream dominant-negative transactivation rather than direct in vitro quaternary binding or monomer folding."
+    }
+  ],
+  "cohorts": {
+    "strict_matched": [
+      "SARS-CoV-2_RBD",
+      "HLA-A2"
+    ],
+    "conditional_matched": [
+      "SARS-CoV-2_RBD",
+      "KRAS",
+      "HLA-A2"
+    ],
+    "legacy_all": [
+      "SARS-CoV-2_RBD",
+      "KRAS",
+      "HLA-A2",
+      "GB1",
+      "p53"
+    ]
   }
 }

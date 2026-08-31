@@ -11,9 +11,13 @@ from pathlib import Path
 # Ensure src/ is on sys.path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
-
-from plmppi.data import PRIMARY_SYSTEMS, build_all_pairs, load_reference
-
+from plmppi.data import (
+    PRIMARY_SYSTEMS,
+    audit_provenance_summary,
+    build_all_pairs,
+    get_matched_cohort,
+    load_reference,
+)
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
@@ -81,6 +85,15 @@ def main(argv: list[str] | None = None) -> int:
         "n_systems": int(df_pairs["system"].nunique()),
         "total_compartments": {k: int(v) for k, v in total_counts.items()},
         "per_system": per_system,
+    }
+
+    # Provenance summary audit
+    prov_df = audit_provenance_summary()
+    summary["provenance_audit"] = prov_df.to_dict(orient="records")
+    summary["cohorts"] = {
+        "strict_matched": [rec.system.system_id for rec in get_matched_cohort(include_conditional=False)],
+        "conditional_matched": [rec.system.system_id for rec in get_matched_cohort(include_conditional=True)],
+        "legacy_all": [s.system_id for s in PRIMARY_SYSTEMS],
     }
 
     with args.summary.open("w") as f:
